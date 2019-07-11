@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{C10DA9E7-31AB-4D3E-9D5D-3742CEDA9329}</ProjectGuid>
+    <RootNamespace>CarRacing</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>E:\Kprovs\CarRacing\SFML\include;$(IncludePath)</IncludePath>
+    <LibraryPath>E:\Kprovs\CarRacing\SFML\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>E:\Kprovs\CarRacing\SFML\include;$(IncludePath)</IncludePath>
+    <LibraryPath>E:\Kprovs\CarRacing\SFML\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>E:\Kprovs\CarRacing\include;E:\Kprovs\CarRacing\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <AdditionalLibraryDirectories>E:\Kprovs\CarRacing\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-audio.lib;sfml-graphics.lib;sfml-network.lib;sfml-system.lib;sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>E:\Kprovs\CarRacing\include;E:\Kprovs\CarRacing\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>E:\Kprovs\CarRacing\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-audio.lib;sfml-graphics.lib;sfml-network.lib;sfml-system.lib;sfml-window.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="libs\AssetManager.cpp" />
+    <ClCompile Include="libs\Bot.cpp" />
+    <ClCompile Include="libs\Bullet.cpp" />
+    <ClCompile Include="libs\BustedState.cpp" />
+    <ClCompile Include="libs\Car.cpp" />
+    <ClCompile Include="libs\ClientState.cpp" />
+    <ClCompile Include="libs\Game.cpp" />
+    <ClCompile Include="libs\GameMap.cpp" />
+    <ClCompile Include="libs\GameOverState.cpp" />
+    <ClCompile Include="libs\GameSimulator.cpp" />
+    <ClCompile Include="libs\GameState.cpp" />
+    <ClCompile Include="libs\InputManager.cpp" />
+    <ClCompile Include="libs\MainMenuState.cpp" />
+    <ClCompile Include="libs\NetworkManager.cpp" />
+    <ClCompile Include="libs\PauseState.cpp" />
+    <ClCompile Include="libs\PlayerCar.cpp" />
+    <ClCompile Include="libs\ServerState.cpp" />
+    <ClCompile Include="libs\SplashState.cpp" />
+    <ClCompile Include="libs\StateMachine.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\BustedState.hpp" />
+    <ClInclude Include="include\DEFINITIONS.hpp" />
+    <ClInclude Include="include\Game.hpp" />
+    <ClInclude Include="include\GameState.hpp" />
+    <ClInclude Include="include\NetworkManager.hpp" />
+    <ClInclude Include="include\Network\Client.hpp" />
+    <ClInclude Include="include\Network\ClientRoom.hpp" />
+    <ClInclude Include="include\Network\Server.hpp" />
+    <ClInclude Include="include\Network\ServerRoom.hpp" />
+    <ClInclude Include="include\ObjectPool.hpp" />
+    <ClInclude Include="include\Objects\Bot.hpp" />
+    <ClInclude Include="include\Objects\Bullet.hpp" />
+    <ClInclude Include="include\Objects\Camera.hpp" />
+    <ClInclude Include="include\Objects\Car.hpp" />
+    <ClInclude Include="include\Objects\GameMap.hpp" />
+    <ClInclude Include="include\Objects\Line.hpp" />
+    <ClInclude Include="include\Objects\PlayerCar.hpp" />
+    <ClInclude Include="include\PercentageBar.hpp" />
+    <ClInclude Include="include\Physics\Collision.hpp" />
+    <ClInclude Include="include\ResourceManagers\AssetManager.hpp" />
+    <ClInclude Include="include\ResourceManagers\InputManager.hpp" />
+    <ClInclude Include="include\States\BustedState.hpp" />
+    <ClInclude Include="include\States\ClientState.hpp" />
+    <ClInclude Include="include\States\GameOverState.hpp" />
+    <ClInclude Include="include\States\GameSimulator.hpp" />
+    <ClInclude Include="include\States\GameState.hpp" />
+    <ClInclude Include="include\States\MainMenuState.hpp" />
+    <ClInclude Include="include\States\PauseState.hpp" />
+    <ClInclude Include="include\States\ServerState.hpp" />
+    <ClInclude Include="include\States\SplashState.hpp" />
+    <ClInclude Include="include\States\State.hpp" />
+    <ClInclude Include="include\States\StateMachine.hpp" />
+    <ClInclude Include="include\unistd.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\1.png" />
+    <Image Include="res\2.png" />
+    <Image Include="res\3.png" />
+    <Image Include="res\4.png" />
+    <Image Include="res\5.png" />
+    <Image Include="res\6.png" />
+    <Image Include="res\7.png" />
+    <Image Include="res\8.png" />
+    <Image Include="res\9.png" />
+    <Image Include="res\bg.png" />
+    <Image Include="res\bullet.png" />
+    <Image Include="res\busted.png" />
+    <Image Include="res\CarImage0.png" />
+    <Image Include="res\CarImage1.png" />
+    <Image Include="res\CarImage2.png" />
+    <Image Include="res\CarImage3.png" />
+    <Image Include="res\CarImage4.png" />
+    <Image Include="res\CarImage5.png" />
+    <Image Include="res\CarImage6.png" />
+    <Image Include="res\CarImage7.png" />
+    <Image Include="res\CarImage8.png" />
+    <Image Include="res\CarImage9.png" />
+    <Image Include="res\cy.png" />
+    <Image Include="res\ds.png" />
+    <Image Include="res\f1.png" />
+    <Image Include="res\f10.png" />
+    <Image Include="res\f11.png" />
+    <Image Include="res\f12.png" />
+    <Image Include="res\f2.png" />
+    <Image Include="res\f3.png" />
+    <Image Include="res\f4.png" />
+    <Image Include="res\f5.png" />
+    <Image Include="res\f6.png" />
+    <Image Include="res\f7.png" />
+    <Image Include="res\f8.png" />
+    <Image Include="res\f9.png" />
+    <Image Include="res\MenuButton.png" />
+    <Image Include="res\PCarImage3.png" />
+    <Image Include="res\PCarImage4.png" />
+    <Image Include="res\PCarImage5.png" />
+    <Image Include="res\PlayButton1.png" />
+    <Image Include="res\PlayButton2.png" />
+    <Image Include="res\PlayButton2_host.png" />
+    <Image Include="res\PlayButton2_join.png" />
+    <Image Include="res\PlayButton3.png" />
+    <Image Include="res\splashScreen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="res\Car-Theft-101.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="res\SFAtarianSystem.ttf" />
+    <Font Include="res\VerminVibesV.otf" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

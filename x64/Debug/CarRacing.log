@@ -1,0 +1,23 @@
+﻿  AssetManager.cpp
+  Bot.cpp
+  Bullet.cpp
+  BustedState.cpp
+  Car.cpp
+  ClientState.cpp
+  Game.cpp
+  GameMap.cpp
+  GameOverState.cpp
+  GameSimulator.cpp
+  GameState.cpp
+  InputManager.cpp
+  MainMenuState.cpp
+  NetworkManager.cpp
+  PauseState.cpp
+  PlayerCar.cpp
+  ServerState.cpp
+  SplashState.cpp
+  StateMachine.cpp
+  main.cpp
+  코드를 생성하고 있습니다...
+ClientState.obj : error LNK2019: "public: class cp::GameSimulationLog __cdecl cp::GameSimulator::use_snap(class cp::GameSimulatorSnap const &,bool)" (?use_snap@GameSimulator@cp@@QEAA?AVGameSimulationLog@2@AEBVGameSimulatorSnap@2@_N@Z) 외부 기호(참조 위치: "private: void __cdecl cp::ClientState::use_network_snap(void)" (?use_network_snap@ClientState@cp@@AEAAXXZ) 함수)에서 확인하지 못했습니다.
+E:\Kprovs\CarRacing\x64\Debug\CarRacing.exe : fatal error LNK1120: 1개의 확인할 수 없는 외부 참조입니다.
