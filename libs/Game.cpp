@@ -13,35 +13,34 @@
 
 namespace cp
 {
-    /**
-     * @brief Construct a new Game:: Game object
-     * @param width Width of the screen requested.
-     * @param height Height of the screen requested.
-     * @param title Title of the game screen.
-     */
     Game::Game(int width, int height, std::string title) {
-        data->window.create(sf::VideoMode(width, height), title, sf::Style::Close | sf::Style::Titlebar);
+        std::cout << "----0000----" << std::endl;
+        data->window.create(sf::VideoMode(1024, 768), title/*, sf::Style::Close | sf::Style::Titlebar */);
+        std::cout << "----1111----" << std::endl;
         data->machine.add_state(StateRef(new SplashState(data)));
+        std::cout << "----2222----" << std::endl;
         data->window.setFramerateLimit(80);
-        run();
+        std::cout << "----3333----" << std::endl;
+        //run();
     }
 
     Game::~Game() {
     }
     
-    /**
-     * @brief Runs a state at the top of the state machine.
-     */
     void Game::run() {
         float new_time, frame_time, interpolation;
         float current_time = clock.getElapsedTime().asSeconds();
         float accumulator = 0.0f;
+        std::cout << "----4444----" << std::endl;
 
         while (data->window.isOpen()) {
             data->machine.process_state_change();
             new_time = clock.getElapsedTime().asSeconds();
             frame_time = new_time - current_time;
-            if (frame_time > 0.25f)	frame_time = 0.25f;
+
+            if (frame_time > 0.25f) {
+                frame_time = 0.25f;
+            }
             current_time = new_time;
             accumulator += frame_time;
 

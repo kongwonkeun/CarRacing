@@ -249,16 +249,15 @@ namespace cp
      * @param is_forced Forcefully replace all the info with the snap info
      * @return GameSimulationLog Returns a log file illustrating the success of the operation.
      */
-    /*
     GameSimulationLog GameSimulator::use_snap(const GameSimulatorSnap& snap, bool is_forced) {
         ext_players_count = snap.ext_players_count;
         bot_players_count = snap.bot_players_count;
         players_map.clear();
-        for (auto &player_i : snap.data) {
+        for (auto& player_i : snap.data) {
             players_map.insert(std::pair<ID, PlayerCar>(player_i.first, generate_bot(player_i.second)));
         }
+        return GameSimulationLog();
     }
-    */
     /**
      * @brief Utility function to generate the bots
      * @param info uses the info provided in the argument to generate the bot

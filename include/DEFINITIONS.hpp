@@ -31,7 +31,7 @@ static std::string CAR_NAME(int x)   { return("../res/CarImage" + std::to_string
 static std::string P_CAR_NAME(int x) { return("../res/PCarImage" + std::to_string(x) + ".png"); }
 #define FIRE_IMAGE_FILEPATH(i) FIRE_NAME(i)
 static std::string FIRE_NAME(int x)  { return("../res/f" + std::to_string(x) + ".png"); }
-#define Log(tag, message) std::cout<<tag<<" --> "<<message<<std::endl
+#define Log(tag, message) std::cout << tag << " --> " << message << std::endl
 
 #define GAME_TITLE_FILEPATH "../res/title.png"
 #define RESUME_BUTTON_FILEPATH "../res/PlayButton3.png"

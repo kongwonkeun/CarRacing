@@ -60,7 +60,7 @@ namespace cp
             }
         }
         void recieve_packet(sf::Packet& packet) {
-            while((last_status=socket.receive(packet)) == sf::Socket::Partial) {
+            while ((last_status = socket.receive(packet)) == sf::Socket::Partial) {
                 std::cout << "Partially recieved" << std::endl;
             }
         }
@@ -71,7 +71,7 @@ namespace cp
     private:
         ID id;
         sf::TcpSocket socket;
-        sf::Socket::Status last_status;
+        sf::Socket::Status last_status = sf::Socket::NotReady;
     };
 }
 

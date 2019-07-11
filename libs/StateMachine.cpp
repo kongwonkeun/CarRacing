@@ -12,7 +12,7 @@ namespace cp
     void StateMachine::add_state(StateRef new_state, bool is_replacing) {
         is_adding = true;
         this->is_replacing = is_replacing;
-        this->new_state=std::move(new_state);
+        this->new_state = std::move(new_state);
     }
 
     void StateMachine::remove_state() {
@@ -24,7 +24,7 @@ namespace cp
             stack_state.pop();
             if (!stack_state.empty())
                 stack_state.top()->resume();
-            is_removing=false;
+            is_removing = false;
         }
         if (is_adding) {
             if (!stack_state.empty()) {

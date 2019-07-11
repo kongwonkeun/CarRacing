@@ -65,9 +65,9 @@ namespace cp
         }
 
     private:
-        long long int id;
+        long long int id = 0;
         sf::TcpSocket socket;
-        sf::Socket::Status last_status;
+        sf::Socket::Status last_status = sf::Socket::Status::NotReady;
     };
 }
 

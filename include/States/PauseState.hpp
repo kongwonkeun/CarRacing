@@ -11,7 +11,7 @@ namespace cp
     {
     public:
         PauseState(GameDataRef _data);
-        ~PauseState();
+        //~PauseState();
         void init();
         void handle_input(float delta);
         void draw(float delta);

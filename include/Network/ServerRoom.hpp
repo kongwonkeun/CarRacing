@@ -25,7 +25,6 @@ namespace cp
 {
     class ServerRoom : public State
     {
-
     public:
         using TcpClient_ptr = std::shared_ptr<Client>;
 

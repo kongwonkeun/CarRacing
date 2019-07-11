@@ -41,7 +41,7 @@ namespace cp
         void use_collected_inputs();
         void generate_outputs();
         void use_generated_outputs();
-        void simulate_server_room();
+        //void simulate_server_room();
 
         GameSimulator simulator;
         GameSimulatorSnap temp_snap;

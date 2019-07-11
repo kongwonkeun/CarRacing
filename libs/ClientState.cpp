@@ -16,11 +16,11 @@ namespace cp
     }
 
     void ClientState::use_collected_inputs() {
-        (*server)<<input_to_send;
+        (*server) << input_to_send;
     }
 
     void ClientState::get_network_snap() {
-        (*server)>>snap;
+        (*server) >> snap;
     }
 
     void ClientState::use_network_snap() {

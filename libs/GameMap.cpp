@@ -166,10 +166,10 @@ namespace cp
 
     void GameMap::bound_entity(Bot & bot) {
         while(bot.e_position.z >= N * segL) {
-            bot.e_position.z -= N*segL;
+            bot.e_position.z -= N * segL;
         }
         while(bot.e_position.z <0) {
-            bot.e_position.z += N*segL;
+            bot.e_position.z += N * segL;
         }
     }
 

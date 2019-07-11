@@ -22,9 +22,9 @@ namespace cp
     private:
         std::stack<StateRef> stack_state;
         StateRef new_state;
-        bool is_adding;
-        bool is_replacing;
-        bool is_removing;
+        bool is_adding = false;
+        bool is_replacing = false;
+        bool is_removing = false;
     };
 }
 

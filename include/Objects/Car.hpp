@@ -22,13 +22,10 @@ namespace cp
         void onCollision();
 
         //protected:
-        // Sprite Info's
         int car_image_num;
         bool l = false, r = false;
         sf::Sprite sprite;
-        // Reference to game data and resources
         GameDataRef data;
-        // Entity info's
         sf::Vector3f e_position;
         sf::Vector3f e_speed;
         sf::Vector3f e_acceleration;

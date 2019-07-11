@@ -155,8 +155,8 @@ namespace cp
         void draw(float delta);
         void update(float delta);
         GameSimulatorSnap get_current_snap(SnapFlag flag);
-        GameSimulationLog use_snap(const GameSimulatorSnap &snap, bool is_forced = true);
-        PlayerCar generate_bot(const entity_info & info);
+        GameSimulationLog use_snap(const GameSimulatorSnap& snap, bool is_forced = true);
+        PlayerCar generate_bot(const entity_info& info);
         float distance(entity_info& a, entity_info& b) {
             return ((a.x - b.x) * (a.x - b.x) + (a.z - b.z) * (a.z - b.z));
         }
@@ -168,7 +168,7 @@ namespace cp
                 input.push_back(0);
             }
             else {
-                float diff = (a.z -b.z) / 200;
+                float diff = (a.z - b.z) / 200;
                 if (std::abs(diff) < 800) {
                     input.push_back(a.z < b.z);
                     input.push_back(0);
@@ -184,7 +184,7 @@ namespace cp
         void AI_bot_output() {
             GameSimulatorSnap snap = get_current_snap(SnapFlag::NETWORK_SNAP);
             std::map<ID, entity_info> cars[2];
-            for (auto &player_i : snap.data) {
+            for (auto& player_i : snap.data) {
                 if (player_i.first > 0)
                     cars[0].insert(std::pair<lli, entity_info>(player_i.first, player_i.second));
                 else
@@ -223,7 +223,7 @@ namespace cp
             return true;
         }
         bool add_bot_players() {
-            players_map.insert(std::pair<ID, PlayerCar>(-1*bot_players_count-1, PlayerCar(resource_store, 8)));
+            players_map.insert(std::pair<ID, PlayerCar>(-1 * bot_players_count - 1, PlayerCar(resource_store, 8)));
             bot_players_count++;
             return true;
         }
@@ -273,7 +273,7 @@ namespace cp
             for (int i = 0; i < TOTAL_CARS; i++) {
                 resource_store->assets.load_texture("CarImage" + std::to_string(i), CAR_IMAGE_FILEPATH(i));
             }
-            for (int i = 1; i <=12; i++) {
+            for (int i = 1; i <= 12; i++) {
                 resource_store->assets.load_texture("f" + std::to_string(i),FIRE_IMAGE_FILEPATH(i));
             }
         }
