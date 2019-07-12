@@ -7,7 +7,6 @@
 namespace cp
 {
     Bot::Bot(GameDataRef _data, int car_num) : Car(_data, car_num) {
-        // setting up entity
         e_speed = sf::Vector3f(0, 0, 0);
         e_max_speed = sf::Vector3f(0, 0, 300);
         

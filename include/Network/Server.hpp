@@ -36,7 +36,8 @@ namespace cp
             server.send_packet(packet);
             return server;
         }
-        friend Server& operator >> (Server&server, GameSimulatorSnap& snap) {
+
+        friend Server& operator >> (Server& server, GameSimulatorSnap& snap) {
             sf::Packet packet;
             server.recieve_packet(packet);
             if (server.getLastStatus() == sf::Socket::Done) {
@@ -48,16 +49,19 @@ namespace cp
         sf::Socket::Status getLastStatus() const {
             return last_status;
         }
+
         void connect_to(const std::string& ip, int port) {
             while ((last_status = socket.connect(ip, port, sf::seconds(5))) == sf::Socket::Partial) {
                 std::cout << "Trying to connect to ip:" << ip << std::endl;
             }
         }
+
         void send_packet(sf::Packet& packet) {
             while ((last_status = socket.send(packet)) == sf::Socket::Partial) {
                 std::cout << "Partially send" << std::endl;
             }
         }
+
         void recieve_packet(sf::Packet& packet) {
             while ((last_status = socket.receive(packet)) == sf::Socket::Partial) {
                 std::cout << "Paritally recieved" << std::endl;

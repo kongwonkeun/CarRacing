@@ -20,8 +20,8 @@
 
 namespace cp
 {
-    MainMenuState::MainMenuState(GameDataRef _data):data(_data) {
-    }
+    MainMenuState::MainMenuState(GameDataRef _data):data(_data) {}
+    MainMenuState::~MainMenuState() {}
 
     void MainMenuState::init() {
         data->assets.load_texture("MainMenuStateBackground",MAIN_MENU_BACKGROUND_FILEPATH);
@@ -53,7 +53,7 @@ namespace cp
         join_play_button_sprite.scale(Scaling_factor / 2.5f);
         join_play_button_sprite.setPosition(
             SCREEN_WIDTH  / 2.0f - join_play_button_sprite.getGlobalBounds().width  / 2,
-            SCREEN_HEIGHT / 2.0f + 2 * join_play_button_sprite.getGlobalBounds().height
+            SCREEN_HEIGHT / 2.0f + join_play_button_sprite.getGlobalBounds().height * 2
         );
         join_play_button_sprite.setColor(sf::Color(255, 255, 255, 220));
     }
@@ -64,15 +64,15 @@ namespace cp
             if (sf::Event::Closed == event.type) {
                 data->machine.add_state(StateRef(new GameOverState(data)), true);
             }
-            else if (data->input.is_sprite_clicked(host_play_button_sprite, sf::Mouse::Left,data->window)) {
+            else if (data->input.is_sprite_clicked(host_play_button_sprite, sf::Mouse::Left, data->window)) {
                 std::cout << "Adding ServerRoom" << std::endl;
                 data->machine.add_state(StateRef(new ServerRoom(data)), false);
             }
-            else if (data->input.is_sprite_clicked(single_play_button_sprite, sf::Mouse::Left,data->window)) {
+            else if (data->input.is_sprite_clicked(single_play_button_sprite, sf::Mouse::Left, data->window)) {
                 std::cout << "Button is pressed" << std::endl;
                 data->machine.add_state(StateRef(new ServerState((data), std::set<std::shared_ptr<Client>>())), false);
             }
-            else if (data->input.is_sprite_clicked(join_play_button_sprite, sf::Mouse::Left,data->window)) {
+            else if (data->input.is_sprite_clicked(join_play_button_sprite, sf::Mouse::Left, data->window)) {
                 std::cout << "Entering ClientRoom" << std::endl;
                 data->machine.add_state(StateRef(new ClientRoom(data)), false);
             }

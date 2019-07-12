@@ -29,7 +29,7 @@ namespace cp
         using BotRef = std::shared_ptr<Bot>;
 
         GameState(GameDataRef _data);
-        ~GameState() {}
+        ~GameState();
         virtual void init();
         virtual void handle_input(float delta);
 

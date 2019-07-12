@@ -3,6 +3,7 @@
 namespace cp
 {
     GameMap::GameMap(GameDataRef _data) : data(_data) {}
+    GameMap::~GameMap() {}
 
     void GameMap::init() {
         // TODO : Create a helper function to load all the assets required for GameMap

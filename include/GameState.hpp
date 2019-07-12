@@ -28,7 +28,7 @@ namespace cp
         typedef std::shared_ptr<PlayerCar> CarRef;
 
         GameState(GameDataRef _data);
-        ~GameState() {}
+        ~GameState();
         void init();
         void handle_input(float delta);
         void draw(float delta);

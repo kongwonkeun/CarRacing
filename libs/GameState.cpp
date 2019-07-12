@@ -11,6 +11,9 @@ namespace cp
         Log("GameState", "Created a game State");
     }
 
+    GameState::~GameState() {
+    }
+
     void GameState::init() {
         map.init();
         Log("GameState", "Map initialized");

@@ -5,11 +5,8 @@
 
 namespace cp
 {
-    BustedState::BustedState(GameDataRef _data) : data(_data) {
-    }
-
-    BustedState::~BustedState() {
-    }
+    BustedState::BustedState(GameDataRef _data) : data(_data) {}
+    BustedState::~BustedState() {}
 
     void BustedState::init() {
         data->assets.load_texture("GameOverState background", GAME_OVER_BACKGROUND_FILEPATH);
@@ -23,8 +20,8 @@ namespace cp
         menu_button_sprite.setTexture(data->assets.get_texture("MenuButton"));
         menu_button_sprite.scale(Scaling_factor / 2.5f);
         menu_button_sprite.setPosition(
-            SCREEN_WIDTH  / 2.0f - menu_button_sprite.getGlobalBounds().width / 2, 
-            SCREEN_HEIGHT / 2.1f - 2.3f * menu_button_sprite.getGlobalBounds().height
+            SCREEN_WIDTH  / 2.0f - menu_button_sprite.getGlobalBounds().width  / 2, 
+            SCREEN_HEIGHT / 2.1f - menu_button_sprite.getGlobalBounds().height * 2.3f
         );
         menu_button_sprite.setColor(sf::Color(255, 255, 255, 210));
     }

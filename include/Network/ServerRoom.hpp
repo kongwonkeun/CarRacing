@@ -30,10 +30,11 @@ namespace cp
 
         ServerRoom(GameDataRef _data) : game_data(_data), fout("ServerRoom.log") {}
         ~ServerRoom() {}
+
         void init() {
             // TODO initialize and use gui.
             clock.restart();
-            std::cout << "Opening Port" << std::endl;
+            std::cout << "Opening Port ----1111----" << std::endl;
             int n_try = 0;
             while (listener.listen(PORT) != sf::Socket::Done && n_try < 10) {
                 std::cout << "Error Listening Port" << std::endl;
@@ -62,6 +63,7 @@ namespace cp
                 update_required = false;
             }
         }
+
         virtual void update(float delta) {
             if (!update_required) return;
             handle_dead_clients();
@@ -74,6 +76,7 @@ namespace cp
             }
             check_incoming_connections();
         }
+
         virtual void draw(float delta) {}
         virtual void pause() {}
         virtual void resume() {}
@@ -91,7 +94,7 @@ namespace cp
                         packet << unique_id;
                         client->get_socket().send(packet);
                         unassigned_id.erase(unique_id);
-                        std::cout << "One connected with id:" << unique_id<<std::endl;
+                        std::cout << "One connected with id:" << unique_id << std::endl;
                     }
                 }
             }
@@ -127,7 +130,7 @@ namespace cp
         std::set<TcpClient_ptr> clients_res;
         sf::TcpListener listener;
         sf::SocketSelector selector;
-        std::set<int> unassigned_id = {123, 12331, 214231, 2332};
+        std::set<int> unassigned_id = { 123, 12331, 214231, 2332 };
         bool PORT_OPEN_SUCCESS = true;
         int JUST_WAIT = 1;
         sf::Clock clock;
