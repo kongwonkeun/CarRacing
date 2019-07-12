@@ -2,7 +2,8 @@
 
 namespace cp
 {
-    ClientState::ClientState(GameDataRef _data, Server_ptr server, int unique_id) : game_data(_data), simulator(_data), fout("ClientState.log"),server(server), my_id(unique_id) {
+    ClientState::ClientState(GameDataRef _data, Server_ptr server, int unique_id)
+    : game_data(_data), simulator(_data), fout("ClientState.log"), server(server), my_id(unique_id) {
         fout << "Executing ClientState" << std::endl;
         fout << "Unique id for this client is:" << unique_id << std::endl;
         fout << "Returning from ClientState" << std::endl;

@@ -27,7 +27,7 @@ namespace cp
     }
 
     void Bullet::drawSprite(const Line& line) {
-        if(!in_use) return;
+        if (!in_use) return;
         sf::Sprite& s = sprite;
 
         int w = s.getTextureRect().width;
@@ -38,23 +38,23 @@ namespace cp
 
         // Temp Update
         float destX = line.no_curve_X + line.scale * e_position.x * SCREEN_WIDTH / 2;
-        //if(line.no_curve_Y < line.Y) return;
+        //if (line.no_curve_Y < line.Y) return;
         float destY = line.no_curve_Y + 4;
         float destW = w * line.W / 266;
         float destH = h * line.W / 266;
 
         // Debug
-        //if(line.W>9000) std::cout << "Scale:" << line.scale << std::endl;
+        //if (line.W > 9000) std::cout << "Scale:" << line.scale << std::endl;
         //std::cout << line.W << " " << std::endl;
         //std::cout << "Camera-- Z " << camera.e_position.z << " " <<std::endl;
         //std::cout << "Scale :" << (camera.camD/(e_position.z - camera.e_position.z)) << " " << line.scale<<std::endl;
     
-        destX += destW * e_position.x; //offsetX
-        destY -= destH; //offsetY
+        destX += destW * e_position.x; // offsetX
+        destY -= destH; // offsetY
 
         float clipH = destY + destH - line.clip;
         if (clipH < 0) clipH = 0;
-        if (clipH >=destH) return;
+        if (clipH >= destH) return;
 
         s.setScale(destW / w, destH / h);
         s.setPosition(destX, destY);
@@ -66,7 +66,7 @@ namespace cp
         if (frames > 30) in_use = false;
         if (!in_use) return;
         e_position.z += e_speed.z;
-        //float speedRatio = e_speed.z / e_max_speed.z; //ASDF
+        //float speedRatio = e_speed.z / e_max_speed.z; // ASDF
         //float dx = 2 * dt * speedRatio;
         //Line index_line = lines[e_position.z / segL];
         //e_position.x -= (/* dx * speedRatio * */ index_line.curve * centrifugal);

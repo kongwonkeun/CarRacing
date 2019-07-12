@@ -5,8 +5,8 @@ sf::TcpSocket cp::NetworkManager::client;
 
 namespace cp
 {
-    NetworkManager::NetworkManager() {
-    }
+    NetworkManager::NetworkManager() {}
+    NetworkManager::~NetworkManager() {}
 
     void NetworkManager::createServer() {
         std::cout << "Server Creating" << std::endl;

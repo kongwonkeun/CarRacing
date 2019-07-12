@@ -24,7 +24,7 @@ namespace cp
     class Game
     {
     public:
-        Game(int width, int height, std::string title);
+        Game();
         ~Game();
 
     private:

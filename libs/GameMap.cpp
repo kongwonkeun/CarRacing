@@ -2,8 +2,7 @@
 
 namespace cp
 {
-    GameMap::GameMap(GameDataRef _data) : data(_data) {
-    }
+    GameMap::GameMap(GameDataRef _data) : data(_data) {}
 
     void GameMap::init() {
         // TODO : Create a helper function to load all the assets required for GameMap
@@ -58,15 +57,14 @@ namespace cp
         data->window.draw(shape);
     }
 
-    void GameMap::project(Line &line, float camX, float camY, float camZ, float camD) {
+    void GameMap::project(Line& line, float camX, float camY, float camZ, float camD) {
         line.scale = camD / (line.z - camZ);
-        // If line.scale > 1 (threshold ) then the line is between the camera and the projection plane
+        // If line.scale > 1 (threshold) then the line is between the camera and the projection plane
         // So it is not visible on the screen and hence no need to over scale it.
         //if (line.scale > 0.049 || line.scale < 0) line.scale = 0.049;
-        //
-        line.no_curve_X = (1 - line.scale * (camX)) * width / 2;
-        line.X = (1 + line.scale * (line.x - camX)) * width / 2;
-        line.no_curve_Y = (1 + line.scale * camY) * height / 2;
+        line.no_curve_X = (1 - line.scale * (camX)) * width  / 2;
+        line.X = (1 + line.scale * (line.x - camX)) * width  / 2;
+        line.no_curve_Y = (1 + line.scale * (camY)) * height / 2;
         line.Y = (1 - line.scale * (line.y - camY)) * height / 2;
         line.W = line.scale * roadW * width /2;
     }
@@ -81,8 +79,8 @@ namespace cp
         float destW = w * line.W / 266;
         float destH = h * line.W / 266;
 
-        destX += destW * line.spriteX; //offsetX
-        destY += destH * (-1); //offsetY
+        destX += destW * line.spriteX; // offsetX
+        destY += destH * (-1); // offsetY
 
         float clipH = destY + destH - line.clip;
         if (clipH < 0) clipH = 0;
@@ -99,7 +97,7 @@ namespace cp
         Camera main_camera = camera;
         int startPos = get_grid_index(main_camera.getPosition().z);
         main_camera.e_position.y += lines[startPos].y;
-        int temp_z = startPos*segL;
+        int temp_z = startPos * segL;
 
         int maxy = height;
         float x = 0, dx = 0;
@@ -109,11 +107,17 @@ namespace cp
             l_snap = sf::Vector3f(l.x, l.y, l.z);
 
             main_camera.e_position.z = static_cast<float>(temp_z); // Rendering Bug
-            l.x = 0;
+            l.x  = 0;
             l.z += (n >= N ? N * segL : 0);
             l.x += x;
 
-            project(l, main_camera.getPosition().x, main_camera.getPosition().y, main_camera.getPosition().z, main_camera.getCamD());
+            project(
+                l,
+                main_camera.getPosition().x,
+                main_camera.getPosition().y,
+                main_camera.getPosition().z,
+                main_camera.getCamD()
+            );
 
             l.z = l_snap.z;
             x += dx;
@@ -123,19 +127,18 @@ namespace cp
             if (l.Y >= maxy) continue;
             maxy = static_cast<int>(l.Y);
 
-            sf::Color grass = (n / 3) % 2 ? sf::Color(16, 200, 16) : sf::Color(0, 154, 0);
-            sf::Color marking = (n / 3) % 2 ? sf::Color::White : sf::Color(105, 105, 105);
-            sf::Color rumble = (n / 3) % 2 ? sf::Color(255, 255, 255) : sf::Color(0, 0, 0);
-            sf::Color road = (n / 3) % 2 ? sf::Color(107, 107, 107) : sf::Color(105, 105, 105);
+            sf::Color grass   = (n / 3) % 2 ? sf::Color(16, 200, 16)   : sf::Color(0, 154, 0);
+            sf::Color marking = (n / 3) % 2 ? sf::Color::White         : sf::Color(105, 105, 105);
+            sf::Color rumble  = (n / 3) % 2 ? sf::Color(255, 255, 255) : sf::Color(0, 0, 0);
+            sf::Color road    = (n / 3) % 2 ? sf::Color(107, 107, 107) : sf::Color(105, 105, 105);
 
             Line p = lines[(n - 1) % N];
 
-            draw_quad(grass, 0.0f, p.Y, static_cast<float>(width), 0.0f, l.Y, static_cast<float>(width));
-            draw_quad(rumble, p.X, p.Y, p.W * 1.1f, l.X, l.Y, l.W * 1.1f);
-            draw_quad(road, p.X, p.Y, p.W, l.X, l.Y, l.W);
-
-            draw_quad(marking, p.X, p.Y, p.W * 0.35f, l.X, l.Y, l.W * 0.35f);
-            draw_quad(road, p.X, p.Y, p.W * 0.3f, l.X, l.Y, l.W * 0.3f);
+            draw_quad(grass,   0.0f, p.Y, static_cast<float>(width), 0.0f, l.Y, static_cast<float>(width));
+            draw_quad(rumble,  p.X,  p.Y, p.W * 1.1f, l.X, l.Y, l.W * 1.1f);
+            draw_quad(road,    p.X,  p.Y, p.W, l.X, l.Y, l.W);
+            draw_quad(marking, p.X,  p.Y, p.W * 0.35f, l.X, l.Y, l.W * 0.35f);
+            draw_quad(road,    p.X,  p.Y, p.W * 0.3f, l.X, l.Y, l.W * 0.3f);
         }
     }
 
@@ -168,7 +171,7 @@ namespace cp
         while(bot.e_position.z >= N * segL) {
             bot.e_position.z -= N * segL;
         }
-        while(bot.e_position.z <0) {
+        while(bot.e_position.z < 0) {
             bot.e_position.z += N * segL;
         }
     }

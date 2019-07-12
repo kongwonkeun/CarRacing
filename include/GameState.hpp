@@ -44,7 +44,7 @@ namespace cp
         Collision collision;
         PercentageBar bar;
         ObjectPool<Bullet> pool;
-        Bullet* bullet;
+        Bullet* bullet = nullptr;
         std::set<Bullet*> bullet_set[2];
         std::shared_ptr<Bot> bot[TOTAL_BOTS];
         std::thread network_handle;

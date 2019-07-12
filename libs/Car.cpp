@@ -8,7 +8,10 @@ namespace cp
 {
     Car::Car(GameDataRef _data, int car_num) : data(_data), car_image_num(car_num), in_use(false) {
         sprite.setTexture(data->assets.get_texture("CarImage" + std::to_string(car_image_num)));
-        sprite.setPosition(SCREEN_WIDTH / 2.0f - sprite.getGlobalBounds().width / 2, SCREEN_HEIGHT / 1.0f - sprite.getGlobalBounds().height * 1.5f);
+        sprite.setPosition(
+            SCREEN_WIDTH  / 2.0f - sprite.getGlobalBounds().width  / 2, 
+            SCREEN_HEIGHT / 1.0f - sprite.getGlobalBounds().height * 1.5f
+        );
 
         // Setting UP entity info
         e_position = sf::Vector3f(0, 0, 0);

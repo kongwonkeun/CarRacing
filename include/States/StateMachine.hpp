@@ -17,7 +17,7 @@ namespace cp
         void add_state(StateRef new_state, bool is_replacing = true);
         void remove_state();
         void process_state_change();
-        StateRef &get_active_state();
+        StateRef& get_active_state();
 
     private:
         std::stack<StateRef> stack_state;

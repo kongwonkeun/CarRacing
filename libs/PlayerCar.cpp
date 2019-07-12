@@ -18,11 +18,6 @@
 
 namespace cp
 {
-    /**
-     * @brief Construct a new Player Car:: Player Car object
-     * @param _data Pointer Reference to the resources and state machines.
-     * @param car_num The sprite number for the car object
-     */
     PlayerCar::PlayerCar(GameDataRef _data, int car_num) : Car(_data,car_num) {
         // Setting up entity
         e_speed = sf::Vector3f(0.0f, 0.0f, static_cast<float>(rand() % 20));
@@ -39,18 +34,9 @@ namespace cp
         in_use = true;
     }
 
-    /**
-     * @brief Destroy the Player Car:: Player Car object
-     */
     PlayerCar::~PlayerCar() {
     }
 
-    /**
-     * @brief Update the car according to it's position and the map
-     * @param dt Time difference between two update frames
-     * @param lines provides the map grid info
-     * @param segL Segment line between two grid in the map
-     */
     void PlayerCar::update_car(const float dt, const std::vector<Line>& lines, const float segL) {
         // Updating the camera's position
         float speedRatio = std::abs(e_speed.z / e_max_speed.z); // ASDF
@@ -60,10 +46,6 @@ namespace cp
         e_position.x = std::max(-1.0f, std::min(e_position.x, 1.0f));
     }
 
-    /**
-     * @brief Utility function to draw sprites of the car.
-     * @param line Provides info regarding map scale at the current grid the car is positioned at
-     */
     void PlayerCar::drawSprite(const Line& line) {
         sf::Sprite& s = sprite;
         int w = s.getTextureRect().width;
@@ -85,11 +67,6 @@ namespace cp
         data->window.draw(s);
     }
 
-    /**
-     * @brief Provides interface to control the car
-     * @param mask Boolean mask indicating the Keyboard inputs.
-     * @param dt Time difference between two handle_input call.
-     */
     void PlayerCar::handle_input(std::vector<bool> mask, float dt) {
         float speedRatio = std::abs(e_speed.z / e_max_speed.z);
         float dx = 5 * dt * speedRatio;

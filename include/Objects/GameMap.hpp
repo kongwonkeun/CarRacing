@@ -47,7 +47,7 @@ namespace cp
         sf::Sprite background_sprite;
         int width = SCREEN_WIDTH;
         int height = SCREEN_HEIGHT;
-        int N; // Total Grid count
+        int N = 0; // Total Grid count
         int roadW = 4000; // Width of the road(RealW)
         int segL = 200; // segment length
     };

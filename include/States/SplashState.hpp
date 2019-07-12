@@ -11,7 +11,7 @@ namespace cp
     {
     public:
         SplashState(GameDataRef _data);
-        //~SplashState();
+        ~SplashState();
         void init();
         void handle_input(float delta);
         void draw(float delta);

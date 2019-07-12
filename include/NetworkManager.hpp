@@ -13,7 +13,7 @@ namespace cp
     {
     public:
         NetworkManager();
-        //~NetworkManager();
+        ~NetworkManager();
         static void createServer();
         static void createClient();
         static void run(int type);
@@ -21,8 +21,8 @@ namespace cp
         static void send(sf::Vector3f pos);
 
         static sf::TcpSocket client;
-        sf::Socket::Status s_status;
-        sf::Socket::Status c_status;
+        sf::Socket::Status s_status = sf::Socket::NotReady;
+        sf::Socket::Status c_status = sf::Socket::NotReady;
         std::thread n_thread;
     };
 }

@@ -12,7 +12,10 @@ namespace cp
     {
         background_sprite.setTexture(data->assets.get_texture("MainMenuStateBackground"));
         background_sprite.scale(1, 600.0f / 512.0f);
-        background_sprite.setPosition(SCREEN_WIDTH / 2 - background_sprite.getGlobalBounds().width / 2, SCREEN_HEIGHT / 2.1f - background_sprite.getGlobalBounds().height / 2);
+        background_sprite.setPosition(
+            SCREEN_WIDTH  / 2.0f - background_sprite.getGlobalBounds().width  / 2,
+            SCREEN_HEIGHT / 2.1f - background_sprite.getGlobalBounds().height / 2
+        );
         data->assets.load_texture("PlayButton3", RESUME_BUTTON_FILEPATH);
         resume_button_sprite.setTexture(data->assets.get_texture("PlayButton3"));
         resume_button_sprite.scale(Scaling_factor / 2.f);
@@ -24,7 +27,9 @@ namespace cp
         //text.setCharacterSize(24);
         //text.setFillColor(sf::Color::Red);
         //text.setStyle(sf::Text::Bold);
-        resume_button_sprite.setPosition(SCREEN_WIDTH / 2 - resume_button_sprite.getGlobalBounds().width / 2, SCREEN_HEIGHT / 2 - resume_button_sprite.getGlobalBounds().height / 2);
+        resume_button_sprite.setPosition(
+            SCREEN_WIDTH  / 2.0f - resume_button_sprite.getGlobalBounds().width  / 2,
+            SCREEN_HEIGHT / 2.0f - resume_button_sprite.getGlobalBounds().height / 2);
         resume_button_sprite.setColor(sf::Color(255, 255, 255, 220));
         data->window.draw(resume_button_sprite);
     }

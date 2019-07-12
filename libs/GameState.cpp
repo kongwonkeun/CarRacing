@@ -53,7 +53,13 @@ namespace cp
         text[1].setPosition(SCREEN_WIDTH / 100, SCREEN_HEIGHT / 100 + 30);
         text[2].setString("Health:");
         text[2].setPosition(SCREEN_WIDTH / 2 - 150, SCREEN_HEIGHT / 100);
-        bar.init(sf::Vector2f(300, 20), sf::Vector2f(SCREEN_WIDTH / 2 - 150, 70), sf::Color::White, sf::Color::Black);
+
+        bar.init(
+            sf::Vector2f(300, 20),
+            sf::Vector2f(SCREEN_WIDTH / 2 - 150, 70),
+            sf::Color::White,
+            sf::Color::Black
+        );
     }
 
     void GameState::handle_input(float delta) {

@@ -21,11 +21,11 @@ namespace cp
         sf::Vector3f getSpeed() const { return e_speed; }
         void onCollision();
 
-        //protected:
+    //protected:
+        GameDataRef data;
         int car_image_num;
         bool l = false, r = false;
         sf::Sprite sprite;
-        GameDataRef data;
         sf::Vector3f e_position;
         sf::Vector3f e_speed;
         sf::Vector3f e_acceleration;

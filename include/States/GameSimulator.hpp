@@ -324,7 +324,7 @@ namespace cp
         GameDataRef resource_store;
         Collision collision;
         ObjectPool<Bullet> pool;
-        Bullet *bullet;
+        Bullet* bullet = nullptr;
         std::set<Bullet*> bullet_set[2];
         int ext_players_count = 0;
         int bot_players_count = 0;

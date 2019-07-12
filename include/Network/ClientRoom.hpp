@@ -29,6 +29,7 @@ namespace cp
 
         ClientRoom(GameDataRef _data) : game_data(_data), fout("ClientRoom") {}
         ~ClientRoom() {}
+
         void init() {
             std::cout << "Connecting to game host" << std::endl;
             server_ptr = Server_ptr(new Server());
@@ -42,13 +43,13 @@ namespace cp
                 update_required = false;
             }
             else {
-                std::cout << " Connected " << std::endl;
                 sf::Packet packet;
                 (*server_ptr).get_socket().receive(packet);
                 packet >> unique_id;
                 std::cout << "Connected to " << unique_id << std::endl;
             }
         }
+
         void handle_input(float delta) {
             if (!update_required) return;
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
@@ -57,8 +58,9 @@ namespace cp
                 update_required = false;
             }
         }
+
         void enterIP() {
-            sf::RenderWindow ipadd(sf::VideoMode(500,150), "Enter IP Address");
+            sf::RenderWindow ipadd(sf::VideoMode(500, 150), "Enter IP Address");
             sf::Text text1, text2;
             sf::Font font;
             font.loadFromFile("../res/SFAtarianSystem.ttf");
@@ -73,11 +75,13 @@ namespace cp
             text2.setCharacterSize(24);
             text2.setStyle(sf::Text::Bold);
             text2.setOutlineThickness(2);
+
             while (ipadd.isOpen()) {
                 ipadd.clear();
                 ipadd.draw(text1);
                 ipadd.draw(text2);
                 sf::Event event;
+
                 while (ipadd.pollEvent(event)) {
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
                         HOST_IP = text2.getString();
@@ -88,7 +92,7 @@ namespace cp
                             ipadd.close();
                             break;
                         case sf::Event::TextEntered:
-                            text2.setString(text2.getString()+event.text.unicode);
+                            text2.setString(text2.getString() + event.text.unicode);
                             break;
                     }
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)) {
@@ -99,12 +103,15 @@ namespace cp
                 ipadd.display();
             }
         }
+
         void update(float delta) {
             get_notifications();
             use_notification();
         }
+
         void draw(float delta) {
         }
+
         void get_notifications() {
             sf::Packet packet;
             server_ptr->recieve_packet(packet);
@@ -117,6 +124,7 @@ namespace cp
             }
             std::cout << "The packet says to " << HAS_TO_WAIT << std::endl;
         }
+
         void use_notification() {
             if (HAS_TO_WAIT == 1) return;
             if (HAS_TO_WAIT == 0) {

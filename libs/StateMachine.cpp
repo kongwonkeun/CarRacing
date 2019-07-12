@@ -3,11 +3,8 @@
 
 namespace cp
 {
-    StateMachine::StateMachine(){
-    }
-
-    StateMachine::~StateMachine(){
-    }
+    StateMachine::StateMachine() {}
+    StateMachine::~StateMachine() {}
 
     void StateMachine::add_state(StateRef new_state, bool is_replacing) {
         is_adding = true;

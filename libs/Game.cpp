@@ -13,15 +13,11 @@
 
 namespace cp
 {
-    Game::Game(int width, int height, std::string title) {
-        std::cout << "----0000----" << std::endl;
-        data->window.create(sf::VideoMode(1024, 768), title/*, sf::Style::Close | sf::Style::Titlebar */);
-        std::cout << "----1111----" << std::endl;
+    Game::Game() {
+        data->window.create(sf::VideoMode(1024, 768), "K-Roller", sf::Style::Close | sf::Style::Titlebar);
         data->machine.add_state(StateRef(new SplashState(data)));
-        std::cout << "----2222----" << std::endl;
         data->window.setFramerateLimit(80);
-        std::cout << "----3333----" << std::endl;
-        //run();
+        run();
     }
 
     Game::~Game() {
@@ -31,7 +27,6 @@ namespace cp
         float new_time, frame_time, interpolation;
         float current_time = clock.getElapsedTime().asSeconds();
         float accumulator = 0.0f;
-        std::cout << "----4444----" << std::endl;
 
         while (data->window.isOpen()) {
             data->machine.process_state_change();

@@ -72,7 +72,9 @@ namespace cp
         }
         void update(float delta) {
             if (car->e_speed.z > 0)
-                score += static_cast<long long int>(delta * car->e_speed.z);
+                score += static_cast<long long int>(
+                    static_cast<double>(delta) * car->e_speed.z
+                );
             for (auto itr : bullet_set[current])
                 itr->update_car(delta, map.lines, static_cast<float>(map.getSegL()));
             car->update_car(delta, map.lines, static_cast<float>(map.getSegL()));
@@ -131,7 +133,7 @@ namespace cp
         CarRef bot[TOTAL_BOTS];
         Collision collision;
         ObjectPool<Bullet> pool;
-        Bullet* bullet;
+        Bullet* bullet = nullptr;
         PercentageBar bar;
         sf::Font font;
         sf::Text text[5];

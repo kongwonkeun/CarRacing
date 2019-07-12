@@ -10,7 +10,7 @@ namespace cp
         // setting up entity
         e_speed = sf::Vector3f(0, 0, 0);
         e_max_speed = sf::Vector3f(0, 0, 300);
-        //
+        
         sprite.setTexture(data->assets.get_texture("CarImage" + std::to_string(car_image_num)));
         health = 50;
         e_position.x = -1.0;
@@ -30,12 +30,12 @@ namespace cp
         float destY = line.Y + 4;
         float destW = w * line.W / 266;
         float destH = h * line.W / 266;
-        destX += destW * e_position.x; //offsetX
-        destY -= destH; //offsetY
+        destX += destW * e_position.x; // offsetX
+        destY -= destH; // offsetY
 
         float clipH = destY + destH - line.clip;
         if (clipH < 0) clipH = 0;
-        if (clipH >=destH) return;
+        if (clipH >= destH) return;
 
         s.setScale(destW / w, destH / h);
         s.setPosition(destX, destY);
@@ -45,9 +45,9 @@ namespace cp
     void Bot::update_car(const float dt, const std::vector<Line>& lines, const float segL) {
         e_position += e_speed;
         car_image_num = 5;
-        if (health == 0){
+        if (health == 0) {
             sprite.setTexture(data->assets.get_texture("f" + std::to_string((int)std::ceil(((float)(img++)) / 2))));
-            if(img == 25){
+            if(img == 25) {
                 *this = Bot(data, this->car_image_num);
                 img = 1;
             }

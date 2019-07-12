@@ -12,30 +12,23 @@
 
 namespace cp
 {
-    /**
-     * @brief Construct a new Game Simulator:: Game Simulator object
-     * @param res_store Contains all resource managers
-     */
-    GameSimulator::GameSimulator(GameDataRef res_store) : resource_store(res_store), fout("GameSimulator.log"), map(res_store), pool(500),bar(res_store) {
+    GameSimulator::GameSimulator(GameDataRef res_store) 
+    : resource_store(res_store), fout("GameSimulator.log"), map(res_store), pool(500), bar(res_store) {
         fout << "Executing GameSimulator " << std::endl;
         fout << "Returning from GameSimulator " << std::endl;
     }
-    /**
-     * @brief Destroy the Game Simulator:: Game Simulator object
-     */
+    
     GameSimulator::~GameSimulator() {
         fout << "Executing ~GameSimulator " << std::endl;
         fout.close();
     }
-    /**
-     * @brief Initializing all the entities in the Game
-     */
+
     void GameSimulator::init() {
         fout << "Executing init" << std::endl;
         fout << "Assigning id to each bot" << std::endl;
         init_car_res();
         resource_store->assets.load_texture("Bullet", "../res/bullet.png");
-        fout << "Car Assests Loaded" <<std::endl;
+        fout << "Car Assests Loaded" << std::endl;
         for (int i = 0; i < TOTAL_BOTS; i++) {
             add_bot_players();
         }
@@ -60,16 +53,18 @@ namespace cp
         text[1].setPosition(SCREEN_WIDTH / 100, SCREEN_HEIGHT / 100 + 30);
         text[2].setString("Health:");
         text[2].setPosition(SCREEN_WIDTH / 2 - 150, SCREEN_HEIGHT / 100);
-        bar.init(sf::Vector2f(300, 20), sf::Vector2f(SCREEN_WIDTH / 2 - 150, 70), sf::Color::White, sf::Color::Black);
 
+        bar.init(
+            sf::Vector2f(300, 20),
+            sf::Vector2f(SCREEN_WIDTH / 2 - 150, 70),
+            sf::Color::White,
+            sf::Color::Black
+        );
         fout << "Map initialized" << std::endl;
         fout << "Car and Bots initialized" << std::endl;
         fout << "Returning from init" << std::endl;
     }
-    /**
-     * @brief This function provide space for doing handle input on all the entities.
-     * @param delta The time difference between two frames
-     */
+    
     void GameSimulator::handle_input(float delta) {
         sf::Event event;
         while (resource_store->window.pollEvent(event)) {
@@ -80,7 +75,7 @@ namespace cp
                 std::cout << "Exiting ClientState" << std::endl;
                 resource_store->machine.add_state(StateRef(new MainMenuState(resource_store)), true);
             }
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::U)) {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::U)) {
                 generate_log();
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::B)) {
@@ -95,7 +90,9 @@ namespace cp
         update_controllable(delta);
         // Score done.
         if (players_map.at(main_player_id).e_speed.z > 0)
-            score += static_cast<long long int>(delta * (players_map.at(main_player_id).e_speed.z));
+            score += static_cast<long long int>(
+                static_cast<double>(delta) * (players_map.at(main_player_id).e_speed.z)
+            );
 
         map.bound_entity(main_camera);
         for (auto& player_i : players_map) {
@@ -107,7 +104,7 @@ namespace cp
         //}
 
         //for (int i= 0; i < bullet_set[current].size(); i++) {
-        int i=0;
+        int i = 0;
         for (auto itr : bullet_set[current]) {
             async_update[i] = std::async(update_bullets, itr, &map, &delta);
             i++;
@@ -137,10 +134,7 @@ namespace cp
         //std::cout << "CAR health" << players_map.at(main_player_id).health << std::endl;
         text[1].setString(std::to_string(score));
     }
-    /**
-     * @brief This method provide the room for drawing all the elements on the window
-     * @param delta Time difference between two accumulator
-     */
+    
     void GameSimulator::draw(float delta) {
         resource_store->window.clear(sf::Color(105, 205, 4));
         if (!is_main_player_available()) return;
@@ -151,7 +145,7 @@ namespace cp
 
         // Finding camera position and camera height
         int startPos = map.get_grid_index(main_camera.getPosition().z);
-        //
+        
         for (int n = startPos + 500; n > startPos; n--) {
             drawSprite(map.lines[n % map.getGridCount()]);
             for (auto& player_i : players_map) {
@@ -170,10 +164,7 @@ namespace cp
         }
         resource_store->window.display();
     }
-    /**
-     * @brief This method provide room for updating all the entities
-     * @param delta This is the time difference between two frames.
-     */
+    
     void GameSimulator::update(float delta) {
         focus_on(main_player_id);
         map.bound_entity(main_camera);
@@ -194,19 +185,13 @@ namespace cp
         //std::cout << "CAR health" << players_map.at(main_player_id).health << std::endl;
         text[1].setString(std::to_string((int)score));
     }
-    /**
-     * @brief Returns all the entities that are in the Game.
-     * @return std::vector<Car*>
-     */
+    
     std::vector<Car*> GameSimulator::get_entity_list() {
         std::vector<Car*> entities;
         for (auto& player : players_map) entities.push_back(&player.second);
         return entities;
     }
-    /**
-     * @brief Utility function fo drawing the map and sprites
-     * @param line Line contains the scale and X,Y of the grid of map.
-     */
+    
     void GameSimulator::drawSprite(Line& line) {
         sf::Sprite s = line.sprite;
         int w = s.getTextureRect().width;
@@ -229,11 +214,7 @@ namespace cp
         s.setPosition(destX, destY);
         resource_store->window.draw(s);
     }
-    /**
-     * @brief Returns a snap of the game such that the simulation can be recreated
-     * @param flag Type of snap that you want (NETWORK/OFFLINE)
-     * @return GameSimulatorSnap The current snap of the game.
-     */
+    
     GameSimulatorSnap GameSimulator::get_current_snap(SnapFlag flag) {
         if (flag == SnapFlag::NETWORK_SNAP) {
             fout << "Requeusted a NETWORK_SNAP" << std::endl;
@@ -243,12 +224,7 @@ namespace cp
         }
         return GameSimulatorSnap(ext_players_count, bot_players_count, MAX_EXT_ALLOWED, static_cast<int>(main_player_id), players_map);
     }
-    /**
-     * @brief Calling this function will replace all the entities and their info with info in snap argument
-     * @param snap Snap that you want to replace the GameInfo with
-     * @param is_forced Forcefully replace all the info with the snap info
-     * @return GameSimulationLog Returns a log file illustrating the success of the operation.
-     */
+
     GameSimulationLog GameSimulator::use_snap(const GameSimulatorSnap& snap, bool is_forced) {
         ext_players_count = snap.ext_players_count;
         bot_players_count = snap.bot_players_count;
@@ -258,11 +234,7 @@ namespace cp
         }
         return GameSimulationLog();
     }
-    /**
-     * @brief Utility function to generate the bots
-     * @param info uses the info provided in the argument to generate the bot
-     * @return PlayerCar Returns the generated object
-     */
+
     PlayerCar GameSimulator::generate_bot(const entity_info& info) {
         PlayerCar car(resource_store, 5);
         car.e_position.x = info.x;

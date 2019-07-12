@@ -3,7 +3,8 @@
 
 namespace cp
 {
-    ServerState::ServerState(GameDataRef _data, std::set<TcpClient_ptr> clients) : game_data(_data), simulator(_data), fout("ServerState.log"), clients(std::move(clients)) {
+    ServerState::ServerState(GameDataRef _data, std::set<TcpClient_ptr> clients) 
+    : game_data(_data), simulator(_data), fout("ServerState.log"), clients(std::move(clients)) {
         fout << "Executing ServerState" << std::endl;
         fout << "Returning from ServerState" << std::endl;
     }
@@ -15,7 +16,7 @@ namespace cp
 
     void ServerState::collect_network_inputs() {
         inputs.clear();
-        for (auto &client:clients) {
+        for (auto& client : clients) {
             Client::key_input_type temp;
             (*client) >> temp;
             inputs.push_back(std::move(temp));
@@ -23,7 +24,7 @@ namespace cp
     }
 
     void ServerState::use_collected_inputs() {
-        for (auto &input : inputs) {
+        for (auto& input : inputs) {
             game_data->input.register_input(input);
         }
     }
@@ -36,7 +37,7 @@ namespace cp
             std::cout << "Removing ServerState" << std::endl;
             game_data->machine.remove_state();
         }
-        //std::cout << "COllecting network inputs" << std::endl;
+        //std::cout << "Collecting network inputs" << std::endl;
         collect_network_inputs();
         //std::cout << "Network input collected" << std::endl;
         use_collected_inputs();
@@ -48,7 +49,7 @@ namespace cp
         fout << "Executing init" << std::endl;
         fout << "Connecting all the clients" << std::endl;
         simulator.init();
-        for (auto &client:clients) {
+        for (auto& client : clients) {
             //std::cout << "Have the player:" << client->get_identity() << std::endl;
             simulator.add_external_player(client->get_identity());
         }
@@ -76,7 +77,7 @@ namespace cp
     }
 
     void ServerState::use_generated_outputs() {
-        for (auto& client:clients) {
+        for (auto& client : clients) {
             (*client) << temp_snap;
         }
     }

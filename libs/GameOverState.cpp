@@ -26,8 +26,8 @@ namespace cp
 
     void GameOverState::handle_input(float delta) {
         sf::Event event;
-        while(data->window.pollEvent(event))
-            if(sf::Event::Closed==event.type)
+        while (data->window.pollEvent(event))
+            if (sf::Event::Closed == event.type)
                 data->window.close();
     }
 
