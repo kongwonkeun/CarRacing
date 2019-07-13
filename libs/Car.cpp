@@ -12,8 +12,6 @@ namespace cp
             SCREEN_WIDTH  / 2.0f - sprite.getGlobalBounds().width  / 2, 
             SCREEN_HEIGHT / 1.0f - sprite.getGlobalBounds().height * 1.5f
         );
-
-        // Setting UP entity info
         e_position = sf::Vector3f(0, 0, 0);
         e_speed = sf::Vector3f(0, 0, 0);
         float max_speed = 400;

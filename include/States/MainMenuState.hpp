@@ -11,6 +11,7 @@ namespace cp
     {
     public:
         MainMenuState(GameDataRef _data);
+        ~MainMenuState();
         void init();
         void handle_input(float delta);
         void draw(float delta);

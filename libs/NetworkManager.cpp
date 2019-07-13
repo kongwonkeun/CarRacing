@@ -12,7 +12,7 @@ namespace cp
         std::cout << "Server Creating" << std::endl;
         sf::TcpListener listener;
         // bind the listener to a port
-        std::cout << "Opening Port" << std::endl;
+        std::cout << "Opening Port ----2222----" << std::endl;
         if (listener.listen(53000) != sf::Socket::Done) {
             std::cerr << "Error Listening Port" << std::endl;
         } else {

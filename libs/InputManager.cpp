@@ -3,11 +3,8 @@
 
 namespace cp
 {
-    InputManager::InputManager() {
-    }
-
-    InputManager::~InputManager() {
-    }
+    InputManager::InputManager() {}
+    InputManager::~InputManager() {}
 
     bool InputManager::is_sprite_clicked(sf::Sprite sprite, sf::Mouse::Button button, sf::RenderWindow& window) {
         if (sf::Mouse::isButtonPressed(button)) {

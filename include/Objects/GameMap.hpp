@@ -21,6 +21,7 @@ namespace cp
     {
     public:
         GameMap(GameDataRef _data);
+        ~GameMap();
         void init();
         void draw_quad(sf::Color c, float x1, float y1, float w1, float x2, float y2, float w2);
         //void update(float delta);

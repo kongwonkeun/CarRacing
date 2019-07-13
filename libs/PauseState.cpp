@@ -5,8 +5,8 @@
 
 namespace cp
 {
-    PauseState::PauseState(GameDataRef _data) : data(_data) {
-    }
+    PauseState::PauseState(GameDataRef _data) : data(_data) {}
+    PauseState::~PauseState() {}
 
     void PauseState::init()
     {

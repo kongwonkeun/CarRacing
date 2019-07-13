@@ -5,11 +5,8 @@
 
 namespace cp
 {
-    GameOverState::GameOverState(GameDataRef _data):data(_data) {
-    }
-
-    GameOverState::~GameOverState() {
-    }
+    GameOverState::GameOverState(GameDataRef _data):data(_data) {}
+    GameOverState::~GameOverState() {}
 
     void GameOverState::init() {
         data->assets.load_texture("GameOverState background", GAME_OVER_BACKGROUND_FILEPATH);

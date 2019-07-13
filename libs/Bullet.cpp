@@ -7,11 +7,10 @@
 namespace cp
 {
     Bullet::Bullet(GameDataRef _data, int car_num): Car(_data, car_num) {
-        // Setting up entity
         e_speed = sf::Vector3f(0, 0, 600);
         e_max_speed = sf::Vector3f(0, 0, 600);
         health = 0.1f;
-        //
+        
         sprite.setTexture(data->assets.get_texture("Bullet"));
         sprite.scale(0.01f, 0.01f);
     }
