@@ -16,8 +16,6 @@ namespace cp
         ~PlayerCar();
         void update_car(float dt, const std::vector<Line>& lines, float segL);
         void drawSprite(const Line& line);
-        //void drawUsingCamera(const Camera& main_camera);
-        //void project(Line& line, float camX, float camY, float camZ, float camD);
         void handle_input(std::vector<bool> mask, float dt);
     
         float friction = e_max_speed.z / 5;

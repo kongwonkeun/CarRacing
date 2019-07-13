@@ -62,7 +62,7 @@ namespace cp
         sf::Event event;
         while (data->window.pollEvent(event)) {
             if (sf::Event::Closed == event.type) {
-                data->machine.add_state(StateRef(new GameOverState(data)), true);
+                data->window.close();
             }
             else if (data->input.is_sprite_clicked(host_play_button_sprite, sf::Mouse::Left, data->window)) {
                 std::cout << "Adding ServerRoom" << std::endl;
@@ -78,6 +78,9 @@ namespace cp
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
                 data->machine.add_state(StateRef(new ServerState(data, std::set<std::shared_ptr<Client>>())), false);
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+                data->window.close();
             }
         }
     }

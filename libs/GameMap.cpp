@@ -6,7 +6,6 @@ namespace cp
     GameMap::~GameMap() {}
 
     void GameMap::init() {
-        // TODO : Create a helper function to load all the assets required for GameMap
         // Loading Environment assets
         for (int i = 1; i <= 9; i++) {
             t[i].loadFromFile("../res/" + std::to_string(i) + ".png");
@@ -19,30 +18,16 @@ namespace cp
         background_sprite.setTextureRect(sf::IntRect(0, 0, 6000, 411));
         background_sprite.setPosition(-2000, 0);
         
-        // TODO : Create a map generator function
         // Generating map
         for (int i = 0; i < 1600; i++) {
             Line line;
             line.z = static_cast<float>(i * segL);
-            if (i > 300 && i < 700) line.curve = 0.5f;
-            if (i > 1100) line.curve = -0.7f;
-            if (i < 300 && i % 20 == 0) {
-                line.spriteX = -2.5;
-                line.sprite = object[5];
-            }
-            if (i % 17 == 0) {
-                line.spriteX = 1.0;
-                line.sprite = object[3];
-            }
-            if (i > 300 && i % 20 == 0) {
-                line.spriteX = -1.2f;
-                line.sprite = object[4];
-            }
-            if (i > 800 && i % 20 == 0) {
-                line.spriteX = -1.2f;
-                line.sprite = object[1];
-            }
-            //if (i > 750) line.y = sin(i / 30.0) * 1500;
+            if (i > 300 && i < 700) line.curve =  0.5f;
+            if (i > 1100)           line.curve = -0.7f;
+            if (i % 17 == 0)            { line.spriteX =  1.0f; line.sprite = object[3]; }
+            if (i < 300 && i % 20 == 0) { line.spriteX = -2.5f; line.sprite = object[5]; }
+            if (i > 300 && i % 20 == 0) { line.spriteX = -1.2f; line.sprite = object[4]; }
+            if (i > 800 && i % 20 == 0) { line.spriteX = -1.2f; line.sprite = object[1]; }
             lines.push_back(line);
         }
         N = static_cast<int>(lines.size());
@@ -60,14 +45,11 @@ namespace cp
 
     void GameMap::project(Line& line, float camX, float camY, float camZ, float camD) {
         line.scale = camD / (line.z - camZ);
-        // If line.scale > 1 (threshold) then the line is between the camera and the projection plane
-        // So it is not visible on the screen and hence no need to over scale it.
-        //if (line.scale > 0.049 || line.scale < 0) line.scale = 0.049;
-        line.no_curve_X = (1 - line.scale * (camX)) * width  / 2;
-        line.X = (1 + line.scale * (line.x - camX)) * width  / 2;
-        line.no_curve_Y = (1 + line.scale * (camY)) * height / 2;
-        line.Y = (1 - line.scale * (line.y - camY)) * height / 2;
-        line.W = line.scale * roadW * width /2;
+        line.no_curve_X = (1 - line.scale * (camX))          * width  / 2;
+        line.X =          (1 + line.scale * (line.x - camX)) * width  / 2;
+        line.no_curve_Y = (1 + line.scale * (camY))          * height / 2;
+        line.Y =          (1 - line.scale * (line.y - camY)) * height / 2;
+        line.W = line.scale * roadW * width / 2;
     }
 
     void GameMap::drawSprite(const Line& line) {
@@ -136,10 +118,10 @@ namespace cp
             Line p = lines[(n - 1) % N];
 
             draw_quad(grass,   0.0f, p.Y, static_cast<float>(width), 0.0f, l.Y, static_cast<float>(width));
-            draw_quad(rumble,  p.X,  p.Y, p.W * 1.1f, l.X, l.Y, l.W * 1.1f);
-            draw_quad(road,    p.X,  p.Y, p.W, l.X, l.Y, l.W);
+            draw_quad(rumble,  p.X,  p.Y, p.W * 1.1f,  l.X, l.Y, l.W * 1.1f);
+            draw_quad(road,    p.X,  p.Y, p.W,         l.X, l.Y, l.W);
             draw_quad(marking, p.X,  p.Y, p.W * 0.35f, l.X, l.Y, l.W * 0.35f);
-            draw_quad(road,    p.X,  p.Y, p.W * 0.3f, l.X, l.Y, l.W * 0.3f);
+            draw_quad(road,    p.X,  p.Y, p.W * 0.3f,  l.X, l.Y, l.W * 0.3f);
         }
     }
 
@@ -148,7 +130,6 @@ namespace cp
     }
 
     void GameMap::bound_entity(cp::Car& car) {
-        // Bounding the car in the map
         while (car.e_position.z >= N * segL) {
             car.e_position.z -= N * segL;
         }
@@ -158,14 +139,12 @@ namespace cp
     }
 
     void GameMap::bound_entity(Camera& camera) {
-        // Bounding the car in the map
         while (camera.e_position.z >= N * segL) {
             camera.e_position.z -= N * segL;
         }
         while (camera.e_position.z < 0) {
             camera.e_position.z += N * segL;
         }
-        //std::cout << camera.e_position.z << " " << car->e_position.z << std::endl;
     }
 
     void GameMap::bound_entity(Bot & bot) {

@@ -27,7 +27,7 @@ namespace cp
     public:
         using Server_ptr = std::shared_ptr<Server>;
 
-        ClientRoom(GameDataRef _data) : game_data(_data), fout("ClientRoom") {}
+        ClientRoom(GameDataRef _data) : game_data(_data), fout("ClientRoom.log") {}
         ~ClientRoom() {}
 
         void init() {

@@ -29,12 +29,12 @@ namespace cp
 
         ServerState(GameDataRef _data, std::set<TcpClient_ptr> clients);
         ~ServerState();
+        virtual void init();
         virtual void handle_input(float delta);
         virtual void update(float delta);
         virtual void draw(float delta);
         virtual void pause() {}
         virtual void resume() {}
-        virtual void init();
 
     private:
         void collect_network_inputs();

@@ -19,9 +19,7 @@
 namespace cp
 {
     PlayerCar::PlayerCar(GameDataRef _data, int car_num) : Car(_data,car_num) {
-        // Setting up entity
         e_speed = sf::Vector3f(0.0f, 0.0f, static_cast<float>(rand() % 20));
-        //
         sprite.setTexture(data->assets.get_texture("CarImage" + std::to_string(car_image_num)));
         e_position.x = static_cast<float>(-2 + rand() % 4);
         e_position.z = static_cast<float>(10000 + rand() % 10000);
@@ -70,23 +68,17 @@ namespace cp
     void PlayerCar::handle_input(std::vector<bool> mask, float dt) {
         float speedRatio = std::abs(e_speed.z / e_max_speed.z);
         float dx = 5 * dt * speedRatio;
-        if (mask[0]) {
-            e_speed.z += e_speed.z == 0 ? 15 : (e_acceleration.z * dt);
-        }
-        else if (mask[1]) {
-            e_speed.z += ( e_speed.z > 15 || e_speed.z < -15 ) ? e_decleration.z * dt : (e_speed.z > 0 ? -e_speed.z : -15);
-        }
-        e_speed.z -= std::abs(e_speed.z) < 15 ? e_speed.z : (e_speed.z / 250);
-        e_speed.z = std::max(-100.0f, std::min(e_speed.z, e_max_speed.z));
-        if (mask[2])e_position.x -= dx;
-        else if (mask[3])e_position.x += dx;
-        e_position += e_speed;
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
-            std::cout << "For Bot:" << e_position.x << " " << e_position.y << std::endl;
-        }
+        if (mask[0])      { e_speed.z += (e_speed.z == 0) ? 15 : (e_acceleration.z * dt); }
+        else if (mask[1]) { e_speed.z += (e_speed.z > 15 || e_speed.z < -15 ) ? e_decleration.z * dt : (e_speed.z > 0 ? -e_speed.z : -15); }
+        if (mask[2])      { e_position.x -= dx; }
+        else if (mask[3]) { e_position.x += dx; }
+        e_speed.z   -= std::abs(e_speed.z) < 15 ? e_speed.z : (e_speed.z / 250);
+        e_speed.z    = std::max(-100.0f, std::min(e_speed.z, e_max_speed.z));
+        e_position  += e_speed;
         e_position.x = std::max(-4.0f, std::min(e_position.x, 3.0f));
-        if (health <= 0 and car_image_num==8) {
+
+        if (health <= 0 and car_image_num == 8) {
             sprite.setTexture(data->assets.get_texture("f" + std::to_string((int)std::ceil(((float)(img++)) / 4))));
             if (img >= 48) {
                 *this = PlayerCar(data, this->car_image_num);
@@ -94,12 +86,9 @@ namespace cp
             }
         }
         if (std::abs(e_speed.z) > 0.1) {
-            if (mask[2])
-                sprite.setTexture(data->assets.get_texture("CarImage" + std::to_string(car_image_num - 2)));
-            else if (mask[3])
-                sprite.setTexture(data->assets.get_texture("CarImage" + std::to_string(car_image_num - 1)));
-            else
-                sprite.setTexture(data->assets.get_texture("CarImage" + std::to_string(car_image_num)));
+            if (mask[2])      sprite.setTexture(data->assets.get_texture("CarImage" + std::to_string(car_image_num - 2)));
+            else if (mask[3]) sprite.setTexture(data->assets.get_texture("CarImage" + std::to_string(car_image_num - 1)));
+            else              sprite.setTexture(data->assets.get_texture("CarImage" + std::to_string(car_image_num)));
         }
     }
 

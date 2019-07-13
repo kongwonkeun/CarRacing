@@ -14,19 +14,17 @@ namespace cp
         fout.close();
     }
 
-    void ServerState::collect_network_inputs() {
-        inputs.clear();
+    void ServerState::init() {
+        fout << "Executing init" << std::endl;
+        fout << "Connecting all the clients" << std::endl;
+        simulator.init();
         for (auto& client : clients) {
-            Client::key_input_type temp;
-            (*client) >> temp;
-            inputs.push_back(std::move(temp));
+            //std::cout << "Have the player:" << client->get_identity() << std::endl;
+            simulator.add_external_player(client->get_identity());
         }
-    }
-
-    void ServerState::use_collected_inputs() {
-        for (auto& input : inputs) {
-            game_data->input.register_input(input);
-        }
+        simulator.add_external_player(12312234);
+        simulator.update_main_player(12312234);
+        fout << "Returning from init" << std::endl;
     }
 
     void ServerState::handle_input(float delta) {
@@ -45,19 +43,6 @@ namespace cp
         simulator.handle_input(delta);
     }
 
-    void ServerState::init() {
-        fout << "Executing init" << std::endl;
-        fout << "Connecting all the clients" << std::endl;
-        simulator.init();
-        for (auto& client : clients) {
-            //std::cout << "Have the player:" << client->get_identity() << std::endl;
-            simulator.add_external_player(client->get_identity());
-        }
-        simulator.add_external_player(12312234);
-        simulator.update_main_player(12312234);
-        fout << "Returning from init" << std::endl;
-    }
-
     void ServerState::draw(float delta) {
         simulator.draw(delta);
     }
@@ -70,6 +55,21 @@ namespace cp
         //std::cout << "Now sending snaps" << std::endl;
         use_generated_outputs();
         //std::cout << "Snaps sent" << std::endl;
+    }
+
+    void ServerState::collect_network_inputs() {
+        inputs.clear();
+        for (auto& client : clients) {
+            Client::key_input_type temp;
+            (*client) >> temp;
+            inputs.push_back(std::move(temp));
+        }
+    }
+
+    void ServerState::use_collected_inputs() {
+        for (auto& input : inputs) {
+            game_data->input.register_input(input);
+        }
     }
 
     void ServerState::generate_outputs() {

@@ -10,10 +10,10 @@ namespace cp
 
     void GameOverState::init() {
         data->assets.load_texture("GameOverState background", GAME_OVER_BACKGROUND_FILEPATH);
-        font=data->assets.get_font("sfafont");
+        font = data->assets.get_font("sfafont");
         text.setFont(font);
         text.setString("Credits: \n\n Vijay Tadikamalla \n\n Anupam Saini\n\n Anjani kumar \n\n Yogesh Singh");
-        text.setPosition(SCREEN_WIDTH / 3, SCREEN_HEIGHT / 4);
+        text.setPosition(SCREEN_WIDTH / 3.0f, SCREEN_HEIGHT / 4.0f);
         text.setCharacterSize(56);
         text.setFillColor(sf::Color::Red);
         text.setStyle(sf::Text::Bold);

@@ -32,7 +32,7 @@ namespace cp
         ~ServerRoom() {}
 
         void init() {
-            // TODO initialize and use gui.
+            // TODO : initialize and use gui.
             clock.restart();
             std::cout << "Opening Port ----1111----" << std::endl;
             int n_try = 0;
@@ -40,7 +40,12 @@ namespace cp
                 std::cout << "Error Listening Port" << std::endl;
                 n_try++;
             }
-            if (n_try >= 10) { PORT_OPEN_SUCCESS = false; handle_port_problem(); return; }
+            if (n_try >= 10) {
+                std::cout << "Error Time Over" << std::endl;
+                PORT_OPEN_SUCCESS = false;
+                handle_port_problem();
+                return;
+            }
             std::cout << "Port Opened" << std::endl;
             selector.add(listener);
         }

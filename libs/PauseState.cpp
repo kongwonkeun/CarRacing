@@ -10,23 +10,16 @@ namespace cp
 
     void PauseState::init()
     {
+        data->assets.load_texture("MainMenuStateBackground",MAIN_MENU_BACKGROUND_FILEPATH);
+        data->assets.load_texture("PlayButton3", RESUME_BUTTON_FILEPATH);
         background_sprite.setTexture(data->assets.get_texture("MainMenuStateBackground"));
         background_sprite.scale(1, 600.0f / 512.0f);
         background_sprite.setPosition(
             SCREEN_WIDTH  / 2.0f - background_sprite.getGlobalBounds().width  / 2,
             SCREEN_HEIGHT / 2.1f - background_sprite.getGlobalBounds().height / 2
         );
-        data->assets.load_texture("PlayButton3", RESUME_BUTTON_FILEPATH);
         resume_button_sprite.setTexture(data->assets.get_texture("PlayButton3"));
         resume_button_sprite.scale(Scaling_factor / 2.f);
-        data->assets.load_texture("GameOverState background", GAME_OVER_BACKGROUND_FILEPATH);
-        //font = data->assets.get_font("vfont");
-        //text.setFont(font);
-        //text.setString("Resume");
-        //text.setPosition(SCREEN_WIDTH / 3, SCREEN_HEIGHT / 3);
-        //text.setCharacterSize(24);
-        //text.setFillColor(sf::Color::Red);
-        //text.setStyle(sf::Text::Bold);
         resume_button_sprite.setPosition(
             SCREEN_WIDTH  / 2.0f - resume_button_sprite.getGlobalBounds().width  / 2,
             SCREEN_HEIGHT / 2.0f - resume_button_sprite.getGlobalBounds().height / 2);
@@ -50,7 +43,6 @@ namespace cp
     void PauseState::draw(float delta) {
         data->window.clear();
         data->window.draw(background_sprite);
-        data->window.draw(text);
         data->window.draw(resume_button_sprite);
         data->window.display();
     }

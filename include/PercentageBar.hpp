@@ -10,7 +10,8 @@ namespace cp
     {
     public:
         PercentageBar(GameDataRef _data):data(_data) {}
-        //~PercentageBar();
+        ~PercentageBar() {}
+
         void init(sf::Vector2f size,sf::Vector2f position,sf::Color c1,sf::Color c2) {
             rect1.setPosition(position);
             rect1.setSize(size);
@@ -21,6 +22,7 @@ namespace cp
             rect2.setSize(size);
             rect2.setFillColor(sf::Color::Green);
         }
+
         void draw() {
             if (percentage >= 0) rect2.setScale(percentage / 100, 1);
             else percentage = 0;

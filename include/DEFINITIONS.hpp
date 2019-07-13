@@ -4,10 +4,10 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-#define SCREEN_WIDTH  1024
-#define SCREEN_HEIGHT 768
-//const int SCREEN_WIDTH  = sf::VideoMode::getDesktopMode().width;
-//const int SCREEN_HEIGHT = sf::VideoMode::getDesktopMode().height;
+//#define SCREEN_WIDTH  1024
+//#define SCREEN_HEIGHT 768
+const int SCREEN_WIDTH  = sf::VideoMode::getDesktopMode().width;
+const int SCREEN_HEIGHT = sf::VideoMode::getDesktopMode().height;
 
 #define SPLASH_STATE_SHOW_TIME 1.0
 #define SPLASH_SCENE_BACKGROUND_FILEPATH "../res/splashScreen.png"
@@ -26,7 +26,7 @@
 #define MAX_ENTITIES 1000
 
 #define CAR_IMAGE_FILEPATH(i) CAR_NAME(i)
-static std::string CAR_NAME(int x)   { return("../res/CarImage" + std::to_string(x) + ".png"); }
+static std::string CAR_NAME(int x)   { return("../res/CarImage"  + std::to_string(x) + ".png"); }
 #define P_CAR_IMAGE_FILEPATH(i) P_CAR_NAME(i)
 static std::string P_CAR_NAME(int x) { return("../res/PCarImage" + std::to_string(x) + ".png"); }
 #define FIRE_IMAGE_FILEPATH(i) FIRE_NAME(i)

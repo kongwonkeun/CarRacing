@@ -9,12 +9,13 @@
  *
  */
 #include "Game.hpp"
+#include "DEFINITIONS.hpp"
 #include "States/SplashState.hpp"
 
 namespace cp
 {
     Game::Game() {
-        data->window.create(sf::VideoMode(1024, 768), "K-Roller", sf::Style::Close | sf::Style::Titlebar);
+        data->window.create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "K-Roller", sf::Style::Fullscreen);
         data->machine.add_state(StateRef(new SplashState(data)));
         data->window.setFramerateLimit(80);
         run();

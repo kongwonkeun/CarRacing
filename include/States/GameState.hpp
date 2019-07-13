@@ -70,6 +70,7 @@ namespace cp
             data->window.display();
             //if (bot[0]->health == 0) bot[0] = std::unique_ptr<Bot>(new Bot(data, 5));
         }
+
         void update(float delta) {
             if (car->e_speed.z > 0)
                 score += static_cast<long long int>(
@@ -107,6 +108,7 @@ namespace cp
             //data->Nmanager.sendData(car->e_position);
             //data->Nmanager.sendData(bot[0]->e_position);
         }
+
         void drawSprite(Line& line) {
             sf::Sprite s = line.sprite;
             int w = s.getTextureRect().width;
@@ -137,9 +139,9 @@ namespace cp
         PercentageBar bar;
         sf::Font font;
         sf::Text text[5];
-        double score=0;
+        double score = 0;
         std::set<Bullet*> bullet_set[2];
-        int current=0;
+        int current = 0;
         //float fuel = 100;
     };
 }

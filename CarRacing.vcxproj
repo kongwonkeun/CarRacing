@@ -162,10 +162,8 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\BustedState.hpp" />
     <ClInclude Include="include\DEFINITIONS.hpp" />
     <ClInclude Include="include\Game.hpp" />
-    <ClInclude Include="include\GameState.hpp" />
     <ClInclude Include="include\NetworkManager.hpp" />
     <ClInclude Include="include\Network\Client.hpp" />
     <ClInclude Include="include\Network\ClientRoom.hpp" />

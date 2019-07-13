@@ -17,7 +17,6 @@ namespace cp
         void drawSprite(const Line& line);
         virtual void update_car(float dt, const std::vector<Line>& lines, float segL);
         void handle_input(input_type mask, float dt);
-        //void handle_input();
 
         int img = 1;
     };

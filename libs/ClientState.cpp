@@ -42,7 +42,7 @@ namespace cp
         sf::Event event;
         while (game_data->window.pollEvent(event)) {
             if (sf::Event::Closed == event.type) {
-                game_data->machine.add_state(StateRef(new GameOverState(game_data)), true);
+                game_data->window.close();
             }
         }
         if (server->getLastStatus() == sf::Socket::Disconnected) {

@@ -21,8 +21,6 @@ namespace cp
         GameDataRef data;
         sf::Sprite background_sprite;
         sf::Sprite resume_button_sprite;
-        sf::Font font;
-        sf::Text text;
     };
 }
 

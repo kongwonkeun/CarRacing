@@ -49,14 +49,14 @@ namespace cp
             text[i].setFillColor(sf::Color::Red);
         }
         text[0].setString("Score:");
-        text[0].setPosition(SCREEN_WIDTH / 100, SCREEN_HEIGHT / 100);
-        text[1].setPosition(SCREEN_WIDTH / 100, SCREEN_HEIGHT / 100 + 30);
+        text[0].setPosition(SCREEN_WIDTH / 100.0f,     SCREEN_HEIGHT / 100.0f);
+        text[1].setPosition(SCREEN_WIDTH / 100.0f,     SCREEN_HEIGHT / 130.0f);
         text[2].setString("Health:");
-        text[2].setPosition(SCREEN_WIDTH / 2 - 150, SCREEN_HEIGHT / 100);
+        text[2].setPosition(SCREEN_WIDTH / 2.0f - 150, SCREEN_HEIGHT / 100.0f);
 
         bar.init(
             sf::Vector2f(300, 20),
-            sf::Vector2f(SCREEN_WIDTH / 2 - 150, 70),
+            sf::Vector2f(SCREEN_WIDTH / 2.0f - 150, 70.0f),
             sf::Color::White,
             sf::Color::Black
         );
@@ -69,10 +69,9 @@ namespace cp
         sf::Event event;
         while (resource_store->window.pollEvent(event)) {
             if (sf::Event::Closed == event.type) {
-                resource_store->machine.add_state(StateRef(new GameOverState(resource_store)), true);
+                resource_store->window.close();
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
-                std::cout << "Exiting ClientState" << std::endl;
                 resource_store->machine.add_state(StateRef(new MainMenuState(resource_store)), true);
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::U)) {
@@ -84,6 +83,9 @@ namespace cp
                     bullet->init(players_map.at(main_player_id).e_position);
                     bullet_set[current].insert(bullet);
                 }
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+                resource_store->window.close();
             }
         }
         AI_bot_output();
@@ -98,12 +100,7 @@ namespace cp
         for (auto& player_i : players_map) {
             map.bound_entity(player_i.second);
         }
-        //for (auto itr : bullet_set[current]) {
-        //    map.bound_entity(*itr);
-        //    itr->update_car(delta, map.lines, map.getSegL());
-        //}
 
-        //for (int i= 0; i < bullet_set[current].size(); i++) {
         int i = 0;
         for (auto itr : bullet_set[current]) {
             async_update[i] = std::async(update_bullets, itr, &map, &delta);
@@ -131,7 +128,6 @@ namespace cp
         }
 
         bar.percentage = (players_map.at(main_player_id).health);
-        //std::cout << "CAR health" << players_map.at(main_player_id).health << std::endl;
         text[1].setString(std::to_string(score));
     }
     
@@ -182,7 +178,6 @@ namespace cp
         if (players_map.at(main_player_id).health == 0) {
             resource_store->machine.add_state(StateRef(new BustedState(resource_store)), true);
         }
-        //std::cout << "CAR health" << players_map.at(main_player_id).health << std::endl;
         text[1].setString(std::to_string((int)score));
     }
     

@@ -119,9 +119,6 @@
     <ClInclude Include="include\ResourceManagers\InputManager.hpp">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="include\States\BustedState.hpp">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="include\States\ClientState.hpp">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -152,16 +149,10 @@
     <ClInclude Include="include\States\StateMachine.hpp">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="include\BustedState.hpp">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="include\DEFINITIONS.hpp">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="include\Game.hpp">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="include\GameState.hpp">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="include\NetworkManager.hpp">
@@ -174,6 +165,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="include\unistd.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="include\States\BustedState.hpp">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

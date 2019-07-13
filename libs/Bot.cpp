@@ -62,46 +62,12 @@ namespace cp
         float speedRatio = e_speed.z / e_max_speed.z;
         float dx = 2 * dt * speedRatio;
         l = r = false;
-        if (mask[0]) {
-            e_speed.z += e_acceleration.z * dt;
-        }
-        else if (mask[1]) {
-            e_speed.z += e_decleration.z * dt;
-        }
-        e_speed.z = std::max(-50.0f, std::min(e_speed.z, e_max_speed.z));
-        if (mask[2]) {
-            e_position.x -= dx;
-            l = true;
-        }
-        else if (mask[3]) {
-            e_position.x += dx;
-            r = true;
-        }
+        if      (mask[0]) { e_speed.z += e_acceleration.z * dt; }
+        else if (mask[1]) { e_speed.z += e_decleration.z  * dt; }
+        if      (mask[2]) { e_position.x -= dx; l = true; }
+        else if (mask[3]) { e_position.x += dx; r = true; }
+        e_speed.z   = std::max(-50.0f, std::min(e_speed.z, e_max_speed.z));
         e_position += e_speed;
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
-            std::cout << "For Bot:" << e_position.x << " " << e_position.y << std::endl;
-        }
     }
-    /*
-    void Bot::handle_input() {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-            e_position.z -= 200;
-        }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-            std::cout << "initial:" << e_position.z << std::endl;
-            e_position.z += 400;
-            std::cout << "THe value found " << e_position.z << std::endl;
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-            e_position.x -= 0.1;
-        }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-           e_position.x += 0.1;
-            std::cout << "For x:" << e_position.x << std::endl;
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::U)) {
-            std::cout << "For Bot:" << e_position.x << " " << e_position.y << std::endl;
-        }
-    }
-    */
+
 }
