@@ -70,7 +70,7 @@ namespace cp
             }
             else if (data->input.is_sprite_clicked(single_play_button_sprite, sf::Mouse::Left, data->window)) {
                 std::cout << "Button is pressed" << std::endl;
-                data->machine.add_state(StateRef(new ServerState((data), std::set<std::shared_ptr<Client>>())), false);
+                data->machine.add_state(StateRef(new ServerState(data, std::set<std::shared_ptr<Client>>())), false);
             }
             else if (data->input.is_sprite_clicked(join_play_button_sprite, sf::Mouse::Left, data->window)) {
                 std::cout << "Entering ClientRoom" << std::endl;

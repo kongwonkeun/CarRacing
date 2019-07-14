@@ -28,7 +28,7 @@ namespace cp
     public:
         using TcpClient_ptr = std::shared_ptr<Client>;
 
-        ServerRoom(GameDataRef _data) : game_data(_data), fout("ServerRoom.log") {}
+        ServerRoom(GameDataRef _data) : game_data(_data) {}
         ~ServerRoom() {}
 
         void init() {
@@ -71,14 +71,14 @@ namespace cp
 
         virtual void update(float delta) {
             if (!update_required) return;
-            handle_dead_clients();
-            notify_clients();
             if (clock.getElapsedTime().asSeconds() > WAITING_ROOM_TIME) {
-                JUST_WAIT = false;
+                JUST_WAIT = 0;
                 update_required = false;
                 std::cout << "Wait time exceeded" << std::endl;
                 game_data->machine.add_state(StateRef(new ServerState(game_data, clients_res)), true);
             }
+            handle_dead_clients();
+            notify_clients();
             check_incoming_connections();
         }
 
@@ -104,12 +104,14 @@ namespace cp
                 }
             }
         }
+
         void handle_port_problem() {
             if (PORT_OPEN_SUCCESS == false) {
                 game_data->machine.remove_state();
                 update_required = false;
             }
         }
+
         void handle_dead_clients() {
             //for (auto it = clients_res.begin(); it != clients_res.end();) {
             //    if ((*it)->get_socket().Disconnected) {
@@ -121,11 +123,12 @@ namespace cp
             //    }
             //}
         }
+
         void notify_clients() {
             sf::Packet response;
             response << JUST_WAIT;
             for (auto client_ptr : clients_res) {
-                std::cout << "\n\nSending " << JUST_WAIT << std::endl;
+                std::cout << JUST_WAIT;
                 client_ptr->send_packet(response);
             }
         }
@@ -141,7 +144,6 @@ namespace cp
         sf::Clock clock;
         bool time_over = false;
         bool update_required = true;
-        std::ofstream fout;
     };
 }
 

@@ -27,7 +27,7 @@ namespace cp
     public:
         using Server_ptr = std::shared_ptr<Server>;
 
-        ClientRoom(GameDataRef _data) : game_data(_data), fout("ClientRoom.log") {}
+        ClientRoom(GameDataRef _data) : game_data(_data) {}
         ~ClientRoom() {}
 
         void init() {
@@ -35,7 +35,7 @@ namespace cp
             server_ptr = Server_ptr(new Server());
             // Take input IP
             enterIP();
-            server_ptr->connect_to("HOST_IP", PORT);
+            server_ptr->connect_to(HOST_IP, PORT);
             sf::Socket::Status status = server_ptr->getLastStatus();
             if (status != sf::Socket::Done) {
                 std::cout << "error connecting to server" << std::endl;
@@ -58,6 +58,13 @@ namespace cp
                 update_required = false;
             }
         }
+
+        void update(float delta) {
+            get_notifications();
+            use_notification();
+        }
+
+        void draw(float delta) {}
 
         void enterIP() {
             sf::RenderWindow ipadd(sf::VideoMode(500, 150), "Enter IP Address");
@@ -104,14 +111,6 @@ namespace cp
             }
         }
 
-        void update(float delta) {
-            get_notifications();
-            use_notification();
-        }
-
-        void draw(float delta) {
-        }
-
         void get_notifications() {
             sf::Packet packet;
             server_ptr->recieve_packet(packet);
@@ -122,7 +121,7 @@ namespace cp
             else {
                 packet >> HAS_TO_WAIT;
             }
-            std::cout << "The packet says to " << HAS_TO_WAIT << std::endl;
+            std::cout << HAS_TO_WAIT;
         }
 
         void use_notification() {
@@ -144,7 +143,6 @@ namespace cp
         int unique_id = 0;
         int HAS_TO_WAIT = 0;
         bool update_required = true;
-        std::ofstream fout;
     };
 }
 

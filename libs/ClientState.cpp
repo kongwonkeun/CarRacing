@@ -10,22 +10,8 @@ namespace cp
     }
 
     ClientState::~ClientState() {
-    }
-
-    void ClientState::collect_inputs() {
-        input_to_send = simulator.get_input();
-    }
-
-    void ClientState::use_collected_inputs() {
-        (*server) << input_to_send;
-    }
-
-    void ClientState::get_network_snap() {
-        (*server) >> snap;
-    }
-
-    void ClientState::use_network_snap() {
-        simulator.use_snap(snap, true);
+        fout << "Closed" << std::endl;
+        fout.close();
     }
 
     void ClientState::init() {
@@ -71,6 +57,22 @@ namespace cp
         std::cout << "Snap Recieved" << std::endl;
         simulator.update(delta);
         std::cout << "Updated Simulator" << std::endl;
+    }
+
+    void ClientState::collect_inputs() {
+        input_to_send = simulator.get_input();
+    }
+
+    void ClientState::use_collected_inputs() {
+        (*server) << input_to_send;
+    }
+
+    void ClientState::get_network_snap() {
+        (*server) >> snap;
+    }
+
+    void ClientState::use_network_snap() {
+        simulator.use_snap(snap, true);
     }
 
 }
