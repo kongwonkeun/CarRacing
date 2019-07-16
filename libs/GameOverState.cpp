@@ -36,7 +36,6 @@ namespace cp
 
     void GameOverState::update(float delta) {
         if (clock.getElapsedTime().asSeconds() > 3 ) {
-            std::cout << "Exiting" << std::endl;
             data->window.close();
         }
     }

@@ -6,7 +6,6 @@ namespace cp
     GameMap::~GameMap() {}
 
     void GameMap::init() {
-        // Loading Environment assets
         for (int i = 1; i <= 9; i++) {
             t[i].loadFromFile("../res/" + std::to_string(i) + ".png");
             t[i].setSmooth(true);
@@ -18,7 +17,6 @@ namespace cp
         background_sprite.setTextureRect(sf::IntRect(0, 0, 6000, 411));
         background_sprite.setPosition(-2000, 0);
         
-        // Generating map
         for (int i = 0; i < 1600; i++) {
             Line line;
             line.z = static_cast<float>(i * segL);
@@ -56,15 +54,12 @@ namespace cp
         sf::Sprite s = line.sprite;
         int w = s.getTextureRect().width;
         int h = s.getTextureRect().height;
-
         float destX = line.X + line.scale * line.spriteX * width / 2;
         float destY = line.Y + 4;
         float destW = w * line.W / 266;
         float destH = h * line.W / 266;
-
         destX += destW * line.spriteX; // offsetX
         destY += destH * (-1); // offsetY
-
         float clipH = destY + destH - line.clip;
         if (clipH < 0) clipH = 0;
         if (clipH >= destH) return;
@@ -76,7 +71,6 @@ namespace cp
 
     void GameMap::draw(const int count, const Camera& camera) {
         data->window.draw(background_sprite);
-        // Finding camera position and camera height
         Camera main_camera = camera;
         int startPos = get_grid_index(main_camera.getPosition().z);
         main_camera.e_position.y += lines[startPos].y;
@@ -88,8 +82,7 @@ namespace cp
         for (int n = startPos; n < startPos + count; n++) {
             Line& l = lines[n % N];
             l_snap = sf::Vector3f(l.x, l.y, l.z);
-
-            main_camera.e_position.z = static_cast<float>(temp_z); // Rendering Bug
+            main_camera.e_position.z = static_cast<float>(temp_z); // for rendering bug
             l.x  = 0;
             l.z += (n >= N ? N * segL : 0);
             l.x += x;
@@ -128,61 +121,26 @@ namespace cp
     int GameMap::get_grid_index(const float distance) {
         return static_cast<int>(distance / segL);
     }
-
     void GameMap::bound_entity(cp::Car& car) {
-        while (car.e_position.z >= N * segL) {
-            car.e_position.z -= N * segL;
-        }
-        while (car.e_position.z < 0) {
-            car.e_position.z += N * segL;
-        }
+        while (car.e_position.z >= N * segL) { car.e_position.z -= N * segL; }
+        while (car.e_position.z <  0) { car.e_position.z += N * segL; }
     }
-
     void GameMap::bound_entity(Camera& camera) {
-        while (camera.e_position.z >= N * segL) {
-            camera.e_position.z -= N * segL;
-        }
-        while (camera.e_position.z < 0) {
-            camera.e_position.z += N * segL;
-        }
+        while (camera.e_position.z >= N * segL) { camera.e_position.z -= N * segL; }
+        while (camera.e_position.z <  0) { camera.e_position.z += N * segL; }
     }
-
-    void GameMap::bound_entity(Bot & bot) {
-        while(bot.e_position.z >= N * segL) {
-            bot.e_position.z -= N * segL;
-        }
-        while(bot.e_position.z < 0) {
-            bot.e_position.z += N * segL;
-        }
+    void GameMap::bound_entity(Bot& bot) {
+        while (bot.e_position.z >= N * segL) { bot.e_position.z -= N * segL; }
+        while (bot.e_position.z <  0) { bot.e_position.z += N * segL; }
     }
-
-    void GameMap::bound_entity(Bullet &bot) {
-        while (bot.e_position.z >= N * segL) {
-            bot.e_position.z -= N * segL;
-        }
-        while (bot.e_position.z < 0) {
-            bot.e_position.z += N * segL;
-        }
+    void GameMap::bound_entity(Bullet& bullet) {
+        while (bullet.e_position.z >= N * segL) { bullet.e_position.z -= N * segL; }
+        while (bullet.e_position.z <  0) { bullet.e_position.z += N * segL; }
     }
-
-    int GameMap::getRoadWidth() const {
-        return roadW;
-    }
-
-    int GameMap::getSegL() const {
-        return segL;
-    }
-
-    int GameMap::getGridCount() const {
-        return N;
-    }
-
-    int GameMap::GameMap::getScreenWidth() const {
-        return width;
-    }
-
-    int GameMap::getScreenHeight() const {
-        return height;
-    }
+    int GameMap::getRoadWidth() const { return roadW; }
+    int GameMap::getSegL() const { return segL; }
+    int GameMap::getGridCount() const { return N; }
+    int GameMap::GameMap::getScreenWidth() const { return width; }
+    int GameMap::getScreenHeight() const { return height; }
 
 }

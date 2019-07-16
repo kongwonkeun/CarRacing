@@ -11,7 +11,7 @@ namespace cp
         if (texture.loadFromFile(file_name))
             map_texture[name] = texture;
         else
-            std::cout << "FAILED TO LOAD TEXTURE" << std::endl;
+            std::cout << "fail to load texture" << std::endl;
     }
 
     void AssetManager::load_font(std::string name, std::string file_name) {
@@ -19,7 +19,7 @@ namespace cp
         if (font.loadFromFile(file_name))
             map_font[name] = font;
         else
-            std::cout << "FAILED TO LOAD FONT" << std::endl;
+            std::cout << "fail to load font" << std::endl;
     }
 
     sf::Texture& AssetManager::get_texture(std::string name) {

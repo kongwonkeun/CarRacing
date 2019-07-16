@@ -47,7 +47,6 @@ namespace cp
         GameDataRef game_data;
         std::vector<Client::key_input_type> inputs;
         std::set<TcpClient_ptr> clients;
-        std::ofstream fout;
     };
 }
 

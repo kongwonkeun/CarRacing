@@ -38,7 +38,6 @@ namespace cp
     void SplashState::update(float delta) {
         if (timeover) return;
         if (clock.getElapsedTime().asSeconds() > SPLASH_STATE_SHOW_TIME) {
-            std::cout << "Go to main menu" << std::endl;
             timeover = true;
             data->machine.add_state(StateRef(new MainMenuState(data)), true);
         }

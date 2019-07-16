@@ -18,7 +18,7 @@
 
 namespace cp
 {
-    PlayerCar::PlayerCar(GameDataRef _data, int car_num) : Car(_data,car_num) {
+    PlayerCar::PlayerCar(GameDataRef _data, int car_num) : Car(_data, car_num) {
         e_speed = sf::Vector3f(0.0f, 0.0f, static_cast<float>(rand() % 20));
         sprite.setTexture(data->assets.get_texture("CarImage" + std::to_string(car_image_num)));
         e_position.x = static_cast<float>(-2 + rand() % 4);
@@ -36,7 +36,6 @@ namespace cp
     }
 
     void PlayerCar::update_car(const float dt, const std::vector<Line>& lines, const float segL) {
-        // Updating the camera's position
         float speedRatio = std::abs(e_speed.z / e_max_speed.z); // ASDF
         float dx = 3 * dt * speedRatio;
         Line index_line = lines[static_cast<__int64>(e_position.z / segL)];
@@ -48,7 +47,6 @@ namespace cp
         sf::Sprite& s = sprite;
         int w = s.getTextureRect().width;
         int h = s.getTextureRect().height;
-
         float destX = line.X + line.scale * e_position.x * SCREEN_WIDTH / 2;
         float destY = line.Y + 4;
         float destW = w * line.W / 266;

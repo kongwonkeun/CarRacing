@@ -44,7 +44,6 @@ namespace cp
         Server_ptr server;
         GameSimulatorSnap snap;
         int my_id;
-        std::ofstream fout;
     };
 }
 

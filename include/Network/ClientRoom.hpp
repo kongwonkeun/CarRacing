@@ -31,14 +31,13 @@ namespace cp
         ~ClientRoom() {}
 
         void init() {
-            std::cout << "Connecting to game host" << std::endl;
             server_ptr = Server_ptr(new Server());
-            // Take input IP
             enterIP();
+
             server_ptr->connect_to(HOST_IP, PORT);
             sf::Socket::Status status = server_ptr->getLastStatus();
             if (status != sf::Socket::Done) {
-                std::cout << "error connecting to server" << std::endl;
+                std::cout << "server connection error" << std::endl;
                 game_data->machine.remove_state();
                 update_required = false;
             }
@@ -46,14 +45,12 @@ namespace cp
                 sf::Packet packet;
                 (*server_ptr).get_socket().receive(packet);
                 packet >> unique_id;
-                std::cout << "Connected to " << unique_id << std::endl;
             }
         }
 
         void handle_input(float delta) {
             if (!update_required) return;
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
-                std::cout << "User exited the lobby" << std::endl;
                 game_data->machine.remove_state();
                 update_required = false;
             }
@@ -116,12 +113,11 @@ namespace cp
             server_ptr->recieve_packet(packet);
             if (server_ptr->getLastStatus() != sf::Socket::Done) {
                 HAS_TO_WAIT = 2;
-                std::cout << "Something is partial" << std::endl;
             }
             else {
                 packet >> HAS_TO_WAIT;
             }
-            std::cout << HAS_TO_WAIT;
+            std::cout << HAS_TO_WAIT; //---- debug ----
         }
 
         void use_notification() {

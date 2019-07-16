@@ -24,7 +24,6 @@ namespace cp
         ~GameMap();
         void init();
         void draw_quad(sf::Color c, float x1, float y1, float w1, float x2, float y2, float w2);
-        //void update(float delta);
         void project(Line &line, float camX, float camY, float camZ, float camD);
         void draw(int count, const Camera& main_camera);
         void drawSprite(const Line &line);

@@ -36,10 +36,8 @@ namespace cp
                 return obj;
             } else if (obj_made < max_pool_size) {
                 obj_made++;
-                std::cout << obj_made << std::endl;
                 return new T(_data, car_num);
             } else {
-                std::cerr << "MAX OBJECTPOOL SIZE LIMIT REACHED" << std::endl;
                 return NULL;
             }
         }

@@ -28,6 +28,7 @@ namespace cp
                 async_obj[i].get();
             }
         }
+
         static void single_entity_check(std::vector<Car*>* entites_ptr, int index, GameMap* map_ptr, std::mutex* mutex_arr) {
             std::vector<Car*>& entities = *entites_ptr;
             GameMap& map = *map_ptr;
@@ -40,6 +41,7 @@ namespace cp
                 mutex_arr[index].unlock();
             }
         }
+
         static void handle_collision(Car& car1, Car& car2, GameMap& map) {
             int index = map.get_grid_index(car2.e_position.z);
             int diff = index % map.getGridCount() - map.get_grid_index(car1.e_position.z) % map.getGridCount();
@@ -49,6 +51,7 @@ namespace cp
                     cover_collided(car1, car2, diff, COEFFICIENT_OF_RESTITUTION);
             }
         }
+
         static void cover_collided(Car& car1, Car& car2, int diff, float cor) {
             sf::Vector3f tmp1 = car1.e_speed;
             sf::Vector3f tmp2 = car2.e_speed;
@@ -71,6 +74,7 @@ namespace cp
                 car1.onCollision();
             }
         }
+
         bool handle_collision(Car& car1, Car& car2, GameMap& map, float cor) {
             int index = map.get_grid_index(car2.e_position.z);
             int diff = index % map.getGridCount() - map.get_grid_index(car1.e_position.z) % map.getGridCount();
@@ -96,6 +100,7 @@ namespace cp
                 return false;
             }
         }
+
         static bool detect_collision(const sf::Sprite& s1, const sf::Sprite& s2) {
             return s1.getGlobalBounds().intersects(s2.getGlobalBounds());
         }

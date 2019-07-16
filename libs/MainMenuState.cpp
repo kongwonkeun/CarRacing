@@ -9,7 +9,6 @@
  *
  */
 #include "States/MainMenuState.hpp"
-#include "States/GameState.hpp"
 #include "DEFINITIONS.hpp"
 #include "NetworkManager.hpp"
 #include <iostream>
@@ -65,15 +64,12 @@ namespace cp
                 data->window.close();
             }
             else if (data->input.is_sprite_clicked(host_play_button_sprite, sf::Mouse::Left, data->window)) {
-                std::cout << "Adding ServerRoom" << std::endl;
                 data->machine.add_state(StateRef(new ServerRoom(data)), false);
             }
             else if (data->input.is_sprite_clicked(single_play_button_sprite, sf::Mouse::Left, data->window)) {
-                std::cout << "Button is pressed" << std::endl;
                 data->machine.add_state(StateRef(new ServerState(data, std::set<std::shared_ptr<Client>>())), false);
             }
             else if (data->input.is_sprite_clicked(join_play_button_sprite, sf::Mouse::Left, data->window)) {
-                std::cout << "Entering ClientRoom" << std::endl;
                 data->machine.add_state(StateRef(new ClientRoom(data)), false);
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {

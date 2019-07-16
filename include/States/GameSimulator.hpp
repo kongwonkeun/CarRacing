@@ -97,20 +97,6 @@ namespace cp
             }
         }
 
-        friend std::ofstream& operator << (std::ofstream& fout, const GameSimulatorSnap& snap) {
-            fout << "\n\n/***" << std::endl;
-            fout << "Total_external_players:" << snap.ext_players_count << std::endl;
-            fout << "Total_bot_players:" << snap.bot_players_count << std::endl;
-            fout << "MAX_external_players_ALLOWED:" << snap.MAX_EXT_ALLOWED << std::endl;
-            fout << "Current Main Player:" << snap.main_player_id << std::endl;
-            fout << "These are the players:" << std::endl;
-            for (auto& player_i : snap.data) {
-                fout << "Data Related to player:" << player_i.first << std::endl;
-                fout << player_i.second;
-            }
-            return fout;
-        }
-
         friend sf::Packet& operator << (sf::Packet& fout, const GameSimulatorSnap& snap) {
             sf::Uint64 size = snap.data.size();
             fout << snap.ext_players_count << snap.bot_players_count << size;
@@ -128,7 +114,7 @@ namespace cp
             fin >> snap.ext_players_count >> snap.bot_players_count >> size;
             for (int i = 0; i < size; i++) {
                 fin >> first >> second;
-                snap.data.insert(std::pair < GameSimulatorSnap::ID, entity_info > (first, second));
+                snap.data.insert(std::pair<GameSimulatorSnap::ID, entity_info>(first, second));
             }
             return fin;
         }
@@ -139,10 +125,6 @@ namespace cp
         int ext_players_count = 0;
         int bot_players_count = 0;
         int MAX_EXT_ALLOWED = 0;
-    };
-
-    class GameSimulationLog
-    {
     };
 
     class GameSimulator
@@ -160,12 +142,9 @@ namespace cp
         void draw(float delta);
         void update(float delta);
         GameSimulatorSnap get_current_snap(SnapFlag flag);
-        GameSimulationLog use_snap(const GameSimulatorSnap& snap, bool is_forced = true);
+        void use_snap(const GameSimulatorSnap& snap, bool is_forced = true);
         PlayerCar generate_bot(const entity_info& info);
-
-        float distance(entity_info& a, entity_info& b) {
-            return ((a.x - b.x) * (a.x - b.x) + (a.z - b.z) * (a.z - b.z));
-        }
+        float distance(entity_info& a, entity_info& b) { return ((a.x - b.x) * (a.x - b.x) + (a.z - b.z) * (a.z - b.z)); }
 
         void output(entity_info& a, entity_info& b, std::vector<bool>& input) {
             if (rand() % 4 >= 3) {
@@ -201,9 +180,9 @@ namespace cp
             std::vector<bool> input_for_bots;
             float dist = 0.0f;
             float temp;
-            for (auto &bot : cars[1]) {
+            for (auto& bot : cars[1]) {
                 long long int id = 0;
-                for (auto& player : cars[0]){
+                for (auto& player : cars[0]) {
                     temp = distance(bot.second, player.second);
                     if (temp > dist) {
                         dist = temp;
@@ -215,10 +194,6 @@ namespace cp
             }
         }
 
-        void generate_log() {
-            fout << get_current_snap(SnapFlag::OFFLINE_SNAP);
-        }
-
         static void update_bullets(Bullet *itr, GameMap *mapp, float *delta) {
             mapp->bound_entity(*itr);
             itr->update_car(*delta, mapp->lines, static_cast<float>(mapp->getSegL()));
@@ -227,16 +202,9 @@ namespace cp
         bool add_external_player(ID id) {
             if (ext_players_count >= MAX_EXT_ALLOWED) return false;
             if (players_map.find(id) != players_map.end()) return false;
-            fout << "Adding a player with id:" << id << std::endl;
             players_map.insert(std::pair<ID, PlayerCar>(id, PlayerCar(resource_store, 5)));
             players_map.at(main_player_id).e_position.z = 1000;
             ext_players_count++;
-            return true;
-        }
-
-        bool add_bot_players() {
-            players_map.insert(std::pair<ID, PlayerCar>(-1 * bot_players_count - 1, PlayerCar(resource_store, 8)));
-            bot_players_count++;
             return true;
         }
 
@@ -245,6 +213,12 @@ namespace cp
                 players_map.erase(id);
                 ext_players_count--;
             }
+        }
+
+        bool add_bot_players() {
+            players_map.insert(std::pair<ID, PlayerCar>(-1 * bot_players_count - 1, PlayerCar(resource_store, 8)));
+            bot_players_count++;
+            return true;
         }
 
         bool update_main_player(ID id) {
@@ -281,7 +255,6 @@ namespace cp
             }
         }
 
-        std::ofstream fout;
         std::future<void> async_update[200];
 
     private:
@@ -300,11 +273,6 @@ namespace cp
             for (auto& player : players_map) {
                 input_type mask = get_mask(player.first);
                 player.second.handle_input(mask, delta);
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::U)) {
-                    std::cout << "Recieved input for " << player.first << std::endl;
-                    for (auto i : mask) std::cout << i;
-                    std::cout << std::endl;
-                }
             }
         }
 
@@ -359,7 +327,6 @@ namespace cp
         sf::Text text[5];
         long long int score = 0;
         int current = 0;
-        //float fuel = 100;
     };
 }
 

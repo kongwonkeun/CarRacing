@@ -18,31 +18,26 @@ namespace cp
     }
 
     void Bullet::init(sf::Vector3f pos) {
-        in_use = true;
-        frames = 0;
         e_speed = sf::Vector3f(0, 0, 600);
         e_position = pos;
+        frames = 0;
+        in_use = true;
     }
 
     void Bullet::drawSprite(const Line& line) {
         if (!in_use) return;
-
         sf::Sprite& s = sprite;
         int w = s.getTextureRect().width;
         int h = s.getTextureRect().height;
-
         float destX = line.no_curve_X + line.scale * e_position.x * SCREEN_WIDTH / 2;
         float destY = line.no_curve_Y + 4;
         float destW = w * line.W / 266;
         float destH = h * line.W / 266;
-
         destX += destW * e_position.x; // offsetX
         destY -= destH; // offsetY
-
         float clipH = destY + destH - line.clip;
         if (clipH < 0) clipH = 0;
         if (clipH >= destH) return;
-
         s.setScale(destW / w, destH / h);
         s.setPosition(destX, destY);
         data->window.draw(s);

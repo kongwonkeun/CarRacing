@@ -15,9 +15,9 @@ namespace cp
         e_position = sf::Vector3f(0, 0, 0);
         e_speed = sf::Vector3f(0, 0, 0);
         float max_speed = 400;
-        e_max_speed = sf::Vector3f(0, 0, max_speed);
-        e_acceleration = sf::Vector3f(0, 0, max_speed / 5);
-        e_decleration = sf::Vector3f(0, 0, -max_speed);
+        e_max_speed    = sf::Vector3f(0, 0,  max_speed);
+        e_acceleration = sf::Vector3f(0, 0,  max_speed / 5);
+        e_decleration  = sf::Vector3f(0, 0, -max_speed / 5);
     }
 
     Car::~Car() {

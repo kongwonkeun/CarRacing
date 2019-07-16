@@ -15,13 +15,12 @@ namespace cp
         ~Car();
         void draw_car();
         virtual void init(sf::Vector3f pos) {}
-        void reset() { in_use=false; }
+        void reset() { in_use = false; }
         virtual void update_car(float dt, const std::vector<Line>& lines, float segL) = 0;
         sf::Vector3f getPosition() const { return e_position; }
         sf::Vector3f getSpeed() const { return e_speed; }
         void onCollision();
 
-    //protected:
         GameDataRef data;
         int car_image_num;
         bool l = false, r = false;

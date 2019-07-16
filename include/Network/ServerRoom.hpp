@@ -32,21 +32,18 @@ namespace cp
         ~ServerRoom() {}
 
         void init() {
-            // TODO : initialize and use gui.
             clock.restart();
-            std::cout << "Opening Port ----1111----" << std::endl;
             int n_try = 0;
             while (listener.listen(PORT) != sf::Socket::Done && n_try < 10) {
-                std::cout << "Error Listening Port" << std::endl;
+                std::cout << "port listen error" << std::endl;
                 n_try++;
             }
             if (n_try >= 10) {
-                std::cout << "Error Time Over" << std::endl;
+                std::cout << "port listen timeover error" << std::endl;
                 PORT_OPEN_SUCCESS = false;
                 handle_port_problem();
                 return;
             }
-            std::cout << "Port Opened" << std::endl;
             selector.add(listener);
         }
 
@@ -55,12 +52,10 @@ namespace cp
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
                 JUST_WAIT = 2;
                 notify_clients();
-                std::cout << "Server host closed" << std::endl;
                 game_data->machine.remove_state();
                 update_required = false;
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-                std::cout << "Delibirately started" << std::endl;
                 JUST_WAIT = 0;
                 notify_clients();
                 game_data->machine.add_state(StateRef(new ServerState(game_data, clients_res)), true);
@@ -73,9 +68,9 @@ namespace cp
             if (!update_required) return;
             if (clock.getElapsedTime().asSeconds() > WAITING_ROOM_TIME) {
                 JUST_WAIT = 0;
-                update_required = false;
-                std::cout << "Wait time exceeded" << std::endl;
+                notify_clients();
                 game_data->machine.add_state(StateRef(new ServerState(game_data, clients_res)), true);
+                update_required = false;
             }
             handle_dead_clients();
             notify_clients();
@@ -99,7 +94,6 @@ namespace cp
                         packet << unique_id;
                         client->get_socket().send(packet);
                         unassigned_id.erase(unique_id);
-                        std::cout << "One connected with id:" << unique_id << std::endl;
                     }
                 }
             }
@@ -115,7 +109,6 @@ namespace cp
         void handle_dead_clients() {
             //for (auto it = clients_res.begin(); it != clients_res.end();) {
             //    if ((*it)->get_socket().Disconnected) {
-            //        std::cout << "Removing id with " << (*it)->get_identity() << std::endl;
             //        unassigned_id.insert((*it)->get_identity());
             //        it = clients_res.erase(it);
             //    } else {
@@ -128,9 +121,9 @@ namespace cp
             sf::Packet response;
             response << JUST_WAIT;
             for (auto client_ptr : clients_res) {
-                std::cout << JUST_WAIT;
                 client_ptr->send_packet(response);
             }
+            std::cout << JUST_WAIT; //---- debug ----
         }
 
         sf::Sprite background_sprite;

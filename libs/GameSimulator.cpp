@@ -13,33 +13,20 @@
 namespace cp
 {
     GameSimulator::GameSimulator(GameDataRef res_store) 
-    : resource_store(res_store), fout("GameSimulator.log"), map(res_store), pool(500), bar(res_store) {
-        fout << "Executing GameSimulator " << std::endl;
-        fout << "Returning from GameSimulator " << std::endl;
-    }
-    
-    GameSimulator::~GameSimulator() {
-        fout << "Executing ~GameSimulator " << std::endl;
-        fout.close();
-    }
+    : resource_store(res_store), map(res_store), pool(500), bar(res_store) {}
+    GameSimulator::~GameSimulator() {}
 
     void GameSimulator::init() {
-        fout << "Executing init" << std::endl;
-        fout << "Assigning id to each bot" << std::endl;
         init_car_res();
         resource_store->assets.load_texture("Bullet", "../res/bullet.png");
-        fout << "Car Assests Loaded" << std::endl;
         for (int i = 0; i < TOTAL_BOTS; i++) {
             add_bot_players();
         }
-        //players_map.at(main_player_id).e_position.x = 0;
-        //players_map.at(main_player_id).e_position.z = 10000;
         bot_inp_reg();
         map.init();
 
         resource_store->assets.load_texture("GameOverState background", GAME_OVER_BACKGROUND_FILEPATH);
         font = resource_store->assets.get_font("sfafont");
-
         for (int i = 0; i < 5; i++) {
             text[i].setFont(font);
             text[i].setCharacterSize(36);
@@ -50,19 +37,15 @@ namespace cp
         }
         text[0].setString("Score:");
         text[0].setPosition(SCREEN_WIDTH / 100.0f,     SCREEN_HEIGHT / 100.0f);
-        text[1].setPosition(SCREEN_WIDTH / 100.0f,     SCREEN_HEIGHT / 130.0f);
+        text[1].setPosition(SCREEN_WIDTH / 100.0f,     60.f);
         text[2].setString("Health:");
         text[2].setPosition(SCREEN_WIDTH / 2.0f - 150, SCREEN_HEIGHT / 100.0f);
-
         bar.init(
             sf::Vector2f(300, 20),
             sf::Vector2f(SCREEN_WIDTH / 2.0f - 150, 70.0f),
             sf::Color::White,
             sf::Color::Black
         );
-        fout << "Map initialized" << std::endl;
-        fout << "Car and Bots initialized" << std::endl;
-        fout << "Returning from init" << std::endl;
     }
     
     void GameSimulator::handle_input(float delta) {
@@ -73,9 +56,6 @@ namespace cp
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
                 resource_store->machine.add_state(StateRef(new MainMenuState(resource_store)), true);
-            }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::U)) {
-                generate_log();
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::B)) {
                 if (pool.max_pool_size > pool.obj_made) {
@@ -90,12 +70,12 @@ namespace cp
         }
         AI_bot_output();
         update_controllable(delta);
-        // Score done.
-        if (players_map.at(main_player_id).e_speed.z > 0)
-            score += static_cast<long long int>(
-                static_cast<double>(delta) * (players_map.at(main_player_id).e_speed.z)
-            );
 
+        if (players_map.at(main_player_id).e_speed.z > 0) {
+            score += static_cast<long long int>(
+                static_cast<double>(delta) * players_map.at(main_player_id).e_speed.z
+            );
+        }
         map.bound_entity(main_camera);
         for (auto& player_i : players_map) {
             map.bound_entity(player_i.second);
@@ -109,9 +89,10 @@ namespace cp
         for (int i = 0; i < bullet_set[current].size(); i++) {
             async_update[i].get();
         }
+
         std::vector<Car*> entities = get_entity_list();
-        // Collision working
         Collision::simulate_physics(entities, map);
+
         for (auto& b : players_map) {
             if (b.first == main_player_id) continue;
             for (auto itr : bullet_set[current]) {
@@ -131,17 +112,32 @@ namespace cp
         text[1].setString(std::to_string(score));
     }
     
+    void GameSimulator::update(float delta) {
+        focus_on(main_player_id);
+        map.bound_entity(main_camera);
+
+        for (auto& player_i : players_map)   map.bound_entity(player_i.second);
+        for (auto itr : bullet_set[current]) map.bound_entity(*itr);
+        for (auto itr : bullet_set[current]) itr->update_car(delta, map.lines, static_cast<float>(map.getSegL()));
+
+        std::vector<Car*> entities = get_entity_list();
+        Collision::simulate_physics(entities, map);
+
+        bar.percentage = players_map.at(main_player_id).health;
+        if (players_map.at(main_player_id).health == 0) {
+            resource_store->machine.add_state(StateRef(new BustedState(resource_store)), true);
+        }
+        text[1].setString(std::to_string((int)score));
+    }
+    
     void GameSimulator::draw(float delta) {
         resource_store->window.clear(sf::Color(105, 205, 4));
         if (!is_main_player_available()) return;
-
         map.draw(500, main_camera);
-
         draw_all_players();
 
-        // Finding camera position and camera height
         int startPos = map.get_grid_index(main_camera.getPosition().z);
-        
+
         for (int n = startPos + 500; n > startPos; n--) {
             drawSprite(map.lines[n % map.getGridCount()]);
             for (auto& player_i : players_map) {
@@ -155,30 +151,8 @@ namespace cp
             itr->drawSprite(map.lines[index]);
         }
         bar.draw();
-        for (int i = 0; i < 3; i++) {
-            resource_store->window.draw(text[i]);
-        }
+        for (int i = 0; i < 3; i++) resource_store->window.draw(text[i]);
         resource_store->window.display();
-    }
-    
-    void GameSimulator::update(float delta) {
-        focus_on(main_player_id);
-        map.bound_entity(main_camera);
-        for (auto& player_i : players_map) {
-            map.bound_entity(player_i.second);
-        }
-        for (auto itr : bullet_set[current])
-            map.bound_entity(*itr);
-        for (auto itr : bullet_set[current])
-            itr->update_car(delta, map.lines, static_cast<float>(map.getSegL()));
-        std::vector<Car*> entities = get_entity_list();
-        // Collision working
-        Collision::simulate_physics(entities, map);
-        bar.percentage = players_map.at(main_player_id).health;
-        if (players_map.at(main_player_id).health == 0) {
-            resource_store->machine.add_state(StateRef(new BustedState(resource_store)), true);
-        }
-        text[1].setString(std::to_string((int)score));
     }
     
     std::vector<Car*> GameSimulator::get_entity_list() {
@@ -191,12 +165,10 @@ namespace cp
         sf::Sprite s = line.sprite;
         int w = s.getTextureRect().width;
         int h = s.getTextureRect().height;
-
         float destX = line.X + line.scale * line.spriteX * map.getScreenWidth() / 2;
         float destY = line.Y + 4;
         float destW = w * line.W / 266;
         float destH = h * line.W / 266;
-
         destX += destW * line.spriteX; // offsetX
         destY += destH * (-1); // offsetY
 
@@ -211,23 +183,18 @@ namespace cp
     }
     
     GameSimulatorSnap GameSimulator::get_current_snap(SnapFlag flag) {
-        if (flag == SnapFlag::NETWORK_SNAP) {
-            fout << "Requeusted a NETWORK_SNAP" << std::endl;
-        }
-        if (flag == SnapFlag::OFFLINE_SNAP) {
-            fout << "Requeusted a OFFLINE_SNAP" << std::endl;
-        }
+        if (flag == SnapFlag::NETWORK_SNAP) {}
+        if (flag == SnapFlag::OFFLINE_SNAP) {}
         return GameSimulatorSnap(ext_players_count, bot_players_count, MAX_EXT_ALLOWED, static_cast<int>(main_player_id), players_map);
     }
 
-    GameSimulationLog GameSimulator::use_snap(const GameSimulatorSnap& snap, bool is_forced) {
+    void GameSimulator::use_snap(const GameSimulatorSnap& snap, bool is_forced) {
         ext_players_count = snap.ext_players_count;
         bot_players_count = snap.bot_players_count;
         players_map.clear();
         for (auto& player_i : snap.data) {
             players_map.insert(std::pair<ID, PlayerCar>(player_i.first, generate_bot(player_i.second)));
         }
-        return GameSimulationLog();
     }
 
     PlayerCar GameSimulator::generate_bot(const entity_info& info) {

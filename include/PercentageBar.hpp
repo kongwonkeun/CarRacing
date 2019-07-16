@@ -9,10 +9,10 @@ namespace cp
     class PercentageBar
     {
     public:
-        PercentageBar(GameDataRef _data):data(_data) {}
+        PercentageBar(GameDataRef _data) : data(_data) {}
         ~PercentageBar() {}
 
-        void init(sf::Vector2f size,sf::Vector2f position,sf::Color c1,sf::Color c2) {
+        void init(sf::Vector2f size, sf::Vector2f position, sf::Color c1, sf::Color c2) {
             rect1.setPosition(position);
             rect1.setSize(size);
             rect1.setFillColor(sf::Color(0, 0, 0, 150));

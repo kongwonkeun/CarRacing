@@ -9,7 +9,6 @@ namespace cp
     Bot::Bot(GameDataRef _data, int car_num) : Car(_data, car_num) {
         e_speed = sf::Vector3f(0, 0, 0);
         e_max_speed = sf::Vector3f(0, 0, 300);
-        
         sprite.setTexture(data->assets.get_texture("CarImage" + std::to_string(car_image_num)));
         health = 50;
         e_position.x = -1.0;
@@ -31,11 +30,9 @@ namespace cp
         float destH = h * line.W / 266;
         destX += destW * e_position.x; // offsetX
         destY -= destH; // offsetY
-
         float clipH = destY + destH - line.clip;
         if (clipH < 0) clipH = 0;
         if (clipH >= destH) return;
-
         s.setScale(destW / w, destH / h);
         s.setPosition(destX, destY);
         data->window.draw(s);

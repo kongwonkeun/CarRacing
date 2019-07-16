@@ -22,7 +22,6 @@ namespace cp
                     data->window.close();
                 }
                 else if (data->input.is_sprite_clicked(menu_button_sprite, sf::Mouse::Left, data->window)) {
-                    std::cout << "Button is pressed" << std::endl;
                     data->machine.remove_state();
                 }
             }
