@@ -17,16 +17,18 @@ namespace cp
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
             game_data->machine.remove_state();
         }
-        if (server->getLastStatus() == sf::Socket::Disconnected) {
-            game_data->machine.remove_state();
-        }
-        collect_inputs();
-        use_collected_inputs();
+        //if (server->getLastStatus() == sf::Socket::Disconnected) {
+        //    game_data->machine.remove_state();
+        //}
+        game_data->input.register_input(simulator.get_input());
+        simulator.handle_input(delta);
+        //collect_inputs();
+        //use_collected_inputs();
     }
 
     void ClientState::update(float delta) {
-        get_network_snap();
-        use_network_snap();
+        //get_network_snap();
+        //use_network_snap();
         simulator.update(delta);
     }
 

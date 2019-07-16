@@ -18,7 +18,7 @@ const int SCREEN_HEIGHT = sf::VideoMode::getDesktopMode().height;
 
 #define PORT 20000
 //#define WAITING_ROOM_TIME 100000
-#define WAITING_ROOM_TIME 60
+#define WAITING_ROOM_TIME 30
 #define MAX_EXTERNAL_PLAYER 4
 
 #define TOTAL_CARS 10

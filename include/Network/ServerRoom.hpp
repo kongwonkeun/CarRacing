@@ -72,9 +72,9 @@ namespace cp
                 game_data->machine.add_state(StateRef(new ServerState(game_data, clients_res)), true);
                 update_required = false;
             }
-            handle_dead_clients();
             notify_clients();
             check_incoming_connections();
+            //handle_dead_clients();
         }
 
         virtual void draw(float delta) {}
@@ -107,23 +107,23 @@ namespace cp
         }
 
         void handle_dead_clients() {
-            //for (auto it = clients_res.begin(); it != clients_res.end();) {
-            //    if ((*it)->get_socket().Disconnected) {
-            //        unassigned_id.insert((*it)->get_identity());
-            //        it = clients_res.erase(it);
-            //    } else {
-            //        ++it;
-            //    }
-            //}
+            for (auto it = clients_res.begin(); it != clients_res.end(); ) {
+                if ((*it)->get_socket().Disconnected) {
+                    unassigned_id.insert(static_cast<int>((*it)->get_identity()));
+                    it = clients_res.erase(it);
+                } else {
+                    ++it;
+                }
+            }
         }
 
         void notify_clients() {
+            std::cout << JUST_WAIT; //---- debug ----
             sf::Packet response;
             response << JUST_WAIT;
             for (auto client_ptr : clients_res) {
                 client_ptr->send_packet(response);
             }
-            std::cout << JUST_WAIT; //---- debug ----
         }
 
         sf::Sprite background_sprite;

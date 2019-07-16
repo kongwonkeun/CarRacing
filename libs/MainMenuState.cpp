@@ -23,7 +23,7 @@ namespace cp
     MainMenuState::~MainMenuState() {}
 
     void MainMenuState::init() {
-        data->assets.load_texture("MainMenuStateBackground",MAIN_MENU_BACKGROUND_FILEPATH);
+        data->assets.load_texture("MainMenuStateBackground", MAIN_MENU_BACKGROUND_FILEPATH);
         data->assets.load_texture("PlayButton3", RESUME_BUTTON_FILEPATH);
         data->assets.load_texture("PlayButton2_host", HOST_PLAY_BUTTON_FILEPATH);
         data->assets.load_texture("PlayButton2_join", JOIN_PLAY_BUTTON_FILEPATH);

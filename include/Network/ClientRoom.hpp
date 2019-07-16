@@ -57,6 +57,7 @@ namespace cp
         }
 
         void update(float delta) {
+            if (!update_required) return;
             get_notifications();
             use_notification();
         }
@@ -117,13 +118,13 @@ namespace cp
             else {
                 packet >> HAS_TO_WAIT;
             }
-            std::cout << HAS_TO_WAIT; //---- debug ----
         }
 
         void use_notification() {
+            std::cout << HAS_TO_WAIT; //---- debug ----
             if (HAS_TO_WAIT == 1) return;
             if (HAS_TO_WAIT == 0) {
-                game_data->machine.add_state(StateRef(new ClientState(game_data, server_ptr, unique_id)));
+                game_data->machine.add_state(StateRef(new ClientState(game_data, server_ptr, unique_id)), true);
                 update_required = false;
             }
             else if (HAS_TO_WAIT == 2) {

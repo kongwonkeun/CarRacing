@@ -49,13 +49,13 @@ namespace cp
             }
             return client;
         }
-
-        void connect_to(const std::string & ip, int port) {
+        /*
+        void connect_to(const std::string& ip, int port) {
             while ((last_status = socket.connect(ip, port, sf::seconds(5))) == sf::Socket::Partial) {
                 std::cout << "try to connect: " << ip << ":" << port << std::endl;
             }
         }
-
+        */
         void send_packet(sf::Packet& packet) {
             while ((last_status = socket.send(packet)) == sf::Socket::Partial) {
                 std::cout << "partially sent" << std::endl;
