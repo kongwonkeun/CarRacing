@@ -11,7 +11,10 @@ namespace cp
     class Car
     {
     public:
-        Car(GameDataRef _data, int car_num);
+        using input_type = std::vector<bool>;
+        using ID = long long int;
+
+        Car(GameDataRef _data, int car_num, ID id);
         ~Car();
         void draw_car();
         virtual void init(sf::Vector3f pos) {}
@@ -34,6 +37,7 @@ namespace cp
         float car_mass = 0;
         float health = 100;
         bool in_use = false;
+        ID id = 0;
     };
 }
 

@@ -12,7 +12,7 @@ namespace cp
     class PlayerCar : public Car
     {
     public:
-        PlayerCar(GameDataRef _data, int _car_num);
+        PlayerCar(GameDataRef _data, int _car_num, ID id);
         ~PlayerCar();
         void update_car(float dt, const std::vector<Line>& lines, float segL);
         void drawSprite(const Line& line);

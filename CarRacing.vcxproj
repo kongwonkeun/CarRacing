@@ -141,7 +141,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="libs\AssetManager.cpp" />
-    <ClCompile Include="libs\Bot.cpp" />
     <ClCompile Include="libs\Bullet.cpp" />
     <ClCompile Include="libs\BustedState.cpp" />
     <ClCompile Include="libs\Car.cpp" />
@@ -168,7 +167,6 @@
     <ClInclude Include="include\Network\Server.hpp" />
     <ClInclude Include="include\Network\ServerRoom.hpp" />
     <ClInclude Include="include\ObjectPool.hpp" />
-    <ClInclude Include="include\Objects\Bot.hpp" />
     <ClInclude Include="include\Objects\Bullet.hpp" />
     <ClInclude Include="include\Objects\Camera.hpp" />
     <ClInclude Include="include\Objects\Car.hpp" />

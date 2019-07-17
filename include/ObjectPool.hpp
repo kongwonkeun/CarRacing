@@ -16,7 +16,6 @@
 #include <iostream>
 #include <memory>
 #include "Objects/Car.hpp"
-#include "Objects/Bot.hpp"
 #include "Game.hpp"
 #include "Objects/Bullet.hpp"
 

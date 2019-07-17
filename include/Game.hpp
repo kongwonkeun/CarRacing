@@ -28,9 +28,9 @@ namespace cp
         ~Game();
 
     private:
+        GameDataRef data = std::make_shared<GameData>();
         sf::Clock clock;
         const float delta = 1.0f / 60.0f;
-        GameDataRef data = std::make_shared<GameData>();
         void run();
     };
 }

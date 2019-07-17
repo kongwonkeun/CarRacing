@@ -6,7 +6,7 @@
 
 namespace cp
 {
-    Bullet::Bullet(GameDataRef _data, int car_num): Car(_data, car_num) {
+    Bullet::Bullet(GameDataRef _data, int car_num): Car(_data, car_num, 0) {
         e_speed = sf::Vector3f(0, 0, 600);
         e_max_speed = sf::Vector3f(0, 0, 600);
         health = 0.1f;

@@ -43,6 +43,7 @@ namespace cp
         GameSimulator::input_return_type input_to_send;
         Server_ptr server;
         GameSimulatorSnap snap;
+        bool update_required = true;
         int my_id;
     };
 }

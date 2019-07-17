@@ -121,22 +121,22 @@ namespace cp
     int GameMap::get_grid_index(const float distance) {
         return static_cast<int>(distance / segL);
     }
+    
     void GameMap::bound_entity(cp::Car& car) {
         while (car.e_position.z >= N * segL) { car.e_position.z -= N * segL; }
         while (car.e_position.z <  0) { car.e_position.z += N * segL; }
     }
+    
     void GameMap::bound_entity(Camera& camera) {
         while (camera.e_position.z >= N * segL) { camera.e_position.z -= N * segL; }
         while (camera.e_position.z <  0) { camera.e_position.z += N * segL; }
     }
-    void GameMap::bound_entity(Bot& bot) {
-        while (bot.e_position.z >= N * segL) { bot.e_position.z -= N * segL; }
-        while (bot.e_position.z <  0) { bot.e_position.z += N * segL; }
-    }
+    
     void GameMap::bound_entity(Bullet& bullet) {
         while (bullet.e_position.z >= N * segL) { bullet.e_position.z -= N * segL; }
         while (bullet.e_position.z <  0) { bullet.e_position.z += N * segL; }
     }
+
     int GameMap::getRoadWidth() const { return roadW; }
     int GameMap::getSegL() const { return segL; }
     int GameMap::getGridCount() const { return N; }

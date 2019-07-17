@@ -1,5 +1,4 @@
 #include "ResourceManagers/InputManager.hpp"
-#include "Objects/Bot.hpp"
 
 namespace cp
 {

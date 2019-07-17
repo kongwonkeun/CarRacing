@@ -31,28 +31,28 @@ namespace cp
         background_sprite.setTexture(data->assets.get_texture("MainMenuStateBackground"));
         background_sprite.scale(1, 600.0f / 512.0f);
         background_sprite.setPosition(
-            SCREEN_WIDTH  / 2.0f - background_sprite.getGlobalBounds().width  / 2,
+            SCREEN_WIDTH  / 2.0f - background_sprite.getGlobalBounds().width  / 2.0f,
             SCREEN_HEIGHT / 2.1f - background_sprite.getGlobalBounds().height / 2.0f
         );
         single_play_button_sprite.setTexture(data->assets.get_texture("PlayButton1"));
         single_play_button_sprite.scale(Scaling_factor / 2.5f);
         single_play_button_sprite.setPosition(
-            SCREEN_WIDTH  / 2.0f - single_play_button_sprite.getGlobalBounds().width  / 2,
+            SCREEN_WIDTH  / 2.0f - single_play_button_sprite.getGlobalBounds().width  / 2.0f,
             SCREEN_HEIGHT / 2.0f - single_play_button_sprite.getGlobalBounds().height / 2.0f
         );
         single_play_button_sprite.setColor(sf::Color(255, 255, 255, 220));
         host_play_button_sprite.setTexture(data->assets.get_texture("PlayButton2_host"));
         host_play_button_sprite.scale(Scaling_factor / 2.5f);
         host_play_button_sprite.setPosition(
-            SCREEN_WIDTH  / 2.0f - host_play_button_sprite.getGlobalBounds().width  / 2,
+            SCREEN_WIDTH  / 2.0f - host_play_button_sprite.getGlobalBounds().width  / 2.0f,
             SCREEN_HEIGHT / 2.0f + host_play_button_sprite.getGlobalBounds().height / 1.2f
         );
         host_play_button_sprite.setColor(sf::Color(255, 255, 255, 220));
         join_play_button_sprite.setTexture(data->assets.get_texture("PlayButton2_join"));
         join_play_button_sprite.scale(Scaling_factor / 2.5f);
         join_play_button_sprite.setPosition(
-            SCREEN_WIDTH  / 2.0f - join_play_button_sprite.getGlobalBounds().width  / 2,
-            SCREEN_HEIGHT / 2.0f + join_play_button_sprite.getGlobalBounds().height * 2
+            SCREEN_WIDTH  / 2.0f - join_play_button_sprite.getGlobalBounds().width  / 2.0f,
+            SCREEN_HEIGHT / 2.0f + join_play_button_sprite.getGlobalBounds().height * 2.0f
         );
         join_play_button_sprite.setColor(sf::Color(255, 255, 255, 220));
     }
@@ -63,19 +63,19 @@ namespace cp
             if (sf::Event::Closed == event.type) {
                 data->window.close();
             }
-            else if (data->input.is_sprite_clicked(host_play_button_sprite, sf::Mouse::Left, data->window)) {
+            else if (data->input.is_sprite_clicked(single_play_button_sprite, sf::Mouse::Left, data->window)) { // single play
+                data->machine.add_state(StateRef(new ServerState(data, std::set<std::shared_ptr<Client>>())), false);
+            }
+            else if (data->input.is_sprite_clicked(host_play_button_sprite, sf::Mouse::Left, data->window)) { // host play
                 data->machine.add_state(StateRef(new ServerRoom(data)), false);
             }
-            else if (data->input.is_sprite_clicked(single_play_button_sprite, sf::Mouse::Left, data->window)) {
-                data->machine.add_state(StateRef(new ServerState(data, std::set<std::shared_ptr<Client>>())), false);
-            }
-            else if (data->input.is_sprite_clicked(join_play_button_sprite, sf::Mouse::Left, data->window)) {
+            else if (data->input.is_sprite_clicked(join_play_button_sprite, sf::Mouse::Left, data->window)) { // join play
                 data->machine.add_state(StateRef(new ClientRoom(data)), false);
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-                data->machine.add_state(StateRef(new ServerState(data, std::set<std::shared_ptr<Client>>())), false);
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+                data->machine.add_state(StateRef(new ServerState(data, std::set<std::shared_ptr<Client>>())), false); // single play (key s)
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) { // exit the game app (key escape)
                 data->window.close();
             }
         }

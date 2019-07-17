@@ -22,9 +22,8 @@ namespace cp
         using ID = long long int;
         using key_input_type = std::pair<ID, std::vector<bool>>;
 
-        Server() {}
-        ID get_identity() const { return id; }
-        sf::TcpSocket& get_socket() { return socket; }
+        Server(ID identity) : id(identity) {}
+        ~Server() {}
 
         friend Server& operator << (Server& server, const key_input_type& labelled_input) {
             sf::Packet packet;
@@ -64,9 +63,9 @@ namespace cp
             }
         }
 
-        sf::Socket::Status getLastStatus() const {
-            return last_status;
-        }
+        ID get_identity() const { return id; }
+        sf::TcpSocket& get_socket() { return socket; }
+        sf::Socket::Status getLastStatus() const { return last_status; }
 
     private:
         long long int id = 0;

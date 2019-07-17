@@ -16,8 +16,8 @@ namespace cp
         background_sprite.setTexture(data->assets.get_texture("SplashState background"));
         background_sprite.scale(1, 600.0f / 512.0f);
         background_sprite.setPosition(
-            SCREEN_WIDTH  / 2.0f - background_sprite.getGlobalBounds().width  / 2,
-            SCREEN_HEIGHT / 2.1f - background_sprite.getGlobalBounds().height / 2
+            SCREEN_WIDTH  / 2.0f - background_sprite.getGlobalBounds().width  / 2.0f,
+            SCREEN_HEIGHT / 2.1f - background_sprite.getGlobalBounds().height / 2.0f
         );
     }
 
@@ -29,18 +29,18 @@ namespace cp
         }
     }
 
-    void SplashState::draw(float delta) {
-        data->window.clear();
-        data->window.draw(background_sprite);
-        data->window.display();
-    }
-
     void SplashState::update(float delta) {
         if (timeover) return;
         if (clock.getElapsedTime().asSeconds() > SPLASH_STATE_SHOW_TIME) {
             timeover = true;
             data->machine.add_state(StateRef(new MainMenuState(data)), true);
         }
+    }
+
+    void SplashState::draw(float delta) {
+        data->window.clear();
+        data->window.draw(background_sprite);
+        data->window.display();
     }
 
 }

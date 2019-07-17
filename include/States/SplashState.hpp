@@ -14,8 +14,8 @@ namespace cp
         ~SplashState();
         void init();
         void handle_input(float delta);
-        void draw(float delta);
         void update(float delta);
+        void draw(float delta);
 
     private:
         GameDataRef data;

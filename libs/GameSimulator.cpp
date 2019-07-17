@@ -54,17 +54,17 @@ namespace cp
             if (sf::Event::Closed == event.type) {
                 resource_store->window.close();
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
                 resource_store->machine.add_state(StateRef(new MainMenuState(resource_store)), true);
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::B)) {
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::B)) {
                 if (pool.max_pool_size > pool.obj_made) {
                     bullet = pool.getObject(resource_store, 5);
                     bullet->init(players_map.at(main_player_id).e_position);
                     bullet_set[current].insert(bullet);
                 }
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
                 resource_store->window.close();
             }
         }
@@ -107,7 +107,6 @@ namespace cp
             bullet_set[current].clear();
             current = !current;
         }
-
         bar.percentage = (players_map.at(main_player_id).health);
         text[1].setString(std::to_string(score));
     }
@@ -189,16 +188,22 @@ namespace cp
     }
 
     void GameSimulator::use_snap(const GameSimulatorSnap& snap, bool is_forced) {
-        ext_players_count = snap.ext_players_count;
-        bot_players_count = snap.bot_players_count;
-        players_map.clear();
+        //ext_players_count = snap.ext_players_count;
+        //bot_players_count = snap.bot_players_count;
+        //players_map.clear();
         for (auto& player_i : snap.data) {
-            players_map.insert(std::pair<ID, PlayerCar>(player_i.first, generate_bot(player_i.second)));
+            //players_map.insert(std::pair<ID, PlayerCar>(player_i.first, generate_bot(player_i.second, player_i.first)));
+            players_map.at(player_i.first).e_position.x = player_i.second.x;
+            players_map.at(player_i.first).e_position.y = player_i.second.y;
+            players_map.at(player_i.first).e_position.z = player_i.second.z;
+            players_map.at(player_i.first).e_speed.x = player_i.second.speed_x;
+            players_map.at(player_i.first).e_speed.y = player_i.second.speed_y;
+            players_map.at(player_i.first).e_speed.z = player_i.second.speed_z;
         }
     }
 
-    PlayerCar GameSimulator::generate_bot(const entity_info& info) {
-        PlayerCar car(resource_store, 5);
+    PlayerCar GameSimulator::generate_bot(const entity_info& info, ID id) {
+        PlayerCar car(resource_store, 5, id);
         car.e_position.x = info.x;
         car.e_position.y = info.y;
         car.e_position.z = info.z;

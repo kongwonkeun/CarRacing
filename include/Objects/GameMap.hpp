@@ -12,7 +12,6 @@
 #include "Objects/PlayerCar.hpp"
 #include "Objects/Camera.hpp"
 #include "Objects/Car.hpp"
-#include "Objects/Bot.hpp"
 #include "Objects/Bullet.hpp"
 
 namespace cp
@@ -31,7 +30,6 @@ namespace cp
         void bound_entity(cp::Car &car);
         void bound_entity(Camera& camera);
         void bound_entity(Bullet &bot);
-        void bound_entity(Bot &bot);
         int getRoadWidth() const;
         int getSegL() const;
         int getGridCount() const;

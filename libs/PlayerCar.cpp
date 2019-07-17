@@ -18,7 +18,7 @@
 
 namespace cp
 {
-    PlayerCar::PlayerCar(GameDataRef _data, int car_num) : Car(_data, car_num) {
+    PlayerCar::PlayerCar(GameDataRef _data, int car_num, ID id) : Car(_data, car_num, id) {
         e_speed = sf::Vector3f(0.0f, 0.0f, static_cast<float>(rand() % 20));
         sprite.setTexture(data->assets.get_texture("CarImage" + std::to_string(car_image_num)));
         e_position.x = static_cast<float>(-2 + rand() % 4);
@@ -27,7 +27,6 @@ namespace cp
             health = 50;
             e_max_speed.z = 250;
         }
-        //else health = 100000;
         car_mass = 100;
         in_use = true;
     }
@@ -79,7 +78,7 @@ namespace cp
         if (health <= 0 and car_image_num == 8) {
             sprite.setTexture(data->assets.get_texture("f" + std::to_string((int)std::ceil(((float)(img++)) / 4))));
             if (img >= 48) {
-                *this = PlayerCar(data, this->car_image_num);
+                *this = PlayerCar(data, this->car_image_num, 0);
                 img = 1;
             }
         }

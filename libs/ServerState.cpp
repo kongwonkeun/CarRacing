@@ -9,17 +9,19 @@ namespace cp
 
     void ServerState::init() {
         simulator.init();
+        simulator.add_external_player(12312234);
+        simulator.update_main_player(12312234);
         for (auto& client : clients) {
             std::cout << "client id: " << client->get_identity() << std::endl;
             simulator.add_external_player(client->get_identity());
         }
-        simulator.add_external_player(12312234);
-        simulator.update_main_player(12312234);
     }
 
     void ServerState::handle_input(float delta) {
+        if (!update_required) return;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
             game_data->machine.remove_state();
+            update_required = false;
         }
         collect_network_inputs();
         use_collected_inputs();
@@ -28,9 +30,10 @@ namespace cp
     }
 
     void ServerState::update(float delta) {
-        simulator.update(delta);
+        if (!update_required) return;
         generate_outputs();
         use_generated_outputs();
+        simulator.update(delta);
     }
 
     void ServerState::draw(float delta) {

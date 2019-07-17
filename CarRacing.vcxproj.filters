@@ -21,9 +21,6 @@
     <ClCompile Include="libs\AssetManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="libs\Bot.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="libs\Bullet.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -81,9 +78,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="include\Network\ServerRoom.hpp">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Objects\Bot.hpp">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="include\Objects\Bullet.hpp">

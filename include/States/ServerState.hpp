@@ -42,11 +42,12 @@ namespace cp
         void generate_outputs();
         void use_generated_outputs();
 
+        GameDataRef game_data;
         GameSimulator simulator;
         GameSimulatorSnap temp_snap;
-        GameDataRef game_data;
         std::vector<Client::key_input_type> inputs;
         std::set<TcpClient_ptr> clients;
+        bool update_required = true;
     };
 }
 

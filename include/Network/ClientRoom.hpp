@@ -31,7 +31,7 @@ namespace cp
         ~ClientRoom() {}
 
         void init() {
-            server_ptr = Server_ptr(new Server());
+            server_ptr = Server_ptr(new Server(server_id));
             enterIP();
 
             server_ptr->connect_to(HOST_IP, PORT);
@@ -65,6 +65,13 @@ namespace cp
         void draw(float delta) {}
 
         void enterIP() {
+            background_sprite.setTexture(game_data->assets.get_texture("MainMenuStateBackground"));
+            background_sprite.scale(1, 600.0f / 512.0f);
+            background_sprite.setPosition(
+                SCREEN_WIDTH  / 2.0f - background_sprite.getGlobalBounds().width  / 2.0f,
+                SCREEN_HEIGHT / 2.1f - background_sprite.getGlobalBounds().height / 2.0f
+            );
+
             sf::RenderWindow ipadd(sf::VideoMode(500, 150), "Enter IP Address");
             sf::Text text1, text2;
             sf::Font font;
@@ -82,7 +89,11 @@ namespace cp
             text2.setOutlineThickness(2);
 
             while (ipadd.isOpen()) {
-                ipadd.clear();
+                game_data->window.clear();
+                game_data->window.draw(background_sprite);
+                game_data->window.display();
+
+                ipadd.clear(sf::Color(0, 0, 0, 255));
                 ipadd.draw(text1);
                 ipadd.draw(text2);
                 sf::Event event;
@@ -137,6 +148,8 @@ namespace cp
         std::string HOST_IP;
         GameDataRef game_data;
         Server_ptr server_ptr;
+        sf::Sprite background_sprite;
+        int server_id = 12312234; // server id
         int unique_id = 0;
         int HAS_TO_WAIT = 0;
         bool update_required = true;
