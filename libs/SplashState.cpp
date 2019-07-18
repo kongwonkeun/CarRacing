@@ -1,3 +1,5 @@
+/**/
+
 #include "States/SplashState.hpp"
 #include "States/MainMenuState.hpp"
 #include "DEFINITIONS.hpp"
@@ -45,3 +47,5 @@ namespace cp
     }
 
 }
+
+/**/

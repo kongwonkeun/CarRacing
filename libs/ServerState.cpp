@@ -1,3 +1,5 @@
+/**/
+
 #include "States/ServerState.hpp"
 #include "Network/ServerRoom.hpp"
 
@@ -68,3 +70,5 @@ namespace cp
     }
 
 }
+
+/**/

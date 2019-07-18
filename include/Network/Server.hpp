@@ -1,14 +1,3 @@
-/**
- *
- * @file Server.hpp
- * @author Vijay
- * @brief Server class that handles the data sending over the network
- * @version 0.1
- * @date 2019-02-26
- *
- * @copyright Copyright (c) 2019
- *
- */
 #ifndef SERVER_HPP
 #define SERVER_HPP
 

@@ -1,3 +1,5 @@
+/**/
+
 #include "DEFINITIONS.hpp"
 #include <time.h>
 #include "Game.hpp"
@@ -9,3 +11,5 @@ int main()
     cp::Game();
     return EXIT_SUCCESS;
 }
+
+/**/

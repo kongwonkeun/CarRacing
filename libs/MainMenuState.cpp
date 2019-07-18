@@ -1,16 +1,7 @@
-/**
- * @file MainMenuState.cpp
- * @author Vijay
- * @brief State that represents the MainMenu in the game.
- * @version 0.1
- * @date 2019-03-01
- *
- * @copyright Copyright (c) 2019
- *
- */
+/**/
+
 #include "States/MainMenuState.hpp"
 #include "DEFINITIONS.hpp"
-#include "NetworkManager.hpp"
 #include <iostream>
 #include <thread>
 #include <sstream>
@@ -92,3 +83,5 @@ namespace cp
     }
 
 }
+
+/**/

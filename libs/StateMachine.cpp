@@ -1,3 +1,5 @@
+/**/
+
 #include "States/StateMachine.hpp"
 #include <iostream>
 
@@ -41,3 +43,5 @@ namespace cp
     }
 
 }
+
+/**/

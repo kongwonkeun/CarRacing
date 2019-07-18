@@ -1,13 +1,3 @@
-/**
- * @file ServerState.hpp
- * @author Vijay
- * @brief The ServerState maintains and simulate online game play
- * @version 0.1
- * @date 2019-02-28
- *
- * @copyright Copyright (c) 2019
- *
- */
 #ifndef SERVER_STATE_HPP
 #define SERVER_STATE_HPP
 

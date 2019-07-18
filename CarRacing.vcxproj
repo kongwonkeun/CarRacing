@@ -147,11 +147,9 @@
     <ClCompile Include="libs\ClientState.cpp" />
     <ClCompile Include="libs\Game.cpp" />
     <ClCompile Include="libs\GameMap.cpp" />
-    <ClCompile Include="libs\GameOverState.cpp" />
     <ClCompile Include="libs\GameSimulator.cpp" />
     <ClCompile Include="libs\InputManager.cpp" />
     <ClCompile Include="libs\MainMenuState.cpp" />
-    <ClCompile Include="libs\NetworkManager.cpp" />
     <ClCompile Include="libs\PlayerCar.cpp" />
     <ClCompile Include="libs\ServerState.cpp" />
     <ClCompile Include="libs\SplashState.cpp" />
@@ -161,7 +159,6 @@
   <ItemGroup>
     <ClInclude Include="include\DEFINITIONS.hpp" />
     <ClInclude Include="include\Game.hpp" />
-    <ClInclude Include="include\NetworkManager.hpp" />
     <ClInclude Include="include\Network\Client.hpp" />
     <ClInclude Include="include\Network\ClientRoom.hpp" />
     <ClInclude Include="include\Network\Server.hpp" />
@@ -179,14 +176,12 @@
     <ClInclude Include="include\ResourceManagers\InputManager.hpp" />
     <ClInclude Include="include\States\BustedState.hpp" />
     <ClInclude Include="include\States\ClientState.hpp" />
-    <ClInclude Include="include\States\GameOverState.hpp" />
     <ClInclude Include="include\States\GameSimulator.hpp" />
     <ClInclude Include="include\States\MainMenuState.hpp" />
     <ClInclude Include="include\States\ServerState.hpp" />
     <ClInclude Include="include\States\SplashState.hpp" />
     <ClInclude Include="include\States\State.hpp" />
     <ClInclude Include="include\States\StateMachine.hpp" />
-    <ClInclude Include="include\unistd.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

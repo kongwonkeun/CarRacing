@@ -1,13 +1,3 @@
-/**
- * @file ServerRoom.hpp
- * @author Vijay
- * @brief Simple Server room displayed before Online Play Starts
- * @version 0.1
- * @date 2019-02-27
- *
- * @copyright Copyright (c) 2019
- *
- */
 #ifndef SERVER_ROOM_HPP
 #define SERVER_ROOM_HPP
 

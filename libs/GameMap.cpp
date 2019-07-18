@@ -1,3 +1,5 @@
+/**/
+
 #include "Objects/GameMap.hpp"
 
 namespace cp
@@ -144,3 +146,5 @@ namespace cp
     int GameMap::getScreenHeight() const { return height; }
 
 }
+
+/**/

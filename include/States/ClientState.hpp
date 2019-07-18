@@ -1,13 +1,3 @@
-/**
- * @file ClientState.hpp
- * @author Vijay
- * @brief Handles communication between the computer and the server.
- * @version 0.1
- * @date 2019-02-26
- *
- * @copyright Copyright (c) 2019
- *
- */
 #ifndef CLIENT_STATE_HPP
 #define CLIENT_STATE_HPP
 

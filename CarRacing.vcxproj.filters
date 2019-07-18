@@ -39,9 +39,6 @@
     <ClCompile Include="libs\GameMap.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="libs\GameOverState.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="libs\GameSimulator.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -49,9 +46,6 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="libs\MainMenuState.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="libs\NetworkManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="libs\PlayerCar.cpp">
@@ -110,9 +104,6 @@
     <ClInclude Include="include\States\ClientState.hpp">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="include\States\GameOverState.hpp">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="include\States\GameSimulator.hpp">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -137,16 +128,10 @@
     <ClInclude Include="include\Game.hpp">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="include\NetworkManager.hpp">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="include\ObjectPool.hpp">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="include\PercentageBar.hpp">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="include\unistd.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="include\States\BustedState.hpp">

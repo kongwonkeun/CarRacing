@@ -1,3 +1,5 @@
+/**/
+
 #include "States/ClientState.hpp"
 
 namespace cp
@@ -56,3 +58,5 @@ namespace cp
     }
 
 }
+
+/**/

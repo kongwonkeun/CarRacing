@@ -1,13 +1,5 @@
-/**
- * @file GameSimulator.cpp
- * @author Vijay, Anjani, Anupam, Yogesh
- * @brief GameSimulator.cpp file contains the implementations of methods in GameSimulator.hpp
- * @version 0.1
- * @date 2019-03-01
- *
- * @copyright Copyright (c) 2019
- *
- */
+/**/
+
 #include "States/GameSimulator.hpp"
 
 namespace cp
@@ -211,3 +203,5 @@ namespace cp
     }
 
 }
+
+/**/

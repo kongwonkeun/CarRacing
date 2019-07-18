@@ -8,7 +8,6 @@
 #include "ResourceManagers/AssetManager.hpp"
 #include "States/StateMachine.hpp"
 #include "DEFINITIONS.hpp"
-#include "NetworkManager.hpp"
 
 namespace cp
 {
@@ -18,7 +17,6 @@ namespace cp
         sf::RenderWindow window;
         AssetManager assets;
         InputManager input;
-        NetworkManager Nmanager;
     };
     typedef std::shared_ptr<GameData> GameDataRef;
 

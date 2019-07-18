@@ -1,3 +1,5 @@
+/**/
+
 #include "ResourceManagers/AssetManager.hpp"
 #include <iostream>
 
@@ -31,3 +33,5 @@ namespace cp
     }
 
 }
+
+/**/

@@ -1,13 +1,5 @@
-/**
- * @file Game.cpp
- * @author Vijay
- * @brief Provide all the game play resources to play the game and all provides cpu time to different states.
- * @version 0.1
- * @date 2019-03-01
- *
- * @copyright Copyright (c) 2019
- *
- */
+/**/
+
 #include "Game.hpp"
 #include "DEFINITIONS.hpp"
 #include "States/SplashState.hpp"
@@ -51,3 +43,5 @@ namespace cp
     }
 
 }
+
+/**/

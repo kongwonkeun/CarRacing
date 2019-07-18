@@ -1,13 +1,3 @@
-/**
- * @file ObjectPool.hpp
- * @author Vijay
- * @brief
- * @version 0.1
- * @date 2019-02-28
- *
- * @copyright Copyright (c) 2019
- *
- */
 #ifndef OBJECTPOOL_HPP
 #define OBJECTPOOL_HPP
 

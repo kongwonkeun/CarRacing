@@ -1,13 +1,5 @@
-/**
- * @file PlayerCar.cpp
- * @author Vijay
- * @brief PlayerCar.cpp provides Car object
- * @version 0.1
- * @date 2019-03-01
- *
- * @copyright Copyright (c) 2019
- *
- */
+/**/
+
 #include <iostream>
 #include <cmath>
 #include <time.h>
@@ -93,3 +85,5 @@ namespace cp
     }
 
 }
+
+/**/

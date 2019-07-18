@@ -1,3 +1,5 @@
+/**/
+
 #include "ResourceManagers/InputManager.hpp"
 
 namespace cp
@@ -33,3 +35,5 @@ namespace cp
     }
 
 }
+
+/**/

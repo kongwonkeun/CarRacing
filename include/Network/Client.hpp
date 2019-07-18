@@ -1,13 +1,3 @@
-/**
- * @file Client.hpp
- * @author Vijay
- * @brief Client class refers to a another pc connected over network
- * @version 0.1
- * @date 2019-02-26
- *
- * @copyright Copyright (c) 2019
- *
- */
 #ifndef CLIENT_HPP
 #define CLIENT_HPP
 

@@ -1,13 +1,3 @@
-/**
- * @file ClientRoom.hpp
- * @author Vijay
- * @brief The client room that is displayed on client's computer just before online game play
- * @version 0.1
- * @date 2019-02-28
- *
- * @copyright Copyright (c) 2019
- *
- */
 #ifndef CLIENT_ROOM_HPP
 #define CLIENT_ROOM_HPP
 

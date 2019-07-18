@@ -1,20 +1,8 @@
-/**
- * @file GameSimulator.hpp
- * @author Vijay
- * @brief A game simulator just like Game class but it get's its clock sync
- * and resource manager from object owner.
- * @version 0.1
- * @date 2019-02-26
- *
- * @copyright Copyright (c) 2019
- *
- */
 #ifndef GAME_SIMULATOR_HPP
 #define GAME_SIMULATOR_HPP
 
 #include "Game.hpp"
 #include <SFML/Graphics.hpp>
-#include "GameOverState.hpp"
 #include "DEFINITIONS.hpp"
 #include "Objects/PlayerCar.hpp"
 #include "Objects/Line.hpp"
