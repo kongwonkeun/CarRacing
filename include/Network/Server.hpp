@@ -19,7 +19,7 @@ namespace cp
     class Server
     {
     public:
-        using ID = long long int;
+        using ID = int;
         using key_input_type = std::pair<ID, std::vector<bool>>;
 
         Server(ID identity) : id(identity) {}
@@ -68,7 +68,7 @@ namespace cp
         sf::Socket::Status getLastStatus() const { return last_status; }
 
     private:
-        long long int id = 0;
+        ID id;
         sf::TcpSocket socket;
         sf::Socket::Status last_status = sf::Socket::Status::NotReady;
     };

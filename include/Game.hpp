@@ -7,6 +7,7 @@
 #include "ResourceManagers/InputManager.hpp"
 #include "ResourceManagers/AssetManager.hpp"
 #include "States/StateMachine.hpp"
+#include "DEFINITIONS.hpp"
 #include "NetworkManager.hpp"
 
 namespace cp
@@ -30,7 +31,7 @@ namespace cp
     private:
         GameDataRef data = std::make_shared<GameData>();
         sf::Clock clock;
-        const float delta = 1.0f / 60.0f;
+        const float delta = GAME_DELTA;
         void run();
     };
 }

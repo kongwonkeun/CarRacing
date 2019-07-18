@@ -13,8 +13,8 @@ namespace cp
         Bullet(GameDataRef _data, int car_num);
         ~Bullet();
         virtual void init(sf::Vector3f pos);
-        void drawSprite(const Line& line);
         virtual void update_car(float dt, const std::vector<Line>& lines, float segL);
+        void drawSprite(const Line& line);
         void handle_input();
 
         int frames = 0;

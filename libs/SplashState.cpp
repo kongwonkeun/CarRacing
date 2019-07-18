@@ -24,16 +24,17 @@ namespace cp
     void SplashState::handle_input(float delta) {
         sf::Event event;
         while (data->window.pollEvent(event)) {
-            if (sf::Event::Closed == event.type)
+            if (sf::Event::Closed == event.type) {
                 data->window.close();
+            }
         }
     }
 
     void SplashState::update(float delta) {
         if (timeover) return;
         if (clock.getElapsedTime().asSeconds() > SPLASH_STATE_SHOW_TIME) {
-            timeover = true;
             data->machine.add_state(StateRef(new MainMenuState(data)), true);
+            timeover = true;
         }
     }
 

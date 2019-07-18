@@ -14,9 +14,9 @@ namespace cp
     public:
         PlayerCar(GameDataRef _data, int _car_num, ID id);
         ~PlayerCar();
+        void handle_input(std::vector<bool> mask, float dt);
         void update_car(float dt, const std::vector<Line>& lines, float segL);
         void drawSprite(const Line& line);
-        void handle_input(std::vector<bool> mask, float dt);
     
         float friction = e_max_speed.z / 5;
         int img = 1;

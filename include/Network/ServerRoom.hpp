@@ -66,14 +66,16 @@ namespace cp
 
         virtual void update(float delta) {
             if (!update_required) return;
-            if (clock.getElapsedTime().asSeconds() > WAITING_ROOM_TIME) {
+            //if (clock.getElapsedTime().asSeconds() > WAITING_ROOM_TIME) {
+            if (join) {
                 JUST_WAIT = 0;
                 notify_clients();
                 game_data->machine.add_state(StateRef(new ServerState(game_data, clients_res)), true);
                 update_required = false;
             }
-            notify_clients();
-            check_incoming_connections();
+            else {
+                check_incoming_connections();
+            }
             //handle_dead_clients();
         }
 
@@ -83,17 +85,22 @@ namespace cp
 
     private:
         void check_incoming_connections() {
-            if (unassigned_id.size() == 0) return;
+            //if (unassigned_id.size() == 0) return;
             if (selector.wait(sf::milliseconds(1))) {
                 if (selector.isReady(listener)) {
-                    int unique_id = *unassigned_id.begin();
+                    //int unique_id = *unassigned_id.begin();
+                    int unique_id = ID_JOIN_PLAYER;
                     TcpClient_ptr client = TcpClient_ptr(new Client(unique_id));
+                    std::cout << "listen a join request from remote player" << std::endl;
+
                     if (listener.accept(client->get_socket()) == sf::Socket::Done) {
+                        std::cout << "remote player joined" << std::endl;
                         clients_res.insert(client);
                         sf::Packet packet; 
                         packet << unique_id;
                         client->get_socket().send(packet);
-                        unassigned_id.erase(unique_id);
+                        //unassigned_id.erase(unique_id);
+                        join = true;
                     }
                 }
             }
@@ -118,7 +125,6 @@ namespace cp
         }
 
         void notify_clients() {
-            std::cout << JUST_WAIT; //---- debug ----
             sf::Packet response;
             response << JUST_WAIT;
             for (auto client_ptr : clients_res) {
@@ -126,17 +132,18 @@ namespace cp
             }
         }
 
-        sf::Sprite background_sprite;
         GameDataRef game_data;
         std::set<TcpClient_ptr> clients_res;
         sf::TcpListener listener;
         sf::SocketSelector selector;
-        std::set<int> unassigned_id = { 123, 12331, 214231, 2332 };
+        sf::Sprite background_sprite;
+        std::set<int> unassigned_id = { 2, 3, 4, 5 };
         bool PORT_OPEN_SUCCESS = true;
         int JUST_WAIT = 1;
         sf::Clock clock;
         bool time_over = false;
         bool update_required = true;
+        bool join = false;
     };
 }
 

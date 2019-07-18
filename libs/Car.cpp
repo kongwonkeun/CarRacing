@@ -14,7 +14,7 @@ namespace cp
         );
         e_position = sf::Vector3f(0, 0, 0);
         e_speed = sf::Vector3f(0, 0, 0);
-        float max_speed = 400;
+        float max_speed = CAR_MAX_SPEED;
         e_max_speed    = sf::Vector3f(0, 0,  max_speed);
         e_acceleration = sf::Vector3f(0, 0,  max_speed / 5);
         e_decleration  = sf::Vector3f(0, 0, -max_speed / 5);
@@ -32,7 +32,7 @@ namespace cp
         if (health > 0) health -= 1;
         else if (health == 0) in_use = false;
         else health = 0;
-        e_speed.z = std::max(-50.0f, std::min(e_speed.z, e_max_speed.z));
+        e_speed.z = std::max(-50.0f, std::min(e_speed.z, e_max_speed.z)); // -50 < speed < max_speed
     }
 
 }

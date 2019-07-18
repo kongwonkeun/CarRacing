@@ -13,19 +13,9 @@ namespace cp
         BustedState(GameDataRef _data);
         ~BustedState();
         void init();
-        void draw(float delta);
+        void handle_input(float delta);
         void update(float delta);
-        void handle_input(float delta) {
-            sf::Event event;
-            while (data->window.pollEvent(event)) {
-                if (sf::Event::Closed == event.type) {
-                    data->window.close();
-                }
-                else if (data->input.is_sprite_clicked(menu_button_sprite, sf::Mouse::Left, data->window)) {
-                    data->machine.remove_state();
-                }
-            }
-        }
+        void draw(float delta);
 
     private:
         GameDataRef data;

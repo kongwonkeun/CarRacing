@@ -26,10 +26,10 @@ namespace cp
         void project(Line &line, float camX, float camY, float camZ, float camD);
         void draw(int count, const Camera& main_camera);
         void drawSprite(const Line &line);
-        int  get_grid_index(float distance);
         void bound_entity(cp::Car &car);
         void bound_entity(Camera& camera);
         void bound_entity(Bullet &bot);
+        int get_grid_index(float distance);
         int getRoadWidth() const;
         int getSegL() const;
         int getGridCount() const;
@@ -45,9 +45,9 @@ namespace cp
         sf::Sprite background_sprite;
         int width = SCREEN_WIDTH;
         int height = SCREEN_HEIGHT;
-        int N = 0; // Total Grid count
-        int roadW = 4000; // Width of the road(RealW)
-        int segL = 200; // segment length
+        int N = 0; // total grid count
+        int roadW = ROAD_WIDTH;
+        int segL = SEGMENT_LENGTH;
     };
 }
 

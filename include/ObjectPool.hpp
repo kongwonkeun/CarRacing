@@ -26,20 +26,24 @@ namespace cp
     {
     public:
         ObjectPool(size_t size) : max_pool_size(size) {}
-        ~ObjectPool() { obj_list.clear(); }
+        ~ObjectPool() {
+            obj_list.clear();
+        }
 
         T* getObject(GameDataRef _data, int car_num) {
             if (!obj_list.empty()) {
                 T* obj = obj_list.front();
                 obj_list.pop_front();
                 return obj;
-            } else if (obj_made < max_pool_size) {
+            }
+            else if (obj_made < max_pool_size) {
                 obj_made++;
                 return new T(_data, car_num);
-            } else {
+            } 
+            else
                 return NULL;
-            }
         }
+
         void returnObject(T* obj) {
             obj->reset();
             obj_list.push_back(obj);

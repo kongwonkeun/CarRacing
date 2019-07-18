@@ -11,7 +11,9 @@ namespace cp
         simulator.add_external_player(my_id);
         simulator.update_main_player(my_id);
         std::cout << "client id: " << my_id << std::endl;
-        //simulator.add_external_player(server->get_identity());
+        simulator.add_external_player(server->get_identity());
+        simulator.ext_inp_reg();
+        server->get_socket().setBlocking(false);
     }
 
     void ClientState::handle_input(float delta) {
@@ -20,21 +22,16 @@ namespace cp
             game_data->machine.remove_state();
             update_required = false;
         }
-        if (server->getLastStatus() == sf::Socket::Disconnected) {
-            game_data->machine.remove_state();
-            update_required = false;
-        }
         collect_inputs();
         use_collected_inputs();
-        //game_data->input.register_input(simulator.get_input());
         game_data->input.register_input(input_to_send);
         simulator.handle_input(delta);
     }
 
     void ClientState::update(float delta) {
         if (!update_required) return;
-        //get_network_snap();
-        //use_network_snap();
+        get_network_snap();
+        use_network_snap();
         simulator.update(delta);
     }
 

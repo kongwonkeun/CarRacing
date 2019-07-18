@@ -9,11 +9,13 @@ namespace cp
 
     void ServerState::init() {
         simulator.init();
-        simulator.add_external_player(12312234);
-        simulator.update_main_player(12312234);
+        simulator.add_external_player(ID_HOST_PLAYER);
+        simulator.update_main_player(ID_HOST_PLAYER);
         for (auto& client : clients) {
             std::cout << "client id: " << client->get_identity() << std::endl;
             simulator.add_external_player(client->get_identity());
+            simulator.ext_inp_reg();
+            client->get_socket().setBlocking(false);
         }
     }
 
@@ -31,9 +33,9 @@ namespace cp
 
     void ServerState::update(float delta) {
         if (!update_required) return;
+        simulator.update(delta);
         generate_outputs();
         use_generated_outputs();
-        simulator.update(delta);
     }
 
     void ServerState::draw(float delta) {

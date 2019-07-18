@@ -14,9 +14,9 @@ namespace cp
     public:
         StateMachine();
         ~StateMachine();
+        void process_state_change();
         void add_state(StateRef new_state, bool is_replacing = true);
         void remove_state();
-        void process_state_change();
         StateRef& get_active_state();
 
     private:

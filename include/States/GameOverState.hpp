@@ -14,8 +14,8 @@ namespace cp
         ~GameOverState();
         void init();
         void handle_input(float delta);
-        void draw(float delta);
         void update(float delta);
+        void draw(float delta);
 
         sf::Font font;
         sf::Text text;

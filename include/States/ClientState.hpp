@@ -21,6 +21,7 @@ namespace cp
     class ClientState : public State
     {
     public:
+        using ID = int;
         using Server_ptr = std::shared_ptr<Server>;
 
         ClientState(GameDataRef _data, Server_ptr server, int unique_id);
@@ -44,7 +45,7 @@ namespace cp
         Server_ptr server;
         GameSimulatorSnap snap;
         bool update_required = true;
-        int my_id;
+        ID my_id;
     };
 }
 

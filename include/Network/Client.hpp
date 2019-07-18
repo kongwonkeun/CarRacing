@@ -20,7 +20,7 @@ namespace cp
     class Client
     {
     public:
-        using ID = long long int;
+        using ID = int;
         using IP = std::string;
         using key_input_type = std::pair<ID, std::vector<bool>>;
 

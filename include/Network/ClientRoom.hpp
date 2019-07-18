@@ -25,6 +25,7 @@ namespace cp
     class ClientRoom : public State
     {
     public:
+        using ID = int;
         using Server_ptr = std::shared_ptr<Server>;
 
         ClientRoom(GameDataRef _data) : game_data(_data) {}
@@ -45,6 +46,7 @@ namespace cp
                 sf::Packet packet;
                 (*server_ptr).get_socket().receive(packet);
                 packet >> unique_id;
+                std::cout << "server connected and player id received: " << unique_id << std::endl;
             }
         }
 
@@ -132,9 +134,9 @@ namespace cp
         }
 
         void use_notification() {
-            std::cout << HAS_TO_WAIT; //---- debug ----
             if (HAS_TO_WAIT == 1) return;
             if (HAS_TO_WAIT == 0) {
+                std::cout << "server is ready to start playing" << std::endl;
                 game_data->machine.add_state(StateRef(new ClientState(game_data, server_ptr, unique_id)), true);
                 update_required = false;
             }
@@ -149,10 +151,10 @@ namespace cp
         GameDataRef game_data;
         Server_ptr server_ptr;
         sf::Sprite background_sprite;
-        int server_id = 12312234; // server id
-        int unique_id = 0;
         int HAS_TO_WAIT = 0;
         bool update_required = true;
+        ID server_id = ID_HOST_PLAYER;
+        ID unique_id = 0;
     };
 }
 

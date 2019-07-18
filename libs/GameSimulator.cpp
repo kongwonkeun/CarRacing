@@ -19,9 +19,7 @@ namespace cp
     void GameSimulator::init() {
         init_car_res();
         resource_store->assets.load_texture("Bullet", "../res/bullet.png");
-        for (int i = 0; i < TOTAL_BOTS; i++) {
-            add_bot_players();
-        }
+        add_bot_players();
         bot_inp_reg();
         map.init();
 
@@ -69,6 +67,10 @@ namespace cp
             }
         }
         AI_bot_output();
+        //---- kong ---- for test
+        //if (main_player_id == ID_HOST_PLAYER) {}
+        //if (main_player_id == ID_JOIN_PLAYER) { AI_ext_output(); }
+        //----
         update_controllable(delta);
 
         if (players_map.at(main_player_id).e_speed.z > 0) {
@@ -170,11 +172,9 @@ namespace cp
         float destH = h * line.W / 266;
         destX += destW * line.spriteX; // offsetX
         destY += destH * (-1); // offsetY
-
         float clipH = destY + destH - line.clip;
         if (clipH < 0) clipH = 0;
         if (clipH >= destH) return;
-
         s.setTextureRect(sf::IntRect(0, 0, w, static_cast<int>(h - h * clipH / destH)));
         s.setScale(destW / w, destH / h);
         s.setPosition(destX, destY);
@@ -188,25 +188,25 @@ namespace cp
     }
 
     void GameSimulator::use_snap(const GameSimulatorSnap& snap, bool is_forced) {
-        //ext_players_count = snap.ext_players_count;
-        //bot_players_count = snap.bot_players_count;
-        //players_map.clear();
+        ext_players_count = snap.ext_players_count;
+        bot_players_count = snap.bot_players_count;
+        players_map.clear();
         for (auto& player_i : snap.data) {
-            //players_map.insert(std::pair<ID, PlayerCar>(player_i.first, generate_bot(player_i.second, player_i.first)));
-            players_map.at(player_i.first).e_position.x = player_i.second.x;
-            players_map.at(player_i.first).e_position.y = player_i.second.y;
-            players_map.at(player_i.first).e_position.z = player_i.second.z;
-            players_map.at(player_i.first).e_speed.x = player_i.second.speed_x;
-            players_map.at(player_i.first).e_speed.y = player_i.second.speed_y;
-            players_map.at(player_i.first).e_speed.z = player_i.second.speed_z;
+            players_map.insert(std::pair<ID, PlayerCar>(player_i.first, generate_bot(player_i.second, player_i.first)));
         }
     }
 
     PlayerCar GameSimulator::generate_bot(const entity_info& info, ID id) {
-        PlayerCar car(resource_store, 5, id);
+        int carNum = 8;
+        if (id > 0) carNum = 5;
+        PlayerCar car(resource_store, carNum, id);
         car.e_position.x = info.x;
         car.e_position.y = info.y;
         car.e_position.z = info.z;
+        car.e_speed.x = info.speed_x;
+        car.e_speed.y = info.speed_y;
+        car.e_speed.z = info.speed_z;
+        car.id = id;
         return car;
     }
 

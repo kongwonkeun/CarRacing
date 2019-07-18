@@ -32,15 +32,13 @@
 #include "BustedState.hpp"
 #include <future>
 
-#define lli long long int
-
 namespace cp
 {
     class entity_info
     {
     public:
+        using ID = int;
         friend class GameSimulator;
-        using ID = long long int;
 
         entity_info() {}
         entity_info(cp::PlayerCar& car) {
@@ -52,13 +50,7 @@ namespace cp
             speed_z = car.getSpeed().z;
             id = car.id;
         }
-        /*
-        friend std::ofstream& operator << (std::ofstream& fout, const entity_info& entity_i) {
-            fout << "Position:" << entity_i.x << " " << entity_i.y << " " << entity_i.z << std::endl;
-            fout << "Speed   :" << entity_i.speed_x << " " << entity_i.speed_y << " " << entity_i.speed_z << std::endl;
-            return fout;
-        }
-        */
+
         friend sf::Packet& operator << (sf::Packet& fout, const entity_info& entity_i) {
             fout << entity_i.x << entity_i.y << entity_i.z;
             return fout;
@@ -72,7 +64,7 @@ namespace cp
     private:
         float x = 0, y = 0, z = 0;
         float speed_x = 0, speed_y = 0, speed_z = 0;
-        ID id;
+        ID id = 0;
     };
 
     enum class SnapFlag
@@ -84,8 +76,8 @@ namespace cp
     class GameSimulatorSnap
     {
     public:
+        using ID = int;
         friend class GameSimulator;
-        using ID = long long int;
 
         GameSimulatorSnap() {}
         GameSimulatorSnap(int a, int b, int c, int d, std::map<ID, PlayerCar>& players_map) {
@@ -132,7 +124,7 @@ namespace cp
     class GameSimulator
     {
     public:
-        using ID = long long int;
+        using ID = int;
         using input_type = Car::input_type;
         using input_return_type = std::pair<ID, input_type>;
         using CarRef = std::shared_ptr<PlayerCar>;
@@ -150,18 +142,6 @@ namespace cp
         float distance(entity_info& a, entity_info& b) { return ((a.x - b.x) * (a.x - b.x) + (a.z - b.z) * (a.z - b.z)); }
 
         void output(entity_info& a, entity_info& b, std::vector<bool>& input) {
-            /*
-            switch (rand() % 6) {
-            case 0: input.push_back(0); input.push_back(0); input.push_back(0); input.push_back(0); break;
-            case 1: input.push_back(1); input.push_back(0); input.push_back(0); input.push_back(0); break;
-            case 2: input.push_back(0); input.push_back(0); input.push_back(1); input.push_back(0); break;
-            case 3: input.push_back(1); input.push_back(0); input.push_back(1); input.push_back(0); break;
-            case 4: input.push_back(0); input.push_back(0); input.push_back(0); input.push_back(1); break;
-            case 5: input.push_back(1); input.push_back(0); input.push_back(0); input.push_back(1); break;
-            default:
-                break;
-            }
-            */
             if (rand() % 4 >= 2) {
                 input.push_back(0);
                 input.push_back(0);
@@ -188,19 +168,42 @@ namespace cp
             std::map<ID, entity_info> cars[2];
             for (auto& player_i : snap.data) {
                 if (player_i.first > 0)
-                    cars[0].insert(std::pair<lli, entity_info>(player_i.first, player_i.second));
+                    cars[0].insert(std::pair<ID, entity_info>(player_i.first, player_i.second));
                 else
-                    cars[1].insert(std::pair<lli, entity_info>(player_i.first, player_i.second));
+                    cars[1].insert(std::pair<ID, entity_info>(player_i.first, player_i.second));
             }
             std::vector<bool> input_for_bots;
             for (auto& bot : cars[1]) {
                 for (auto& player : cars[0]) {
                     output(bot.second, player.second, input_for_bots);
-                    resource_store->input.register_input(std::pair<lli, std::vector<bool>>(bot.first, input_for_bots));
+                    resource_store->input.register_input(std::pair<ID, std::vector<bool>>(bot.first, input_for_bots));
                     //---- kong ----
                     break;
                     //
                 }
+            }
+        }
+
+        void AI_ext_output() {
+            GameSimulatorSnap snap = get_current_snap(SnapFlag::NETWORK_SNAP);
+            std::pair<ID, entity_info> h;
+            std::pair<ID, entity_info> j;
+            for (auto& player_i : snap.data) {
+                if (player_i.first == ID_HOST_PLAYER) {
+                    h = std::pair<ID, entity_info>(player_i.first, player_i.second);
+                }
+                else if (player_i.first == ID_JOIN_PLAYER) {
+                    j = std::pair<ID, entity_info>(player_i.first, player_i.second);
+                }
+            }
+            std::vector<bool> input_for_bots;
+            if (main_player_id == ID_HOST_PLAYER) {
+                output(j.second, h.second, input_for_bots);
+                resource_store->input.register_input(std::pair<ID, std::vector<bool>>(j.first, input_for_bots));
+            }
+            else if (main_player_id == ID_JOIN_PLAYER) {
+                output(h.second, j.second, input_for_bots);
+                resource_store->input.register_input(std::pair<ID, std::vector<bool>>(h.first, input_for_bots));
             }
         }
 
@@ -225,8 +228,9 @@ namespace cp
         }
         */
         bool add_bot_players() {
-            ID id = -1 * bot_players_count - 1;
-            players_map.insert(std::pair<ID, PlayerCar>(id, PlayerCar(resource_store, 8, id)));
+            players_map.insert(std::pair<ID, PlayerCar>(ID_BOT_1, PlayerCar(resource_store, 8, ID_BOT_1)));
+            bot_players_count++;
+            players_map.insert(std::pair<ID, PlayerCar>(ID_BOT_2, PlayerCar(resource_store, 8, ID_BOT_2)));
             bot_players_count++;
             return true;
         }
@@ -266,13 +270,25 @@ namespace cp
             }
         }
 
+        void ext_inp_reg() {
+            input_type inp;
+            inp.push_back(1);
+            inp.push_back(0);
+            inp.push_back(0);
+            inp.push_back(0);
+            for (auto &player_i : players_map) {
+                if (player_i.first > 0)
+                    resource_store->input.register_input(input_return_type(player_i.first, inp));
+            }
+        }
+
         std::future<void> async_update[200];
 
     private:
         void drawSprite(Line &line);
 
         void init_car_res() {
-            for (int i = 0; i < TOTAL_CARS; i++) {
+            for (int i = 0; i < TOTAL_CAR_IMAGES; i++) {
                 resource_store->assets.load_texture("CarImage" + std::to_string(i), CAR_IMAGE_FILEPATH(i));
             }
             for (int i = 1; i <= 12; i++) {
@@ -321,7 +337,6 @@ namespace cp
             return players_map.at(id);
         }
 
-        ID main_player_id = -1;
         PercentageBar bar;
         Camera main_camera;
         GameMap map;
@@ -338,6 +353,7 @@ namespace cp
         sf::Text text[5];
         long long int score = 0;
         int current = 0;
+        ID main_player_id = 0;
     };
 }
 

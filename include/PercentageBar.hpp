@@ -24,9 +24,11 @@ namespace cp
         }
 
         void draw() {
-            if (percentage >= 0) rect2.setScale(percentage / 100, 1);
-            else percentage = 0;
-            if (percentage > 75) rect2.setFillColor(sf::Color::Green);
+            if (percentage > 0) rect2.setScale(percentage / 100, 1);
+            else {
+                percentage = 0;
+            }
+            if      (percentage > 75) rect2.setFillColor(sf::Color::Green);
             else if (percentage > 50 && percentage <= 75) rect2.setFillColor(sf::Color(103, 255, 153));
             else if (percentage > 25 && percentage <= 50) rect2.setFillColor(sf::Color(255, 102, 102));
             else if (percentage > 0  && percentage <= 25) rect2.setFillColor(sf::Color::Red);
@@ -38,7 +40,7 @@ namespace cp
 
     private:
         GameDataRef data;
-        sf::RectangleShape rect1,rect2;
+        sf::RectangleShape rect1, rect2;
     };
 }
 
