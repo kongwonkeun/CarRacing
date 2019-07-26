@@ -1,9 +1,21 @@
-﻿  ClientState.cpp
+﻿  AssetManager.cpp
+  Bullet.cpp
+  BustedState.cpp
+  Car.cpp
+  ClientState.cpp
+  Game.cpp
+  GameMap.cpp
   GameSimulator.cpp
+  InputManager.cpp
   MainMenuState.cpp
+  PlayerCar.cpp
   ServerState.cpp
+  SplashState.cpp
+  StateMachine.cpp
+  main.cpp
   코드를 생성하고 있습니다.
-  Previous IPDB not found, fall back to full compilation.
-  All 2636 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  344 of 2636 functions (13.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    29 functions had inline decision re-evaluated but remain unchanged
   코드를 생성했습니다.
-  CarRacing.vcxproj -> E:\kprovs\CarRacing\bin\CarRacing.exe
+  CarRacing.vcxproj -> E:\Kprovs\CarRacing\bin\CarRacing.exe
