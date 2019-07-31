@@ -1,14 +1,15 @@
 #ifndef SERVER_STATE_HPP
 #define SERVER_STATE_HPP
 
-#include "States/State.hpp"
-#include "Game.hpp"
-#include "States/GameSimulator.hpp"
-#include "Network/Client.hpp"
 #include <map>
 #include <vector>
 #include <fstream>
 #include <set>
+#include "States/State.hpp"
+#include "States/GameSimulator.hpp"
+#include "Network/Client.hpp"
+#include "Game.hpp"
+#include "Type.hpp"
 
 namespace cp
 {
@@ -35,7 +36,7 @@ namespace cp
         GameDataRef game_data;
         GameSimulator simulator;
         GameSimulatorSnap temp_snap;
-        std::vector<Client::key_input_type> inputs;
+        std::vector<key_input_type> inputs;
         std::set<TcpClient_ptr> clients;
         bool update_required = true;
     };

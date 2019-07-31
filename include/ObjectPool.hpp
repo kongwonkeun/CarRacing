@@ -1,13 +1,13 @@
 #ifndef OBJECTPOOL_HPP
 #define OBJECTPOOL_HPP
 
-#include <SFML/Graphics.hpp>
 #include <list>
 #include <iostream>
 #include <memory>
+#include "SFML/Graphics.hpp"
 #include "Objects/Car.hpp"
-#include "Game.hpp"
 #include "Objects/Bullet.hpp"
+#include "Game.hpp"
 
 namespace cp
 {

@@ -1,9 +1,9 @@
 #ifndef BULLET_HPP
 #define BULLET_HPP
 
+#include <vector>
 #include "Car.hpp"
 #include "Camera.hpp"
-#include <vector>
 
 namespace cp
 {

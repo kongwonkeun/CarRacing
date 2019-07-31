@@ -2,16 +2,16 @@
 #define CLIENT_STATE_HPP
 
 #include "States/State.hpp"
-#include "Game.hpp"
 #include "States/GameSimulator.hpp"
 #include "Network/Server.hpp"
+#include "Game.hpp"
+#include "Type.hpp"
 
 namespace cp 
 {
     class ClientState : public State
     {
     public:
-        using ID = int;
         using Server_ptr = std::shared_ptr<Server>;
 
         ClientState(GameDataRef _data, Server_ptr server, int unique_id);
@@ -31,7 +31,7 @@ namespace cp
 
         GameDataRef game_data;
         GameSimulator simulator;
-        GameSimulator::input_return_type input_to_send;
+        input_return_type input_to_send;
         Server_ptr server;
         GameSimulatorSnap snap;
         bool update_required = true;

@@ -1,8 +1,8 @@
 #ifndef PERCENTAGEBAR_HPP
 #define PERCENTAGEBAR_HPP
 
-#include<SFML/Graphics.hpp>
-#include"Game.hpp"
+#include "SFML/Graphics.hpp"
+#include "Game.hpp"
 
 namespace cp
 {

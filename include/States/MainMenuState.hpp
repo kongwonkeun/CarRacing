@@ -1,7 +1,7 @@
 #ifndef MAINMENUSTATE_HPP
 #define MAINMENUSTATE_HPP
 
-#include <SFML/Graphics.hpp>
+#include "SFML/Graphics.hpp"
 #include "State.hpp"
 #include "Game.hpp"
 

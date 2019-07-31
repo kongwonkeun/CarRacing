@@ -1,15 +1,15 @@
 #ifndef SERVER_ROOM_HPP
 #define SERVER_ROOM_HPP
 
-#include "States/State.hpp"
-#include "Game.hpp"
-#include "Network/Client.hpp"
 #include <iostream>
 #include <cstring>
-#include "States/ServerState.hpp"
 #include <set>
 #include <fstream>
 #include <memory>
+#include "States/State.hpp"
+#include "States/ServerState.hpp"
+#include "Network/Client.hpp"
+#include "Game.hpp"
 
 namespace cp
 {
@@ -56,7 +56,6 @@ namespace cp
 
         virtual void update(float delta) {
             if (!update_required) return;
-            //if (clock.getElapsedTime().asSeconds() > WAITING_ROOM_TIME) {
             if (join) {
                 JUST_WAIT = 0;
                 notify_clients();
@@ -66,7 +65,6 @@ namespace cp
             else {
                 check_incoming_connections();
             }
-            //handle_dead_clients();
         }
 
         virtual void draw(float delta) {}
@@ -75,10 +73,8 @@ namespace cp
 
     private:
         void check_incoming_connections() {
-            //if (unassigned_id.size() == 0) return;
             if (selector.wait(sf::milliseconds(1))) {
                 if (selector.isReady(listener)) {
-                    //int unique_id = *unassigned_id.begin();
                     int unique_id = ID_JOIN_PLAYER;
                     TcpClient_ptr client = TcpClient_ptr(new Client(unique_id));
                     std::cout << "listen a join request from remote player" << std::endl;
@@ -89,7 +85,6 @@ namespace cp
                         sf::Packet packet; 
                         packet << unique_id;
                         client->get_socket().send(packet);
-                        //unassigned_id.erase(unique_id);
                         join = true;
                     }
                 }

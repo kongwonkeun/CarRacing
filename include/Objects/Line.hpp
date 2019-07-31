@@ -1,7 +1,7 @@
 #ifndef LINE_HPP
 #define LINE_HPP
 
-#include <SFML/Graphics.hpp>
+#include "SFML/Graphics.hpp"
 
 namespace cp
 {

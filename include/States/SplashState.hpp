@@ -1,9 +1,9 @@
 #ifndef SPLASHSTATE_HPP
 #define SPLASHSTATE_HPP
 
+#include "SFML/Graphics.hpp"
 #include "State.hpp"
 #include "Game.hpp"
-#include <SFML/Graphics.hpp>
 
 namespace cp
 {

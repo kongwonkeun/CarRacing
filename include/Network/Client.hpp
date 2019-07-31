@@ -2,18 +2,15 @@
 #define CLIENT_HPP
 
 #include <string>
-#include "States/GameSimulator.hpp"
 #include "SFML/Network.hpp"
+#include "States/GameSimulator.hpp"
+#include "Type.hpp"
 
 namespace cp
 {
     class Client
     {
     public:
-        using ID = int;
-        using IP = std::string;
-        using key_input_type = std::pair<ID, std::vector<bool>>;
-
         Client(ID identity) : id(identity) {}
         ~Client() {}
 

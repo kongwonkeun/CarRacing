@@ -1,12 +1,12 @@
 #ifndef COLLISION_HPP
 #define COLLISION_HPP
 
-#include <SFML/Graphics.hpp>
-#include <Objects/Car.hpp>
-#include <Objects/GameMap.hpp>
 #include <vector>
 #include <mutex>
 #include <future>
+#include "SFML/Graphics.hpp"
+#include "Objects/Car.hpp"
+#include "Objects/GameMap.hpp"
 
 namespace cp
 {

@@ -2,7 +2,7 @@
 #define DEFINITIONS_HPP
 
 #include <iostream>
-#include <SFML/Graphics.hpp>
+#include "SFML/Graphics.hpp"
 
 #define SPLASH_STATE_SHOW_TIME 1.0
 #define SPLASH_SCENE_BACKGROUND_FILEPATH "../res/splashScreen.png"
@@ -34,7 +34,7 @@ const int SCREEN_HEIGHT = sf::VideoMode::getDesktopMode().height;
 #define CAR_HEALTH 100
 #define CAR_MASS 100
 #define CAR_CENTRIFUGAL 0.5f
-#define CAR_MAX_SPEED 400
+#define CAR_MAX_SPEED 600
 
 #define GAME_DELTA (1.0f / 60.f)
 

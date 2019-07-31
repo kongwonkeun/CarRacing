@@ -4,16 +4,13 @@
 #include "Game.hpp"
 #include "DEFINITIONS.hpp"
 #include "Line.hpp"
-#include <vector>
+#include "Type.hpp"
 
 namespace cp
 {
     class Car
     {
     public:
-        using input_type = std::vector<bool>;
-        using ID = int;
-
         Car(GameDataRef _data, int car_num, ID id);
         ~Car();
         virtual void init(sf::Vector3f pos) {}
@@ -31,9 +28,7 @@ namespace cp
         sf::Vector3f e_acceleration;
         sf::Vector3f e_decleration;
         sf::Vector3f e_max_speed;
-        bool in_use = false;
-        bool l = false;
-        bool r = false;
+        bool  in_use = false;
         float centrifugal = CAR_CENTRIFUGAL;
         float car_mass = CAR_MASS;
         float health = CAR_HEALTH;

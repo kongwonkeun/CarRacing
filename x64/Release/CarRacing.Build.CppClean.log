@@ -1,6 +1,7 @@
 e:\kprovs\carracing\bin\carracing.ipdb
 e:\kprovs\carracing\bin\carracing.iobj
 e:\kprovs\carracing\x64\release\vc142.pdb
+e:\kprovs\carracing\x64\release\sensor.obj
 e:\kprovs\carracing\x64\release\main.obj
 e:\kprovs\carracing\x64\release\statemachine.obj
 e:\kprovs\carracing\x64\release\splashstate.obj
@@ -9,7 +10,6 @@ e:\kprovs\carracing\x64\release\playercar.obj
 e:\kprovs\carracing\x64\release\mainmenustate.obj
 e:\kprovs\carracing\x64\release\inputmanager.obj
 e:\kprovs\carracing\x64\release\gamesimulator.obj
-e:\kprovs\carracing\x64\release\gameoverstate.obj
 e:\kprovs\carracing\x64\release\gamemap.obj
 e:\kprovs\carracing\x64\release\game.obj
 e:\kprovs\carracing\x64\release\clientstate.obj
@@ -24,5 +24,6 @@ e:\kprovs\carracing\x64\release\carracing.tlog\cl.command.1.tlog
 e:\kprovs\carracing\x64\release\carracing.tlog\cl.read.1.tlog
 e:\kprovs\carracing\x64\release\carracing.tlog\cl.write.1.tlog
 e:\kprovs\carracing\x64\release\carracing.tlog\link.command.1.tlog
+e:\kprovs\carracing\x64\release\carracing.tlog\link.delete.1.tlog
 e:\kprovs\carracing\x64\release\carracing.tlog\link.read.1.tlog
 e:\kprovs\carracing\x64\release\carracing.tlog\link.write.1.tlog

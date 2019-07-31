@@ -1,31 +1,32 @@
 #ifndef GAME_SIMULATOR_HPP
 #define GAME_SIMULATOR_HPP
 
-#include "Game.hpp"
-#include <SFML/Graphics.hpp>
-#include "DEFINITIONS.hpp"
-#include "Objects/PlayerCar.hpp"
-#include "Objects/Line.hpp"
-#include "Physics/Collision.hpp"
-#include "Objects/Camera.hpp"
-#include "Objects/GameMap.hpp"
 #include <memory>
 #include <fstream>
 #include <set>
-#include <SFML/Network.hpp>
-#include "PercentageBar.hpp"
-#include "Objects/Bullet.hpp"
-#include "ObjectPool.hpp"
-#include "States/MainMenuState.hpp"
-#include "BustedState.hpp"
 #include <future>
+#include "SFML/Graphics.hpp"
+#include "SFML/Network.hpp"
+#include "Physics/Collision.hpp"
+#include "Objects/PlayerCar.hpp"
+#include "Objects/Line.hpp"
+#include "Objects/Camera.hpp"
+#include "Objects/GameMap.hpp"
+#include "Objects/Bullet.hpp"
+#include "States/MainMenuState.hpp"
+#include "ObjectPool.hpp"
+#include "BustedState.hpp"
+#include "PercentageBar.hpp"
+#include "DEFINITIONS.hpp"
+#include "Game.hpp"
+#include "Sensor.hpp"
+#include "Type.hpp"
 
 namespace cp
 {
     class entity_info
     {
     public:
-        using ID = int;
         friend class GameSimulator;
 
         entity_info() {}
@@ -64,7 +65,6 @@ namespace cp
     class GameSimulatorSnap
     {
     public:
-        using ID = int;
         friend class GameSimulator;
 
         GameSimulatorSnap() {}
@@ -90,13 +90,13 @@ namespace cp
 
         friend sf::Packet& operator >> (sf::Packet& fin, GameSimulatorSnap& snap) {
             sf::Uint64 size;
-            GameSimulatorSnap::ID first;
+            ID first;
             entity_info second;
             snap.data.clear();
             fin >> snap.ext_players_count >> snap.bot_players_count >> size;
             for (int i = 0; i < size; i++) {
                 fin >> first >> second;
-                snap.data.insert(std::pair<GameSimulatorSnap::ID, entity_info>(first, second));
+                snap.data.insert(std::pair<ID, entity_info>(first, second));
             }
             return fin;
         }
@@ -112,9 +112,6 @@ namespace cp
     class GameSimulator
     {
     public:
-        using ID = int;
-        using input_type = Car::input_type;
-        using input_return_type = std::pair<ID, input_type>;
         using CarRef = std::shared_ptr<PlayerCar>;
 
         GameSimulator(GameDataRef res_store);
@@ -129,7 +126,7 @@ namespace cp
         PlayerCar generate_bot(const entity_info& info, ID id);
         float distance(entity_info& a, entity_info& b) { return ((a.x - b.x) * (a.x - b.x) + (a.z - b.z) * (a.z - b.z)); }
 
-        void output(entity_info& a, entity_info& b, std::vector<bool>& input) {
+        void output(entity_info& a, entity_info& b, input_type& input) {
             if (rand() % 4 >= 2) {
                 input.push_back(0);
                 input.push_back(0);
@@ -160,11 +157,11 @@ namespace cp
                 else
                     cars[1].insert(std::pair<ID, entity_info>(player_i.first, player_i.second));
             }
-            std::vector<bool> input_for_bots;
+            input_type input_for_bots;
             for (auto& bot : cars[1]) {
                 for (auto& player : cars[0]) {
                     output(bot.second, player.second, input_for_bots);
-                    resource_store->input.register_input(std::pair<ID, std::vector<bool>>(bot.first, input_for_bots));
+                    resource_store->input.register_input(register_input_type(bot.first, input_for_bots));
                     //---- kong ----
                     break;
                     //
@@ -184,14 +181,14 @@ namespace cp
                     j = std::pair<ID, entity_info>(player_i.first, player_i.second);
                 }
             }
-            std::vector<bool> input_for_bots;
+            input_type input_for_bots;
             if (main_player_id == ID_HOST_PLAYER) {
                 output(j.second, h.second, input_for_bots);
-                resource_store->input.register_input(std::pair<ID, std::vector<bool>>(j.first, input_for_bots));
+                resource_store->input.register_input(register_input_type(j.first, input_for_bots));
             }
             else if (main_player_id == ID_JOIN_PLAYER) {
                 output(h.second, j.second, input_for_bots);
-                resource_store->input.register_input(std::pair<ID, std::vector<bool>>(h.first, input_for_bots));
+                resource_store->input.register_input(register_input_type(h.first, input_for_bots));
             }
         }
 
@@ -237,19 +234,30 @@ namespace cp
             else return false;
         }
 
+        //---- kong ---- need to change for k-roller
         input_return_type get_input() {
             input_return_type input;
             input.first = main_player_id;
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))    input.second.push_back(1);
-            else input.second.push_back(0);
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))  input.second.push_back(1);
-            else input.second.push_back(0);
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))  input.second.push_back(1);
-            else input.second.push_back(0);
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) input.second.push_back(1);
-            else input.second.push_back(0);
+            if (G_sensor->in_use) {
+                input.second.push_back(G_sensor->speed);
+                input.second.push_back(0);
+                if      (G_sensor->direction < 0) { input.second.push_back(1); input.second.push_back(0); }
+                else if (G_sensor->direction > 0) { input.second.push_back(0); input.second.push_back(1); }
+                else { input.second.push_back(0); input.second.push_back(0); }
+            }
+            else {
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))    input.second.push_back(1);
+                else input.second.push_back(0);
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))  input.second.push_back(1);
+                else input.second.push_back(0);
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))  input.second.push_back(1);
+                else input.second.push_back(0);
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) input.second.push_back(1);
+                else input.second.push_back(0);
+            }
             return input;
         }
+        //----
 
         void focus_on(ID id) {
             if (players_map.find(id) != players_map.end()) {

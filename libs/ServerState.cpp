@@ -2,6 +2,7 @@
 
 #include "States/ServerState.hpp"
 #include "Network/ServerRoom.hpp"
+#include "Type.hpp"
 
 namespace cp
 {
@@ -47,7 +48,7 @@ namespace cp
     void ServerState::collect_network_inputs() {
         inputs.clear();
         for (auto& client : clients) {
-            Client::key_input_type temp;
+            key_input_type temp;
             (*client) >> temp;
             inputs.push_back(std::move(temp));
         }

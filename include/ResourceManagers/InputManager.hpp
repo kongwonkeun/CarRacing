@@ -1,18 +1,15 @@
 #ifndef INPUTMANAGER_HPP
 #define INPUTMANAGER_HPP
 
-#include <SFML/Graphics.hpp>
 #include <map>
+#include "SFML/Graphics.hpp"
+#include "Type.hpp"
 
 namespace cp
 {
     class InputManager
     {
     public:
-        using ID = int;
-        using input_type = std::vector<bool>;
-        using register_input_type = std::pair<ID, input_type>;
-
         InputManager();
         ~InputManager();
         void register_input(register_input_type input_pair);

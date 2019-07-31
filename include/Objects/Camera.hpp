@@ -1,10 +1,10 @@
 #ifndef CAMERA_HPP
 #define CAMERA_HPP
 
-#include "Line.hpp"
-#include <SFML/Graphics.hpp>
-#include "Car.hpp"
 #include <thread>
+#include "SFML/Graphics.hpp"
+#include "Line.hpp"
+#include "Car.hpp"
 
 namespace cp
 {

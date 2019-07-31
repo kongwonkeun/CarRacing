@@ -1,14 +1,15 @@
 #ifndef CLIENT_ROOM_HPP
 #define CLIENT_ROOM_HPP
 
-#include "States/State.hpp"
-#include "Game.hpp"
-#include "Network/Server.hpp"
 #include <iostream>
 #include <fstream>
 #include <cstring>
 #include <memory>
+#include "States/State.hpp"
+#include "Network/Server.hpp"
 #include "States/ClientState.hpp"
+#include "Game.hpp"
+#include "Type.hpp"
 
 namespace cp
 {

@@ -59,10 +59,6 @@ namespace cp
             }
         }
         AI_bot_output();
-        //---- kong ---- for test
-        //if (main_player_id == ID_HOST_PLAYER) {}
-        //if (main_player_id == ID_JOIN_PLAYER) { AI_ext_output(); }
-        //----
         update_controllable(delta);
 
         if (players_map.at(main_player_id).e_speed.z > 0) {

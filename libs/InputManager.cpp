@@ -30,7 +30,7 @@ namespace cp
         mp[input_pair.first] = input_pair.second;
     }
 
-    InputManager::input_type InputManager::get_mask(ID id) {
+    input_type InputManager::get_mask(ID id) {
         return mp[id];
     }
 

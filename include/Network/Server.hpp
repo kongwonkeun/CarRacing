@@ -2,15 +2,13 @@
 #define SERVER_HPP
 
 #include "States/GameSimulator.hpp"
+#include "Type.hpp"
 
 namespace cp
 {
     class Server
     {
     public:
-        using ID = int;
-        using key_input_type = std::pair<ID, std::vector<bool>>;
-
         Server(ID identity) : id(identity) {}
         ~Server() {}
 

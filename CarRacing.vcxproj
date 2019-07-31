@@ -130,6 +130,8 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>E:\Kprovs\CarRacing\include;E:\Kprovs\CarRacing\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <CompileAsManaged>false</CompileAsManaged>
+      <ExceptionHandling>Sync</ExceptionHandling>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -155,6 +157,7 @@
     <ClCompile Include="libs\SplashState.cpp" />
     <ClCompile Include="libs\StateMachine.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Sensor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\DEFINITIONS.hpp" />
@@ -174,6 +177,7 @@
     <ClInclude Include="include\Physics\Collision.hpp" />
     <ClInclude Include="include\ResourceManagers\AssetManager.hpp" />
     <ClInclude Include="include\ResourceManagers\InputManager.hpp" />
+    <ClInclude Include="include\Sensor.hpp" />
     <ClInclude Include="include\States\BustedState.hpp" />
     <ClInclude Include="include\States\ClientState.hpp" />
     <ClInclude Include="include\States\GameSimulator.hpp" />
@@ -182,6 +186,7 @@
     <ClInclude Include="include\States\SplashState.hpp" />
     <ClInclude Include="include\States\State.hpp" />
     <ClInclude Include="include\States\StateMachine.hpp" />
+    <ClInclude Include="include\Type.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

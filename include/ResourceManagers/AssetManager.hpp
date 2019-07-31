@@ -2,7 +2,7 @@
 #define ASSETMANAGER_HPP
 
 #include <map>
-#include <SFML/Graphics.hpp>
+#include "SFML/Graphics.hpp"
 
 namespace cp
 {

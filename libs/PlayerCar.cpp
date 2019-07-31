@@ -7,6 +7,7 @@
 #include "Objects/PlayerCar.hpp"
 #include "DEFINITIONS.hpp"
 #include "fstream"
+#include "Sensor.hpp"
 
 namespace cp
 {
@@ -26,12 +27,19 @@ namespace cp
     PlayerCar::~PlayerCar() {
     }
 
-    void PlayerCar::handle_input(std::vector<bool> mask, float dt) {
+    void PlayerCar::handle_input(input_type mask, float dt) {
         float speedRatio = std::abs(e_speed.z / e_max_speed.z);
         float dx = 5 * dt * speedRatio;
 
         //---- kong ---- need to change for k-roller
-        if      (mask[0]) { e_speed.z += (e_speed.z == 0) ? 15 : (e_acceleration.z * dt); }
+        if      (mask[0]) {
+            if (G_sensor->in_use &&  mask[0] > 1) {
+                e_speed.z  = (float)(mask[0] / 2);
+            }
+            else {
+                e_speed.z += (e_speed.z == 0) ? 15 : (e_acceleration.z * dt);
+            }
+        }
         else if (mask[1]) { e_speed.z += (e_speed.z > 15 || e_speed.z < -15 ) ? e_decleration.z * dt : (e_speed.z > 0 ? -e_speed.z : -15); }
         if      (mask[2]) { e_position.x -= dx; }
         else if (mask[3]) { e_position.x += dx; }
