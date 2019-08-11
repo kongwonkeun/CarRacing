@@ -7,6 +7,7 @@
 #include <future>
 #include "SFML/Graphics.hpp"
 #include "SFML/Network.hpp"
+#include "SFML/Audio.hpp"
 #include "Physics/Collision.hpp"
 #include "Objects/PlayerCar.hpp"
 #include "Objects/Line.hpp"
@@ -117,6 +118,7 @@ namespace cp
         GameSimulator(GameDataRef res_store);
         ~GameSimulator();
         void init();
+        void stop();
         void handle_input(float delta);
         void update(float delta);
         void draw(float delta);
@@ -168,7 +170,7 @@ namespace cp
                 }
             }
         }
-
+        /*
         void AI_ext_output() {
             GameSimulatorSnap snap = get_current_snap(SnapFlag::NETWORK_SNAP);
             std::pair<ID, entity_info> h;
@@ -191,7 +193,7 @@ namespace cp
                 resource_store->input.register_input(register_input_type(h.first, input_for_bots));
             }
         }
-
+        */
         static void update_bullets(Bullet *itr, GameMap *mapp, float *delta) {
             mapp->bound_entity(*itr);
             itr->update_car(*delta, mapp->lines, static_cast<float>(mapp->getSegL()));
@@ -350,6 +352,8 @@ namespace cp
         long long int score = 0;
         int current = 0;
         ID main_player_id = 0;
+        sf::Sound sound;
+        sf::SoundBuffer soundBuffer;
     };
 }
 

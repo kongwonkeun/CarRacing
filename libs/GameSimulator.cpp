@@ -36,6 +36,17 @@ namespace cp
             sf::Color::White,
             sf::Color::Black
         );
+        if (!soundBuffer.loadFromFile("../res/Car-Theft-101.wav")) {
+            //
+        }
+        sound.setBuffer(soundBuffer);
+        sound.setLoop(true);
+        sound.play();
+    }
+
+    void GameSimulator::stop() {
+        sound.setLoop(false);
+        sound.stop();
     }
     
     void GameSimulator::handle_input(float delta) {
@@ -45,6 +56,7 @@ namespace cp
                 resource_store->window.close();
             }
             else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+                stop();
                 resource_store->machine.add_state(StateRef(new MainMenuState(resource_store)), true);
             }
             else if (sf::Keyboard::isKeyPressed(sf::Keyboard::B)) {
@@ -114,6 +126,7 @@ namespace cp
 
         bar.percentage = players_map.at(main_player_id).health;
         if (players_map.at(main_player_id).health == 0) {
+            stop();
             resource_store->machine.add_state(StateRef(new BustedState(resource_store)), true);
         }
         text[1].setString(std::to_string((int)score));
@@ -154,15 +167,17 @@ namespace cp
         sf::Sprite s = line.sprite;
         int w = s.getTextureRect().width;
         int h = s.getTextureRect().height;
-        float destX = line.X + line.scale * line.spriteX * map.getScreenWidth() / 2;
+        float destX = line.X + line.scale * line.spriteX * SCREEN_WIDTH / 2;
         float destY = line.Y + 4;
         float destW = w * line.W / 266;
         float destH = h * line.W / 266;
         destX += destW * line.spriteX; // offsetX
-        destY += destH * (-1); // offsetY
+        destY -= destH; // offsetY
+
         float clipH = destY + destH - line.clip;
         if (clipH < 0) clipH = 0;
         if (clipH >= destH) return;
+
         s.setTextureRect(sf::IntRect(0, 0, w, static_cast<int>(h - h * clipH / destH)));
         s.setScale(destW / w, destH / h);
         s.setPosition(destX, destY);

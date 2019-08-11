@@ -34,7 +34,7 @@ const int SCREEN_HEIGHT = sf::VideoMode::getDesktopMode().height;
 #define CAR_HEALTH 100
 #define CAR_MASS 100
 #define CAR_CENTRIFUGAL 0.5f
-#define CAR_MAX_SPEED 600
+#define CAR_MAX_SPEED 400
 
 #define GAME_DELTA (1.0f / 60.f)
 

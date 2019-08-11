@@ -52,25 +52,6 @@ namespace cp
         line.W = line.scale * roadW * width / 2;
     }
 
-    void GameMap::drawSprite(const Line& line) {
-        sf::Sprite s = line.sprite;
-        int w = s.getTextureRect().width;
-        int h = s.getTextureRect().height;
-        float destX = line.X + line.scale * line.spriteX * width / 2;
-        float destY = line.Y + 4;
-        float destW = w * line.W / 266;
-        float destH = h * line.W / 266;
-        destX += destW * line.spriteX; // offsetX
-        destY += destH * (-1); // offsetY
-        float clipH = destY + destH - line.clip;
-        if (clipH < 0) clipH = 0;
-        if (clipH >= destH) return;
-        s.setTextureRect(sf::IntRect(0, 0, w, static_cast<int>(h - h * clipH / destH)));
-        s.setScale(destW / w, destH / h);
-        s.setPosition(destX, destY);
-        data->window.draw(s);
-    }
-
     void GameMap::draw(const int count, const Camera& camera) {
         data->window.draw(background_sprite);
         Camera main_camera = camera;
@@ -142,8 +123,6 @@ namespace cp
     int GameMap::getRoadWidth() const { return roadW; }
     int GameMap::getSegL() const { return segL; }
     int GameMap::getGridCount() const { return N; }
-    int GameMap::GameMap::getScreenWidth() const { return width; }
-    int GameMap::getScreenHeight() const { return height; }
 
 }
 
