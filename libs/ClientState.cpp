@@ -16,6 +16,7 @@ namespace cp
         simulator.add_external_player(server->get_identity());
         simulator.ext_inp_reg();
         server->get_socket().setBlocking(false);
+        update_required = true;
     }
 
     void ClientState::handle_input(float delta) {

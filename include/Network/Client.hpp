@@ -23,7 +23,7 @@ namespace cp
 
         friend Client& operator >> (Client& client, key_input_type& labelled_input) {
             sf::Uint64 size;
-            bool res;
+            int res;
             sf::Packet packet;
             client.recieve_packet(packet);
             if (client.getLastStatus() == sf::Socket::Done) {

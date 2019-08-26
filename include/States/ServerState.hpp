@@ -38,7 +38,7 @@ namespace cp
         GameSimulatorSnap temp_snap;
         std::vector<key_input_type> inputs;
         std::set<TcpClient_ptr> clients;
-        bool update_required = true;
+        bool update_required = false;
     };
 }
 

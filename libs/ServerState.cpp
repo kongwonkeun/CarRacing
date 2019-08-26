@@ -20,6 +20,7 @@ namespace cp
             simulator.ext_inp_reg();
             client->get_socket().setBlocking(false);
         }
+        update_required = true;
     }
 
     void ServerState::handle_input(float delta) {

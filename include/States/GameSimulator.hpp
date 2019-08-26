@@ -170,30 +170,7 @@ namespace cp
                 }
             }
         }
-        /*
-        void AI_ext_output() {
-            GameSimulatorSnap snap = get_current_snap(SnapFlag::NETWORK_SNAP);
-            std::pair<ID, entity_info> h;
-            std::pair<ID, entity_info> j;
-            for (auto& player_i : snap.data) {
-                if (player_i.first == ID_HOST_PLAYER) {
-                    h = std::pair<ID, entity_info>(player_i.first, player_i.second);
-                }
-                else if (player_i.first == ID_JOIN_PLAYER) {
-                    j = std::pair<ID, entity_info>(player_i.first, player_i.second);
-                }
-            }
-            input_type input_for_bots;
-            if (main_player_id == ID_HOST_PLAYER) {
-                output(j.second, h.second, input_for_bots);
-                resource_store->input.register_input(register_input_type(j.first, input_for_bots));
-            }
-            else if (main_player_id == ID_JOIN_PLAYER) {
-                output(h.second, j.second, input_for_bots);
-                resource_store->input.register_input(register_input_type(h.first, input_for_bots));
-            }
-        }
-        */
+
         static void update_bullets(Bullet *itr, GameMap *mapp, float *delta) {
             mapp->bound_entity(*itr);
             itr->update_car(*delta, mapp->lines, static_cast<float>(mapp->getSegL()));

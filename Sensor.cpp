@@ -93,8 +93,8 @@ void Sensor::ReadStateMachine(int b)
     }
     if (_s == 10) {
         if (_d == _d_last) {
-            if (_d > 17) { direction = -1; }
-            else if (_d < 15) { direction = 1; }
+            if (_d > 20) { direction = -1; }
+            else if (_d < 18) { direction = 1; }
             else { direction = 0; }
             return;
         }

@@ -1,0 +1,12 @@
+
+x64/Release/vc142.pdb
+x64/Release/StateMachine.obj
+x64/Release/StateMachine.obj
+x64/Release/ServerState.obj
+x64/Release/Sensor.obj
+x64/Release/ServerState.obj
+x64/Release/SplashState.obj
+*.obj
+*.ipch
+*.obj
+*.tlog

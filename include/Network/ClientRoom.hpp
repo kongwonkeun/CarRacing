@@ -145,7 +145,7 @@ namespace cp
         int HAS_TO_WAIT = 0;
         bool update_required = true;
         ID server_id = ID_HOST_PLAYER;
-        ID unique_id = 0;
+        ID unique_id = ID_JOIN_PLAYER;
     };
 }
 
