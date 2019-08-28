@@ -10,3 +10,13 @@ x64/Release/SplashState.obj
 *.ipch
 *.obj
 *.tlog
+*.ipch
+*.ipch
+*.obj
+.vs/CarRacing/v16/.suo
+*.db
+*.iobj
+*.ipdb
+*.pdb
+*.log
+*.tlog
