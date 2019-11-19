@@ -2,6 +2,8 @@
 
 #include "Sensor.hpp"
 
+#define MY_PIPE_FOO TEXT("\\\\.\\pipe\\foo")
+
 Sensor::Sensor()
 {
     //
@@ -16,6 +18,24 @@ Sensor::~Sensor()
 
 void Sensor::SerialInit(char* port)
 {
+    //----pipe----
+    _handle = CreateFile(
+        MY_PIPE_FOO,
+        GENERIC_READ, // | GENERIC_WRITE,
+        FILE_SHARE_READ, // | FILE_SHARE_WRITE,
+        NULL,
+        OPEN_EXISTING,
+        0,
+        NULL
+    );
+    if (_handle == INVALID_HANDLE_VALUE) {
+        throw("error: could not open com port");
+    }
+    else {
+        //
+    }
+    //----
+    /*
     std::cout << port << std::endl;
     std::string p;
     if (port[4] == NULL) p = std::string(port); // COM1 ~ COM9
@@ -46,6 +66,7 @@ void Sensor::SerialInit(char* port)
             throw("error: could not set com port parameters");
         }
     }
+    */
     in_use = true;
     _run = true;
     _thread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)(Sensor::SerialReadThread), this, NULL, &_id);
@@ -65,6 +86,7 @@ void Sensor::SerialRead()
     std::cout << "+++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
     while (_run) {
         if (ReadFile(_handle, b, 1, &count, NULL)) {
+            //std::cout << b << std::endl;
             ReadStateMachine(b[0]);
         }
     }

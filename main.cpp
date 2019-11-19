@@ -11,6 +11,11 @@ Sensor* G_sensor;
 int main(int argc, char* argv[])
 {
     G_sensor = new Sensor();
+    //---- pipe ----
+    char p[] = "pipe";
+    G_sensor->SerialInit(p);
+    //----
+    /*
     if (argc > 1) {
         std::cout << argv[0] << " " << argv[1] << std::endl;
         G_sensor->SerialInit(argv[1]);
@@ -18,7 +23,7 @@ int main(int argc, char* argv[])
     else {
         std::cout << argv[0] << std::endl;
     }
-
+    */
     srand(static_cast<unsigned int>(time(NULL))); // set seed value for rand()
     cp::Game();
     delete G_sensor;
