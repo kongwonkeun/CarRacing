@@ -77,6 +77,9 @@ namespace cp
             score += static_cast<long long int>(
                 static_cast<double>(delta) * players_map.at(main_player_id).e_speed.z
             );
+            //---- kong ----
+            G_sensor->SendScore(score);
+            //----
         }
         map.bound_entity(main_camera);
         for (auto& player_i : players_map) {

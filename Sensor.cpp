@@ -3,6 +3,8 @@
 #include "Sensor.hpp"
 
 #define MY_PIPE_FOO TEXT("\\\\.\\pipe\\foo")
+//#define MY_PIPE_SCORE TEXT("\\\\.\\pipe\\bar")
+#define MY_PIPE_SCORE TEXT("\\\\.\\pipe\\RDTLauncherPipe")
 
 Sensor::Sensor()
 {
@@ -29,12 +31,29 @@ void Sensor::SerialInit(char* port)
         NULL
     );
     if (_handle == INVALID_HANDLE_VALUE) {
-        throw("error: could not open com port");
+        throw("error: could not open pipe");
+    }
+    else {
+        //
+    }
+
+    _score = CreateFile(
+        MY_PIPE_SCORE,
+        GENERIC_WRITE,
+        FILE_SHARE_WRITE,
+        NULL,
+        OPEN_EXISTING,
+        0,
+        NULL
+    );
+    if (_score == INVALID_HANDLE_VALUE) {
+        //throw("error: could not open pipe");
     }
     else {
         //
     }
     //----
+
     /*
     std::cout << port << std::endl;
     std::string p;
@@ -70,6 +89,20 @@ void Sensor::SerialInit(char* port)
     in_use = true;
     _run = true;
     _thread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)(Sensor::SerialReadThread), this, NULL, &_id);
+}
+
+void Sensor::SendScore(long long int score)
+{
+    char b[16];
+    DWORD count;
+
+    std::string s = "S" + std::to_string(score);
+    strcpy_s(b, s.c_str());
+
+    //std::cout << s << std::endl;
+    if (_score != INVALID_HANDLE_VALUE) {
+        WriteFile(_score, b, s.length(), &count, NULL);
+    }
 }
 
 void Sensor::SerialReadThread(void* myInstant)
